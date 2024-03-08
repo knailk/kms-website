@@ -1,19 +1,57 @@
 .header-wrapper {
-    border-style: solid;
-    border-width: 1px 0px 1px 0px;
-    padding: 1px 0px 1px 0px;
-    background-color: #0a356c;
     width: 100%;
-    height: 90px;
-    color: white;
-    .contact-infor {
+    .header-top {
+        color: white;
         background: linear-gradient(to right, #82009f 0, #5d34af 50%, #00ceab 100%);
         padding: 10px 100px;
         height: 46px;
+        font-weight: 500;
+        div {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            .mail {
+                margin-left: 5px;
+            }
+        }
     }
-    .header {
-        font-weight: 800;
-        font-size: medium;
+    .header-bottom {
+        font-weight: 500;
+        font-size: 18px;
         padding: 0px 100px;
+        height: 80px;
+        padding: 20px 0px;
+        color: black;
+        .header-container {
+            .list-page-items {
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+                height: 40px;
+                ul {
+                    display: flex;
+                    flex-wrap: wrap;
+                    justify-content: flex-end;
+                    margin: 0;
+                    li {
+                        &:hover {
+                            opacity: 0.7;
+                        }
+                        margin: 0 40px 0 0;
+                        line-height: 27px;
+                        list-style-type: none;
+                        a {
+                            text-decoration: none;
+                            color: black;
+                        }
+                        transition: opacity 0.2s ease-out;
+                    }
+                }
+            }
+            .auth-btn {
+                display: flex;
+                justify-content: flex-end;
+            }
+        }
     }
 }

@@ -14,12 +14,16 @@
         }
     }
     .header-bottom {
+        position: absolute;
+        width: 100%;
         font-weight: 500;
         font-size: 18px;
         padding: 0px 100px;
         height: 80px;
         padding: 20px 0px;
         color: black;
+        top: 46px;
+        background-color: white;
         .header-container {
             .item {
                 &:hover {
@@ -41,5 +45,12 @@
                 border: 1px solid black;
             }
         }
+    }
+    .header-sticky {
+        position: fixed;
+        width: 100%;
+        left: 0;
+        top: 0;
+        z-index: 100;
     }
 }

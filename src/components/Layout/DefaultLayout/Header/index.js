@@ -1,3 +1,4 @@
+import * as React from 'react';
 import classNames from 'classnames/bind';
 import styles from './Header.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -7,13 +8,28 @@ import { Grid } from '@mui/material';
 
 const cx = classNames.bind(styles);
 function Header() {
+    const [sticky, setSticky] = React.useState(false);
+    React.useEffect(() => {
+        const onScroll = () => {
+            if (window.scrollY > 46) {
+                setSticky(true)
+            }
+            if (window.scrollY < 10) {
+                setSticky(false)
+            }
+        };
+        // clean up code
+        window.removeEventListener('scroll', onScroll);
+        window.addEventListener('scroll', onScroll, { passive: true });
+        return () => window.removeEventListener('scroll', onScroll);
+    }, []);
     return (
         <div className={cx('header-wrapper')}>
             <div className={cx('header-top')}>
                 <FontAwesomeIcon icon={faEnvelope} />
                 <span className={cx('mail')}>tranminhtoan.149@gmail.com</span>
             </div>
-            <div className={cx('header-bottom')}>
+            <div className={cx('header-bottom', { 'header-sticky': sticky })}>
                 <div className={cx('header-container')}>
                     <Grid container>
                         <Grid item xs={2}>
@@ -31,7 +47,7 @@ function Header() {
                     </Grid>
                 </div>
             </div>
-        </div>
+        </div >
     );
 }
 

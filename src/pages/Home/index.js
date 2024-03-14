@@ -5,6 +5,7 @@ import Admissions from './Admissions';
 import News from './News';
 import WhyChoose from './WhyChoose';
 import TeacherTeam from './TeacherTeam';
+import CanLearn from './CanLearn';
 import { Divider } from '@mui/material';
 const cx = classNames.bind(styles);
 
@@ -19,6 +20,8 @@ function Home() {
         <WhyChoose />
         <Divider />
         <TeacherTeam />
+        <Divider />
+        <CanLearn />
 
     </div>;
 }

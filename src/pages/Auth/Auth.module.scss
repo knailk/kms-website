@@ -1,0 +1,35 @@
+.container {
+    margin: auto;
+    margin: 200px 200px 100px 200px;
+    padding: 50px;
+    border: 1px solid;
+    .login-form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+        .login-wrapper {
+            border: 1px solid;
+            padding: 80px 60px;
+        }
+        .action-button {
+            display: flex;
+            align-items: center;
+            button {
+                margin: 0px 5px;
+                width: 135px;
+                height: 40px;
+                border-radius: 50px;
+                -webkit-border-radius: 50px;
+                -moz-border-radius: 50px;
+                -ms-border-radius: 50px;
+                -o-border-radius: 50px;
+            }
+        }
+    }
+    border-radius: 50px;
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    -ms-border-radius: 50px;
+    -o-border-radius: 50px;
+}

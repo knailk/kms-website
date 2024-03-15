@@ -3,14 +3,20 @@
     margin: 200px 200px 100px 200px;
     padding: 50px;
     border: 1px solid;
-    .login-form {
+    .form {
         display: flex;
         flex-direction: column;
         align-items: center;
         padding: 20px;
-        .login-wrapper {
+        .form-wrapper {
             border: 1px solid;
             padding: 80px 60px;
+            position: relative;
+            .btn-back {
+                position: absolute;
+                top: 10px;
+                left: 10px;
+            }
         }
         .action-button {
             display: flex;
@@ -25,6 +31,9 @@
                 -ms-border-radius: 50px;
                 -o-border-radius: 50px;
             }
+            .bn-register {
+                width: 270px;
+            }
         }
     }
     border-radius: 50px;
@@ -33,3 +42,35 @@
     -ms-border-radius: 50px;
     -o-border-radius: 50px;
 }
+// Đêm nay mình ta uống ánh trăng say trong đêm buồn
+// Biết anh không còn yêu nhưng rời đi em chẳng muốn
+// Lặng nhìn anh quay bước nước mắt em cũng khẽ tuôn
+// Buông đôi tay níu kéo cũng đã quá muộn
+// Yêu đương chỉ như những áng mây lướt nhanh qua trời
+// Yêu chi cho lệ hoen đôi mi, để con tim vụn vỡ
+// Khi yêu cứ ngỡ nên thơ, tình yêu như giấc mơ
+// Để hôm nay ôm một mối sầu bơ vơ
+// Dùng một đời vấn vương để đổi lại một đời đau thương
+// Lời xin lỗi giấu bao lâu nói không thành câu
+// Yêu đương không đậm sâu đừng dối gian thêm đau lòng nhau
+// Nước mắt cứ để em tự lau
+// Dùng một đời vấn vương để đổi lại một đời đau thương
+// Lời xin lỗi nói ra đây trước khi từ biệt
+// Mong anh luôn bình yên, một sớm mai đây em sẽ quên
+// Sẽ quên hết mối tình đầu tiên
+// Yêu đương chỉ như những áng mây lướt nhanh qua trời
+// Yêu chi cho lệ hoen đôi mi, để con tim vụn vỡ
+// Khi yêu cứ ngỡ nên thơ, tình yêu như giấc mơ
+// Để hôm nay ôm một mối sầu bơ vơ
+// Dùng một đời vấn vương để đổi lại một đời đau thương
+// Lời xin lỗi giấu bao lâu nói không thành câu
+// Yêu đương không đậm sâu đừng dối gian thêm đau lòng nhau
+// Nước mắt cứ để em tự lau
+// Dùng một đời vấn vương để đổi lại một đời đau thương
+// Lời xin lỗi nói ra đây trước khi từ biệt
+// Mong anh luôn bình yên, một sớm mai đây em sẽ quên
+// Sẽ quên hết mối tình đầu tiên
+// Dùng một đời vấn vương để đổi lại một đời đau thương
+// Lời xin lỗi nói ra đây trước khi từ biệt
+// Mong anh luôn bình yên, một sớm mai đây em sẽ quên
+// Sẽ quên hết mối tình đầu tiên

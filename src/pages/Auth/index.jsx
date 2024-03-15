@@ -15,8 +15,8 @@ function Auth() {
                 <Grid item xs={6}>
                     Background
                 </Grid>
-                <Grid item xs={6} className={cx('login-form')}>
-                    <div className={cx('login-wrapper')}>
+                <Grid item xs={6} className={cx('form')}>
+                    <div className={cx('form-wrapper')}>
                         {typePage === 'login' && <LoginForm setTypePage={setTypePage} />}
                         {typePage === 'register' && <RegisterForm setTypePage={setTypePage} />}
                     </div>

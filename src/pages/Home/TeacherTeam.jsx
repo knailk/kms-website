@@ -6,12 +6,7 @@ const cx = classNames.bind(styles);
 function TeacherTeam() {
     const CardTeacher = ({ image }) => (
         <Card sx={{ maxWidth: 210 }}>
-            <CardMedia
-                sx={{}}
-                image={image.imgPath}
-                className={cx('image')}
-                title="green iguana"
-            />
+            <CardMedia sx={{}} image={image.imgPath} className={cx('image')} title="green iguana" />
             <CardContent>
                 <Typography variant="h3" color="text.secondary" className={cx('name')}>
                     {image.name}
@@ -78,8 +73,8 @@ function TeacherTeam() {
                 justifyContent="center"
             >
                 {images.map((image, index) => (
-                    <Grid item xs={3}>
-                        <CardTeacher key={index} image={image} />
+                    <Grid key={index} item xs={3}>
+                        <CardTeacher image={image} />
                     </Grid>
                 ))}
             </Grid>

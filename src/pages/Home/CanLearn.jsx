@@ -65,8 +65,8 @@ function CanLearn() {
                 justifyContent="center"
             >
                 {images.map((image, index) => (
-                    <Grid item xs={4}>
-                        <CardNews key={index} image={image} />
+                    <Grid key={index} item xs={4}>
+                        <CardNews image={image} />
                     </Grid>
                 ))}
             </Grid>

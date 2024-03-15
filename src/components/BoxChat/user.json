@@ -1,0 +1,17 @@
+[
+    {
+        "name": "Akane",
+        "user_id": 1,
+        "avatar": "https://chatscope.io/storybook/react/assets/lilly-aj6lnGPk.svg"
+    },
+    {
+        "name": "Joe",
+        "user_id": 2,
+        "avatar": "https://chatscope.io/storybook/react/assets/joe-v8Vy3KOS.svg"
+    },
+    {
+        "name": "Mystic",
+        "user_id": 3,
+        "avatar": "https://chatscope.io/storybook/react/assets/emily-xzL8sDL2.svg"
+    }
+]

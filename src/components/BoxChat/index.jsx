@@ -28,32 +28,45 @@ function BoxChat() {
         setChecked((prev) => !prev);
     };
 
-
     //event socket management
     useEffect(() => {
+        users.forEach((user) => {
+            if (user.user_id !== userId) {
+                socket.emit('join_room', user.user_id);
+            }
+        
+        })
         socket.on('connect', () => {
-            console.log('connected');
             socket.emit('join_room', userId);
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    useEffect(() => {
+        socket.on('receive_message', (data) => {
+            console.log(data.message);
+        });
+    }, [socket]);
     return (
         <>
             <SocketContext.Provider value={socket}>
                 <div className={cx('message-box-container')}>
                     {!targetUser && (
                         <ConversationList className={cx('conversation-list')}>
-                            {users.map((user, index) => (
-                                <Conversation
-                                    key={index}
-                                    name={user.name}
-                                    lastSenderName={user.name}
-                                    info="Hello how are you?"
-                                    onClick={() => setTargetUser(user)}
-                                >
-                                    <Avatar src={user.avatar} name={user.name} />
-                                </Conversation>
-                            ))}
+                            {users.map(
+                                (user, index) =>
+                                    user.user_id !== userId && (
+                                        <Conversation
+                                            key={index}
+                                            name={user.name}
+                                            lastSenderName={user.name}
+                                            info="Hello how are you?"
+                                            onClick={() => setTargetUser(user)}
+                                        >
+                                            <Avatar src={user.avatar} name={user.name} />
+                                        </Conversation>
+                                    ),
+                            )}
                         </ConversationList>
                     )}
                     {targetUser && <MessageBox setTargetUser={setTargetUser} userData={targetUser} socket={socket} />}

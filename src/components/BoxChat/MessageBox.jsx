@@ -15,7 +15,7 @@ import { memo, useContext, useEffect, useState } from 'react';
 import { SocketContext } from '.';
 import { useSearchParams } from 'react-router-dom';
 
-const chat = [
+const chatHistory = [
     {
         date: '2021-09-01',
         messages: [
@@ -70,28 +70,26 @@ const chat = [
 
 function MessageBox({ ...props }) {
     const { userData, setTargetUser } = props;
-    console.log('render');
     //set state
     const [searchParams, setSearchParams] = useSearchParams();
     const userId = searchParams.get('user_id');
     const socket = useContext(SocketContext);
     const [text, setText] = useState('');
-    const [chatHistory, setChatHistory] = useState(chat);
+    const [conversation, setConversation] = useState([]);
 
-    console.log(text);
     //handle event
     const handleClickSend = () => {
-        // socket.emit('message', { room: userData.id, message: text, sender: userId });
-        setChatHistory((prev) => {
+        socket.emit('message', { room: userData.user_id, message: text, sender: userId });
+        setConversation((prev) => {
             let id_msg = (Math.random() + 1).toString(36).substring(7);
-            return [...prev, { date: '', messages: [{ id: id_msg, content: text, direction: 'outgoing' }] }];
+            return [...prev, { id: id_msg, content: text, direction: 'outgoing' }];
         });
         setText('');
     };
 
     //socket management
     useEffect(() => {
-        socket.emit('join_room', userData.id);
+        socket.emit('join_room', userData.user_id);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -145,6 +143,23 @@ function MessageBox({ ...props }) {
                         });
                         return Component;
                     })}
+                    {conversation &&
+                        conversation.map((message) => (
+                            <Message
+                                model={{
+                                    direction: message.direction,
+                                    message: message.content,
+                                    position: 'single',
+                                    sender: userData.name,
+                                    sentTime: '15 mins ago',
+                                }}
+                                key={message.id}
+                            >
+                                {message.direction === 'incoming' && (
+                                    <Avatar name={userData.name} src={userData.avatar} />
+                                )}
+                            </Message>
+                        ))}
                 </MessageList>
                 <MessageInput
                     placeholder="Type message here"

@@ -16,11 +16,11 @@ const io = new Server(server, {
 io.on('connection', (socket) => {
     console.log('a user connected ' + socket.id);
     socket.on('message', (data) => {
+        console.log(data)
         socket.to(data.room).emit('receive_message', data);
     })
 
     socket.on("join_room", (data) => {
-        console.log(data)
         socket.join(data);
     });
 });

@@ -61,8 +61,8 @@ function CanLearn() {
                 spacing={2}
                 columnSpacing={{ xs: 1, sm: 2, md: 3 }}
                 rowSpacing={2}
-                style={{ margin: '25px 0px' }}
                 justifyContent="center"
+                sx={{my:'25px'}}
             >
                 {images.map((image, index) => (
                     <Grid key={index} item xs={4}>

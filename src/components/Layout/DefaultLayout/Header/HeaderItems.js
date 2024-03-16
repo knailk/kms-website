@@ -15,6 +15,7 @@ import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import LoginIcon from '@mui/icons-material/Login';
+import { Popover } from '@mui/material';
 const cx = classNames.bind(styles);
 
 export default function HeaderItems() {
@@ -51,8 +52,6 @@ export default function HeaderItems() {
         setAnchorEl(null);
     };
 
-    
-
     return (
         <React.Fragment>
             <Box
@@ -66,28 +65,26 @@ export default function HeaderItems() {
                 }}
             >
                 {landingPages.map((page, index) => (
-                    <Typography
-                        sx={{ minWidth: 120 }}
-                        key={index}
-                        className={cx('item', { 'active-menu-item': currentPage === page.url })}
-                    >
-                        <Link to={page.url}>{page.title}</Link>
+                    <Typography sx={{ minWidth: 120 }} key={index}>
+                        <Link style={{color:currentPage === page.url ? "yellow" :'white'}} to={page.url}>{/*className={cx('item', { 'active-menu-item': currentPage === page.url })}*/}
+                            {page.title}
+                        </Link>
                     </Typography>
                 ))}
-                <Tooltip title={isLogin ? 'Cài đặt tài khoản' : 'Đăng nhập/Đăng ký'}>
-                    <IconButton
-                        onClick={handleClick}
-                        size="small"
-                        sx={{ ml: 2 }}
-                        aria-controls={open ? 'menu' : undefined}
-                        aria-haspopup="true"
-                        aria-expanded={open ? 'true' : undefined}
-                    >
-                        {isLogin ? <Avatar sx={{ width: 32, height: 32 }}>M</Avatar> : <LoginIcon />}
-                    </IconButton>
-                </Tooltip>
+                {/*<Tooltip title={isLogin ? 'Cài đặt tài khoản' : 'Đăng nhập/Đăng ký'}> /!* chỗ này k cần title chỉ cần Icon*!/*/}
+                <IconButton
+                    onClick={handleClick}
+                    size="small"
+                    sx={{ ml: 2 }}
+                    aria-controls={open ? 'menu' : undefined}
+                    aria-haspopup="true"
+                    aria-expanded={open ? 'true' : undefined}
+                >
+                    {isLogin ? <Avatar sx={{ width: 32, height: 32 }}>M</Avatar> : <LoginIcon />}
+                </IconButton>
+                {/*</Tooltip>*/}
             </Box>
-            <Menu
+            <Popover
                 anchorEl={anchorEl}
                 id="menu"
                 open={open}
@@ -159,7 +156,7 @@ export default function HeaderItems() {
                         <MenuItem onClick={handleClose}>Quên Mật Khẩu</MenuItem>
                     </div>
                 )}
-            </Menu>
+            </Popover>
         </React.Fragment>
     );
 }

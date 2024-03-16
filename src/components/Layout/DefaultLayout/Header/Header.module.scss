@@ -1,10 +1,11 @@
 .header-wrapper {
     width: 100%;
+    border-bottom: 1px solid rgba(174, 179, 190, 0.51);
     .header-top {
         color: white;
         background: linear-gradient(to right, #82009f 0, #5d34af 50%, #00ceab 100%);
         padding: 10px 100px;
-        height: 46px;
+        height: 40px;
         font-weight: 500;
         display: flex;
         justify-content: flex-end;
@@ -14,17 +15,21 @@
         }
     }
     .header-bottom {
-        position: absolute;
+        //position: absolute;
+        display: flex;
+        align-items: center;
         width: 100%;
         font-weight: 500;
         font-size: 18px;
-        padding: 0px 100px;
         height: 80px;
-        padding: 20px 0px;
-        color: black;
+        color: white;
         top: 46px;
-        background-color: white;
+        background-color: #0A356C;
+        border-top: 1px solid rgba(68, 77, 98, 0.51);
+
+        box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 5px -1px, rgba(0, 0, 0, 0.14) 0px 6px 10px 0px, rgba(0, 0, 0, 0.12) 0px 1px 18px 0px;
         .header-container {
+            width: 100%;
             .item {
                 &:hover {
                     opacity: 0.7;

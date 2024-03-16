@@ -2,6 +2,7 @@ import classNames from 'classnames/bind';
 import styles from './Home.module.scss';
 import { Button, Grid } from '@mui/material';
 import { Check } from '@mui/icons-material';
+import Typography from '@mui/material/Typography';
 const cx = classNames.bind(styles);
 
 function WhyChoose() {
@@ -12,6 +13,7 @@ function WhyChoose() {
             columnSpacing={{ xs: 1, sm: 2, md: 3 }}
             rowSpacing={2}
             className={cx('why-chooese')}
+            sx={{px:"80px"}}
         >
             <Grid item xs={6} className={cx('why-choose')}>
                 <div className={cx('title')}>
@@ -20,24 +22,24 @@ function WhyChoose() {
                 </div>
                 <ul className={cx('list-items')}>
                     <li className={cx('item')}>
-                        <Check />
-                        <span>Ưu tiên hàng đầu sự an toàn của trẻ</span>
+                        <Check sx={{color:'white'}}/>
+                        <Typography sx={{color:'white', ml:1}}>Ưu tiên hàng đầu sự an toàn của trẻ</Typography>
                     </li>
                     <li className={cx('item')}>
-                        <Check />
-                        <span>Cung cấp chương trình học thuật cấp tiến nhất</span>
+                        <Check sx={{color:'white'}}/>
+                        <Typography sx={{color:'white', ml:1}}>Cung cấp chương trình học thuật cấp tiến nhất</Typography>
                     </li>
                     <li className={cx('item')}>
-                        <Check />
-                        <span>Chăm sóc chu đáo về dinh dưỡng và sức khỏe</span>
+                        <Check sx={{color:'white'}}/>
+                        <Typography sx={{color:'white', ml:1}}>Chăm sóc chu đáo về dinh dưỡng và sức khỏe</Typography>
                     </li>
                     <li className={cx('item')}>
-                        <Check />
-                        <span>Đầu tư chuyên môn cho đội ngũ giáo viên ưu tú</span>
+                        <Check sx={{color:'white'}}/>
+                        <Typography sx={{color:'white', ml:1}}>Đầu tư chuyên môn cho đội ngũ giáo viên ưu tú</Typography>
                     </li>
                     <li className={cx('item')}>
-                        <Check />
-                        <span>Tối ưu cơ sở vật chất và đổi mới công cụ giảng dạy</span>
+                        <Check sx={{color:'white'}}/>
+                        <Typography sx={{color:'white', ml:1}}>Tối ưu cơ sở vật chất và đổi mới công cụ giảng dạy</Typography>
                     </li>
                 </ul>
 

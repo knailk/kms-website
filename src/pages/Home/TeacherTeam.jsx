@@ -1,17 +1,17 @@
 import classNames from 'classnames/bind';
 import styles from './Home.module.scss';
 import 'react-multi-carousel/lib/styles.css';
-import { Card, CardContent, CardMedia, Grid, Typography } from '@mui/material';
+import { Card, CardContent, CardMedia, Grid, Stack, Typography } from '@mui/material';
 const cx = classNames.bind(styles);
 function TeacherTeam() {
     const CardTeacher = ({ image }) => (
-        <Card sx={{ maxWidth: 210 }}>
-            <CardMedia sx={{}} image={image.imgPath} className={cx('image')} title="green iguana" />
+        <Card sx={{ maxWidth: 210, bgcolor:'transparent', boxShadow:'unset' }} >
+            <CardMedia sx={{border:'2px solid white'}} image={image.imgPath} className={cx('image')} title="green iguana" />
             <CardContent>
-                <Typography variant="h3" color="text.secondary" className={cx('name')}>
+                <Typography variant="h3" color="white" className={cx('name')}>
                     {image.name}
                 </Typography>
-                <Typography variant="h3" color="text.secondary" className={cx('class')}>
+                <Typography variant="h3" color="white" className={cx('class')}>
                     {image.class}
                 </Typography>
             </CardContent>
@@ -58,22 +58,20 @@ function TeacherTeam() {
 
     return (
         <div className={cx('teacher-team')}>
-            <div className={cx('title')}>
-                <div>Đội ngũ</div>
-                <h2>
-                    <span>Giáo viên ưu tú</span>
-                </h2>
-            </div>
+            <Stack className={cx('title')}>
+                <Typography className={cx('team')}>Đội ngũ</Typography>
+                <Typography sx={{color:'white'}} className={cx('good')}>Giáo viên ưu tú</Typography>
+            </Stack>
             <Grid
                 container
                 spacing={2}
                 columnSpacing={{ xs: 1, sm: 2, md: 3 }}
                 rowSpacing={2}
-                style={{ margin: '25px 0px' }}
+                style={{ marginTop: '25px' }}
                 justifyContent="center"
             >
                 {images.map((image, index) => (
-                    <Grid key={index} item xs={3}>
+                    <Grid key={index} item xs={3} style={{padding:0, display:'flex', flexDirection:'column', alignItems:'center'}}>
                         <CardTeacher image={image} />
                     </Grid>
                 ))}

@@ -3,6 +3,9 @@ import styles from './About.module.scss';
 import { Button, Grid, Divider, Collapse, IconButton } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import AboutTab from './AboutTab';
+import Purpose from './Purpose';
+import Vision from './Vision';
+import Facility from './Facility';
 import { ExpandMore as ExpandMoreIcon } from '@mui/icons-material';
 import { useState } from 'react';
 const cx = classNames.bind(styles);
@@ -19,6 +22,7 @@ const ExpandMore = styled((props) => {
 
 function About() {
     const [expanded, setExpanded] = useState({ tab1: false, tab2: false, tab3: false, tab4: false, tab5: false });
+    const [tab, setTab] = useState('');
     return (
         <div className={cx('container')}>
             <Grid
@@ -42,7 +46,8 @@ function About() {
             <div id="about-tab">
                 <Divider />
             </div>
-            <AboutTab />
+            <Facility />
+            {/* <AboutTab /> */}
             <Divider />
             <div className={cx('tab-wrapper')}>
                 <h2>Về StarKids</h2>
@@ -178,7 +183,7 @@ function About() {
                                 <span>Tối ưu cơ sở vật chất và đổi mới công cụ giảng dạy</span>
                             </li>
                         </ul>
-                        <a href="#about-tab">Xem thêm</a>
+                        <span>Xem thêm</span>
                     </Collapse>
                 </div>
             </div>

@@ -11,7 +11,7 @@ function AboutTab() {
             columnSpacing={{ xs: 1, sm: 2, md: 3 }}
             rowSpacing={2}
             style={{ margin: '25px 0px' }}
-            className={cx('about-tab')}
+            className={cx('content')}
         >
             <Grid item xs={3} className={cx('content-left')}>
                 <div className={cx('title')}>

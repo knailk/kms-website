@@ -1,0 +1,104 @@
+.container {
+    width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 100px;
+
+    .banner {
+        div {
+            margin-bottom: 20px;
+        }
+        .title {
+            p {
+                font-size: 26px;
+                font-weight: 700;
+                line-height: 1.2em;
+            }
+        }
+        .button {
+            font-weight: 700;
+            padding: 10px 25px;
+            text-transform: none;
+            border-radius: 50px;
+            -webkit-border-radius: 50px;
+            -moz-border-radius: 50px;
+            -ms-border-radius: 50px;
+            -o-border-radius: 50px;
+        }
+        margin-bottom: 50px;
+    }
+    .about-tab {
+        .content-left {
+            .title {
+                div {
+                    font-size: 14px;
+                    font-weight: 800;
+                    text-transform: uppercase;
+                    color: #40aadb;
+                    margin: 5px 0px 5px 0px;
+                }
+                h2 {
+                    font-size: 26px;
+                    font-weight: 800;
+                    text-transform: capitalize;
+                    color: rgb(71, 71, 71);
+                }
+            }
+        }
+        .content-right {
+            p {
+                text-align: justify;
+                font-size: 15px;
+                font-weight: 400;
+                line-height: 1.3em;
+                margin-bottom: 20px;
+                margin-top: 0;
+            }
+            div {
+                img {
+                    width: 100%;
+                    height: auto;
+                    margin-bottom: 20px;
+                }
+            }
+        }
+        margin-bottom: 20px;
+    }
+    .tab-wrapper {
+        margin-top: 20px;
+        h2 {
+            font-size: 26px;
+            font-weight: 800;
+            text-transform: capitalize;
+            margin: 0px 5px 10px 5px;
+            text-align: center;
+        }
+        .tab-item-container {
+            background: #bdbdbd;
+            .tab-item {
+                font-size: 18px;
+                font-weight: 700;
+            }
+            margin-bottom: 2px;
+        }
+        .collapse-content {
+            background: #d3d3d3;
+            padding: 50px 20px;
+            p {
+                margin-bottom: 20px;
+            }
+            .list-items {
+                .item {
+                    font-size: 15px;
+                    font-weight: 400;
+                    padding-bottom: calc(7px / 2);
+                    display: flex;
+                    align-items: center;
+                    span {
+                        margin-left: 5px;
+                    }
+                }
+            }
+        }
+    }
+}

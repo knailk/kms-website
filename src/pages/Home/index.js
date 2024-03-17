@@ -7,25 +7,26 @@ import WhyChoose from './WhyChoose';
 import TeacherTeam from './TeacherTeam';
 import CanLearn from './CanLearn';
 import { Divider } from '@mui/material';
-import BoxChat from '~/components/BoxChat';
+// import BoxChat from '~/components/BoxChat';
 const cx = classNames.bind(styles);
 
 function Home() {
-    return <div className={cx('container')}>
-        <BoxChat />
-        <Banner />
-        <Divider />
-        <Admissions />
-        <Divider />
-        <News />
-        <Divider />
-        <WhyChoose />
-        <Divider />
-        <TeacherTeam />
-        <Divider />
-        <CanLearn />
-
-    </div>;
+    return (
+        <div className={cx('container')}>
+            {/* <BoxChat /> */}
+            <Banner />
+            <Divider />
+            <Admissions />
+            <Divider />
+            <News />
+            <Divider />
+            <WhyChoose />
+            <Divider />
+            <TeacherTeam />
+            <Divider />
+            <CanLearn />
+        </div>
+    );
 }
 
 export default Home;

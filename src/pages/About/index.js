@@ -5,6 +5,7 @@ import { styled } from '@mui/material/styles';
 import AboutTab from './AboutTab';
 import Purpose from './Purpose';
 import Vision from './Vision';
+import WhyChoose from './WhyChoose';
 import Facility from './Facility';
 import { ExpandMore as ExpandMoreIcon } from '@mui/icons-material';
 import { useState } from 'react';
@@ -46,7 +47,7 @@ function About() {
             <div id="about-tab">
                 <Divider />
             </div>
-            <Facility />
+            <WhyChoose />
             {/* <AboutTab /> */}
             <Divider />
             <div className={cx('tab-wrapper')}>

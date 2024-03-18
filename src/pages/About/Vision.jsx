@@ -32,7 +32,7 @@ function Vision() {
                 </p>
 
                 <div>
-                    <img src="/images/vision.jpg" alt="vision" width={425} height={425} />
+                    <img src="/images/vision.jpg" alt="vision" width={370} />
                 </div>
             </Grid>
         </Grid>

@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './Header.module.scss';
@@ -15,10 +14,27 @@ import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import LoginIcon from '@mui/icons-material/Login';
+import LoginForm from '~/pages/Auth';
+import { Modal } from '@mui/material';
+import { useState } from 'react';
 const cx = classNames.bind(styles);
 
 export default function HeaderItems() {
     const isLogin = false;
+    const styleBox = {
+        position: 'absolute',
+        width: '400px',
+        bgcolor: 'white',
+        zIndex: 1000,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        p: '45px',
+        borderRadius: 2,
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+    };
     const currentPage = window.location.pathname;
     const landingPages = [
         {
@@ -42,19 +58,23 @@ export default function HeaderItems() {
             url: '/news',
         },
     ];
-    const [anchorEl, setAnchorEl] = React.useState(null);
+    const [anchorEl, setAnchorEl] = useState(null);
+    const [openLogin, setOpenLogin] = useState(false);
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
     const handleClose = () => {
         setAnchorEl(null);
+        setOpenLogin(true)
     };
 
-    
+    const handleClickLogin = () => {
+        setAnchorEl(null);
+    }
 
     return (
-        <React.Fragment>
+        <>
             <Box
                 alignItems={'flex-end'}
                 sx={{
@@ -153,13 +173,20 @@ export default function HeaderItems() {
                 )}
                 {!isLogin && (
                     <div>
-                        <MenuItem onClick={handleClose}>Đăng nhập</MenuItem>
-                        <MenuItem onClick={handleClose}>Đăng Ký</MenuItem>
+                        <MenuItem onClick={handleClickLogin}>Đăng nhập</MenuItem>
                         <Divider />
                         <MenuItem onClick={handleClose}>Quên Mật Khẩu</MenuItem>
                     </div>
                 )}
             </Menu>
-        </React.Fragment>
+            <Modal open={openLogin}
+                onClose={() => setOpenLogin(false)}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description">
+                <Box sx={styleBox}>
+                    <LoginForm />
+                </Box>
+            </Modal>
+        </>
     );
 }

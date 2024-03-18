@@ -37,7 +37,7 @@ function Facility() {
                     StarKids luôn chú trọng và đảm bảo.
                 </p>
                 <div>
-                    <img src="/images/facility.jpg" alt="facility" width={425} height={425} />
+                    <img src="/images/facility.jpg" alt="facility" width={375} />
                 </div>
             </Grid>
         </Grid>

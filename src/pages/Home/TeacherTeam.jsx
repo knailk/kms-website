@@ -5,7 +5,7 @@ import { Card, CardContent, CardMedia, Grid, Typography } from '@mui/material';
 const cx = classNames.bind(styles);
 function TeacherTeam() {
     const CardTeacher = ({ image }) => (
-        <Card sx={{ maxWidth: 210 }}>
+        <Card sx={{ maxWidth: 210, boxShadow: 'none' }}>
             <CardMedia sx={{}} image={image.imgPath} className={cx('image')} title="green iguana" />
             <CardContent>
                 <Typography variant="h3" color="text.secondary" className={cx('name')}>

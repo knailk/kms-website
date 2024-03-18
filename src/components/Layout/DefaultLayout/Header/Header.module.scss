@@ -21,7 +21,6 @@
         padding: 0px 100px;
         height: 80px;
         padding: 20px 0px;
-        color: black;
         top: 46px;
         background-color: white;
         .header-container {
@@ -47,10 +46,19 @@
         }
     }
     .header-sticky {
+        // background-color: #0288d1;
         position: fixed;
         width: 100%;
         left: 0;
         top: 0;
         z-index: 100;
+        transition: 0.1s linear;
+        -webkit-transition: 0.1s linear;
+        -moz-transition: 0.1s linear;
+        -ms-transition: 0.1s linear;
+        -o-transition: 0.1s linear;
+        // a {
+        //     color: white;
+        // }
     }
 }

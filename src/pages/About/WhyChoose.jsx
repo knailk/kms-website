@@ -100,7 +100,7 @@ function WhyChoose() {
                             5. Tối ưu cơ sở vật chất và đổi mới công cụ giảng dạy
                         </h2>
                     </Grid>
-                    <Grid item xs={8} style={{ padding: '10px 20px', backgroundColor: '#a7ffeb' }}>
+                    <Grid item xs={8} style={{ padding: '10px 20px', backgroundColor: '#a7ffeb', display: 'block' }}>
                         <p>
                             Trường mầm non StarKids có đủ không gian rộng rãi dành cho các phòng học và các khu chức
                             năng. Được tư vấn thiết kế bởi những chuyên gia thiết kế trường học chuyên nghiệp, StarKids

@@ -23,7 +23,7 @@ function News() {
                     alignItems={'center'}
                 >
                     <AccessTime sx={{ fontSize: 12 }} />
-                    {image.date}
+                    <span style={{ marginLeft: 5 }}>{image.date}</span>
                 </Typography>
             </CardContent>
         </Card>

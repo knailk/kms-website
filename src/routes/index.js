@@ -10,6 +10,5 @@ export const publicRoutes = [
     { path: '/course', component: CourseInfo },
     { path: '/news', component: News },
     { path: '/notification', component: Notification },
-    { path: '/login', component: Auth, layout: null },
 ];
 export const privateRoutes = [];

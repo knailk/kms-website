@@ -39,7 +39,7 @@ function AboutTab() {
                     mà như chơi nhưng hiệu quả sẽ vô cùng khác biệt.
                 </p>
                 <div>
-                    <img src="/images/aboutus.jpg" alt="aboutus" />
+                    <img src="/images/aboutus.jpg" alt="aboutus" width={839} />
                 </div>
             </Grid>
         </Grid>

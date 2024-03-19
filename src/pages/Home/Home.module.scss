@@ -1,10 +1,11 @@
-.container {
-    width: 1200px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 100px;
-
-    .banner {
+.banner {
+    .container {
+        width: 1200px;
+        margin-top: 80px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 30px 0px;
+        color: #545454;
         div {
             margin-bottom: 20px;
         }
@@ -38,8 +39,12 @@
             -o-border-radius: 50px;
         }
     }
-    .admissions {
-        margin: 25px 0px;
+}
+.admissions {
+    .container {
+        width: 1200px;
+        padding: 25px 0px 130px 0px;
+        margin: 0px auto;
         .text-field {
             &:hover {
                 border: red;
@@ -56,8 +61,12 @@
             -o-border-radius: 50px;
         }
     }
-    .news {
-        margin: 25px 0px;
+}
+.news {
+    .container {
+        color: white;
+        width: 1200px;
+        margin: 25px auto;
         h1 {
             width: 100%;
             text-align: center;
@@ -96,8 +105,12 @@
             }
         }
     }
-    .why-choose {
-        margin: 25px 0px;
+}
+.why-choose {
+    .container {
+        width: 1200px;
+        padding: 25px 0px;
+        margin: 0px auto;
         .title {
             div {
                 font-size: 14px;
@@ -139,14 +152,19 @@
             -o-border-radius: 50px;
         }
     }
-    .teacher-team {
-        margin: 25px 0px;
+}
+.teacher-team {
+    // background-color: #00b2f1;
+    .container {
+        width: 1200px;
+        padding: 25px 0px;
+        margin: 0px auto;
+        color: white;
         .title {
             div {
                 font-size: 14px;
                 font-weight: 800;
                 text-transform: uppercase;
-                color: #40aadb;
                 margin: 5px 0px 0px 0px;
                 text-align: center;
             }
@@ -172,11 +190,11 @@
             &::after {
                 content: '';
                 position: absolute;
-                width: 200px;
-                height: 200px;
+                width: 194px;
+                height: 194px;
                 top: 0;
                 left: 0;
-                background: rgba(0, 0, 0, 0.5);
+                border: 3px solid #88e3ff;
                 border-radius: 50%;
                 -webkit-border-radius: 50%;
                 -moz-border-radius: 50%;
@@ -185,6 +203,7 @@
             }
         }
         .name {
+            color: white;
             font-size: 1.2em;
             font-weight: 800;
             font-family: 'Nunito', sans-serif;
@@ -192,6 +211,7 @@
             text-align: center;
         }
         .class {
+            color: white;
             font-size: 15px;
             font-weight: 700;
             text-transform: capitalize;
@@ -199,8 +219,14 @@
             text-align: center;
         }
     }
+}
 
-    .can-learn {
+.can-learn {
+    .container {
+        width: 1200px;
+        margin-top: 100px;
+        margin-left: auto;
+        margin-right: auto;
         margin: 25px 0px;
         .card {
             position: relative;

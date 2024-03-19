@@ -52,24 +52,25 @@ function CanLearn() {
 
     return (
         <div className={cx('can-learn')}>
-            <div className={cx('title')}>
-                {/* <div>Học tập</div> */}
-                <h2>{/* <span>Bé học gì ở StarKids</span> */}</h2>
+            <div className={cx('container')}>
+                <div className={cx('title')}>
+                    {/* <div>Học tập</div> */}
+                    <h2>{/* <span>Bé học gì ở StarKids</span> */}</h2>
+                </div>
+                <Grid
+                    container
+                    spacing={2}
+                    columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+                    rowSpacing={2}
+                    justifyContent="center"
+                >
+                    {images.map((image, index) => (
+                        <Grid key={index} item xs={4}>
+                            <CardNews image={image} />
+                        </Grid>
+                    ))}
+                </Grid>
             </div>
-            <Grid
-                container
-                spacing={2}
-                columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-                rowSpacing={2}
-                style={{ margin: '25px 0px' }}
-                justifyContent="center"
-            >
-                {images.map((image, index) => (
-                    <Grid key={index} item xs={4}>
-                        <CardNews image={image} />
-                    </Grid>
-                ))}
-            </Grid>
         </div>
     );
 }

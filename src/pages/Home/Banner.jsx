@@ -4,14 +4,21 @@ import { Button, Grid } from '@mui/material';
 const cx = classNames.bind(styles);
 
 function Banner() {
+    const styleBg = {
+        background: 'url(images/bg-banner.png)',
+        backgroundSize: 'contain',
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center',
+    };
     return (
-        <>
+        <div className={cx('banner')} style={{ backgroundImage: 'url(images/backgroundhome.svg)' }}>
+            {/* <img src="images/backgroundhome.svg" alt="" /> */}
             <Grid
                 container
                 spacing={2}
                 columnSpacing={{ xs: 1, sm: 2, md: 3 }}
                 rowSpacing={2}
-                style={{ margin: '25px 0px' }}
+                className={cx('container')}
             >
                 <Grid item xs={7} className={cx('banner')}>
                     <div className={cx('title')}>
@@ -35,9 +42,9 @@ function Banner() {
                         Xem Thêm
                     </Button>
                 </Grid>
-                <Grid item xs={5}></Grid>
+                <Grid item xs={5} style={styleBg}></Grid>
             </Grid>
-        </>
+        </div>
     );
 }
 

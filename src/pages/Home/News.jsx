@@ -80,21 +80,23 @@ function News() {
     return (
         <>
             <div className={cx('news')}>
-                <h1>Tin tức</h1>
-                <Carousel
-                    responsive={responsive}
-                    autoPlay={false}
-                    swipeable={true}
-                    draggable={true}
-                    partialVisible={false}
-                    dotListClass="custom-dot-list-style"
-                    itemClass={cx('carousel-item')}
-                    containerClass={cx('carousel-container')}
-                >
-                    {images.map((image, idx) => (
-                        <CardNews key={idx} image={image} />
-                    ))}
-                </Carousel>
+                <div className={cx('container')}>
+                    <h1>Tin tức</h1>
+                    <Carousel
+                        responsive={responsive}
+                        autoPlay={false}
+                        swipeable={true}
+                        draggable={true}
+                        partialVisible={false}
+                        dotListClass="custom-dot-list-style"
+                        itemClass={cx('carousel-item')}
+                        containerClass={cx('carousel-container')}
+                    >
+                        {images.map((image, idx) => (
+                            <CardNews key={idx} image={image} />
+                        ))}
+                    </Carousel>
+                </div>
             </div>
         </>
     );

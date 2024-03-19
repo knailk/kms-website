@@ -22,7 +22,7 @@
         height: 80px;
         padding: 20px 0px;
         top: 46px;
-        background-color: white;
+        // background-color: white;
         .header-container {
             .item {
                 &:hover {
@@ -46,17 +46,18 @@
         }
     }
     .header-sticky {
-        // background-color: #0288d1;
+        background-color: #cffada;
         position: fixed;
         width: 100%;
         left: 0;
         top: 0;
         z-index: 100;
-        transition: 0.1s linear;
-        -webkit-transition: 0.1s linear;
-        -moz-transition: 0.1s linear;
-        -ms-transition: 0.1s linear;
-        -o-transition: 0.1s linear;
+        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+        // transition: 0.1s linear;
+        // -webkit-transition: 0.1s linear;
+        // -moz-transition: 0.1s linear;
+        // -ms-transition: 0.1s linear;
+        // -o-transition: 0.1s linear;
         // a {
         //     color: white;
         // }

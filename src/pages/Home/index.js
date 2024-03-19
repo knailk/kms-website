@@ -11,15 +11,18 @@ import { Divider } from '@mui/material';
 const cx = classNames.bind(styles);
 
 function Home() {
+    const styleBg = {
+        backgroundImage: 'url(images/bghome2.png)',
+        backgroundPositionY: '-495px'
+    }
     return (
-        <div className={cx('container')}>
+        <div>
             {/* <BoxChat /> */}
             <Banner />
-            <Divider />
-            <Admissions />
-            <Divider />
-            <News />
-            <Divider />
+            <div style={styleBg}>
+                <Admissions />
+                <News />
+            </div>
             <WhyChoose />
             <Divider />
             <TeacherTeam />

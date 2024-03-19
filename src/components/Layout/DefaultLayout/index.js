@@ -1,11 +1,13 @@
 import Header from './Header';
 import Footer from './Footer';
-import CustomHeader from '~/components/Layout/DefaultLayout/CustomHeader';
+import { Divider } from '@mui/material';
 
 function DefaultLayout({ children }) {
     return (
         <>
-            <Header children={children}/>
+            <Header />
+            {children}
+            <Divider />
             <Footer />
         </>
     );

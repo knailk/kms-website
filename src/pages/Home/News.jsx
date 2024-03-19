@@ -2,7 +2,7 @@ import classNames from 'classnames/bind';
 import styles from './Home.module.scss';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
-import { Card, CardContent, CardMedia, Divider, Typography } from '@mui/material';
+import { Card, CardContent, CardMedia, Typography } from '@mui/material';
 import { AccessTime } from '@mui/icons-material';
 const cx = classNames.bind(styles);
 
@@ -10,7 +10,7 @@ function News() {
     const CardNews = ({ image }) => (
         <Card sx={{ maxWidth: 345 }}>
             <CardMedia sx={{ height: 200 }} image={image.imgPath} title="green iguana" />
-            <CardContent sx={{bgcolor:'#114689'}}>
+            <CardContent>
                 <Typography variant="h3" color="text.secondary" height={50} className={cx('label')}>
                     {image.label}
                 </Typography>
@@ -23,7 +23,7 @@ function News() {
                     alignItems={'center'}
                 >
                     <AccessTime sx={{ fontSize: 12 }} />
-                    {image.date}
+                    <span style={{ marginLeft: 5 }}>{image.date}</span>
                 </Typography>
             </CardContent>
         </Card>
@@ -80,21 +80,23 @@ function News() {
     return (
         <>
             <div className={cx('news')}>
-                <h1 style={{color:'white'}}>Tin tức</h1>
-                <Carousel
-                    responsive={responsive}
-                    autoPlay={false}
-                    swipeable={true}
-                    draggable={true}
-                    partialVisible={false}
-                    dotListClass="custom-dot-list-style"
-                    itemClass={cx('carousel-item')}
-                    containerClass={cx('carousel-container')}
-                >
-                    {images.map((image, idx) => (
-                        <CardNews key={idx} image={image} />
-                    ))}
-                </Carousel>
+                <div className={cx('container')}>
+                    <h1>Tin tức</h1>
+                    <Carousel
+                        responsive={responsive}
+                        autoPlay={false}
+                        swipeable={true}
+                        draggable={true}
+                        partialVisible={false}
+                        dotListClass="custom-dot-list-style"
+                        itemClass={cx('carousel-item')}
+                        containerClass={cx('carousel-container')}
+                    >
+                        {images.map((image, idx) => (
+                            <CardNews key={idx} image={image} />
+                        ))}
+                    </Carousel>
+                </div>
             </div>
         </>
     );

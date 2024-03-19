@@ -1,11 +1,11 @@
-.container {
-    width: auto;
-    height: 100%;
-    background-color: #144C94;
-    justify-items: center;
-    .banner {
-        padding-left: 40px;
-        padding-right: 40px;
+.banner {
+    .container {
+        width: 1200px;
+        margin-top: 80px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 30px 0px;
+        color: #545454;
         div {
             margin-bottom: 20px;
         }
@@ -39,9 +39,12 @@
             -o-border-radius: 50px;
         }
     }
-    .admissions {
-        width: auto;
-        margin: 25px 0px;
+}
+.admissions {
+    .container {
+        width: 1200px;
+        padding: 25px 0px 130px 0px;
+        margin: 0px auto;
         .text-field {
             &:hover {
                 border: red;
@@ -58,8 +61,13 @@
             -o-border-radius: 50px;
         }
     }
-    .news {
-        margin: 25px 0px;
+}
+.news {
+    .container {
+        color: white;
+        width: 1200px;
+        padding: 35px 0px;
+        margin: 0px auto;
         h1 {
             width: 100%;
             text-align: center;
@@ -98,8 +106,12 @@
             }
         }
     }
-    .why-choose {
-        margin: 25px 0px;
+}
+.why-choose {
+    .container {
+        width: 1200px;
+        padding: 25px 0px;
+        margin: 0px auto;
         .title {
             div {
                 font-size: 14px;
@@ -141,19 +153,24 @@
             -o-border-radius: 50px;
         }
     }
-    .teacher-team {
-        margin: 25px 0px;
+}
+.teacher-team {
+    // background-color: #00b2f1;
+    .container {
+        width: 1200px;
+        padding: 25px 0px;
+        margin: 0px auto;
+        color: white;
         .title {
-            .team {
+            div {
                 font-size: 14px;
                 font-weight: 800;
                 text-transform: uppercase;
-                color: #40aadb;
-                margin-top: 5px;
+                margin: 5px 0px 0px 0px;
                 text-align: center;
             }
-            .good {
-                margin: 5px 0px 10px 0px;
+            h2 {
+                margin: 5px 5px 10px 5px;
                 font-size: 26px;
                 font-weight: 800;
                 text-transform: capitalize;
@@ -171,29 +188,31 @@
             -ms-border-radius: 50%;
             -o-border-radius: 50%;
             position: relative;
-            //&::after {
-            //    content: '';
-            //    position: absolute;
-            //    width: 200px;
-            //    height: 200px;
-            //    top: 0;
-            //    left: 0;
-            //    background: rgba(0, 0, 0, 0.5);
-            //    border-radius: 50%;
-            //    -webkit-border-radius: 50%;
-            //    -moz-border-radius: 50%;
-            //    -ms-border-radius: 50%;
-            //    -o-border-radius: 50%;
-            //}
+            &::after {
+                content: '';
+                position: absolute;
+                width: 194px;
+                height: 194px;
+                top: 0;
+                left: 0;
+                border: 3px solid #88e3ff;
+                border-radius: 50%;
+                -webkit-border-radius: 50%;
+                -moz-border-radius: 50%;
+                -ms-border-radius: 50%;
+                -o-border-radius: 50%;
+            }
         }
         .name {
+            color: white;
             font-size: 1.2em;
             font-weight: 800;
-            font-family: 'Nunito Sans', sans-serif;
+            font-family: 'Nunito', sans-serif;
             width: 100%;
             text-align: center;
         }
         .class {
+            color: white;
             font-size: 15px;
             font-weight: 700;
             text-transform: capitalize;
@@ -201,9 +220,14 @@
             text-align: center;
         }
     }
+}
 
-    .can-learn {
-        margin: 25px 0px;
+.can-learn {
+    .container {
+        width: 1200px;
+        margin-top: 100px;
+        padding: 30px 0px 50px 0px;
+        margin: 0px auto;
         .card {
             position: relative;
         }
@@ -224,12 +248,53 @@
                 width: 100%;
                 text-align: center;
             }
+            margin-bottom: 30px;
         }
         .image {
-            height: 300px;
-            width: 300px;
+            height: 245px;
+            width: 350px;
             margin: auto;
             position: relative;
+            &::after {
+                content: '';
+                display: block;
+                height: 245px;
+                width: 350px;
+                top: 0;
+                left: 0;
+                background-color: #00000054;
+            }
+        }
+        .card-content {
+            color: white;
+            position: absolute;
+            top: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            height: 100%;
+            padding: 0px;
+            .content-info {
+                padding: 30px;
+                padding-bottom: 10px;
+                .tag-class {
+                    color: black;
+                    font-size: 12px;
+                    font-weight: 700;
+                    padding: 5px 10px 5px 10px;
+                    background-color: #fccb0a;
+                    border-radius: 3px;
+                    margin-bottom: 20px;
+                    -webkit-border-radius: 3px;
+                    -moz-border-radius: 3px;
+                    -ms-border-radius: 3px;
+                    -o-border-radius: 3px;
+                }
+            }
+            .content-time {
+                padding: 10px 30px;
+                border-top: 1px solid #ffffff33;
+            }
         }
     }
 }

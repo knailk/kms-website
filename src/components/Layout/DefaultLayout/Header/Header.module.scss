@@ -1,11 +1,10 @@
 .header-wrapper {
     width: 100%;
-    border-bottom: 1px solid rgba(174, 179, 190, 0.51);
     .header-top {
         color: white;
         background: linear-gradient(to right, #82009f 0, #5d34af 50%, #00ceab 100%);
         padding: 10px 100px;
-        height: 40px;
+        height: 46px;
         font-weight: 500;
         display: flex;
         justify-content: flex-end;
@@ -15,21 +14,16 @@
         }
     }
     .header-bottom {
-        //position: absolute;
-        display: flex;
-        align-items: center;
+        position: absolute;
         width: 100%;
         font-weight: 500;
         font-size: 18px;
+        padding: 0px 100px;
         height: 80px;
-        color: white;
+        padding: 20px 0px;
         top: 46px;
-        background-color: #0A356C;
-        border-top: 1px solid rgba(68, 77, 98, 0.51);
-
-        box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 5px -1px, rgba(0, 0, 0, 0.14) 0px 6px 10px 0px, rgba(0, 0, 0, 0.12) 0px 1px 18px 0px;
+        // background-color: white;
         .header-container {
-            width: 100%;
             .item {
                 &:hover {
                     opacity: 0.7;
@@ -52,10 +46,20 @@
         }
     }
     .header-sticky {
+        background-color: white;
         position: fixed;
         width: 100%;
         left: 0;
         top: 0;
         z-index: 100;
+        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+        // transition: 0.1s linear;
+        // -webkit-transition: 0.1s linear;
+        // -moz-transition: 0.1s linear;
+        // -ms-transition: 0.1s linear;
+        // -o-transition: 0.1s linear;
+        // a {
+        //     color: white;
+        // }
     }
 }

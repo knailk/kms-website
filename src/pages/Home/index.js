@@ -6,29 +6,29 @@ import News from './News';
 import WhyChoose from './WhyChoose';
 import TeacherTeam from './TeacherTeam';
 import CanLearn from './CanLearn';
-import { Divider, Stack } from '@mui/material';
-import BoxChat from '~/components/BoxChat';
+import { Divider } from '@mui/material';
+// import BoxChat from '~/components/BoxChat';
 const cx = classNames.bind(styles);
 
 function Home() {
+    const styleBg = {
+        backgroundImage: 'url(images/bghome2.png)',
+        backgroundPositionY: '-495px'
+    }
     return (
-        <Stack className={cx('container')} >
-            {/*<BoxChat />*/}
+        <div>
+            {/* <BoxChat /> */}
             <Banner />
-            <Stack sx={{px:"40px"}}>
-                <Divider />
+            <div style={styleBg}>
                 <Admissions />
-                {/*<Divider />*/}
                 <News />
-
-                <WhyChoose />
-                {/*<Divider />*/}
-
-            </Stack>
+            </div>
+            <WhyChoose />
+            <Divider />
             <TeacherTeam />
             <Divider />
             <CanLearn />
-        </Stack>
+        </div>
     );
 }
 

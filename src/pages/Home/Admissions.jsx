@@ -33,75 +33,79 @@ function Admissions() {
         setError(arrError);
     };
     return (
-        <Grid container spacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }} rowSpacing={2} className={cx('admissions')}>
-            <Grid item xs={2} className={cx('')}>
-                <TextField
-                    id="parent-name"
-                    InputProps={{style: { borderRadius: '18px' }}}
-                    placeholder="Tên phụ huynh"
-                    value={dataForm['parent-name']}
-                    style={{backgroundColor:'white', borderRadius:'18px'}}
-                    onChange={(e) => handleChange(e, 'parent-name')}
-                    {...(error.includes('parent-name') && { error: true, helperText: 'Vui lòng nhập' })}
-                />
+        <div className={cx('admissions')}>
+            <Grid
+                container
+                spacing={2}
+                columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+                rowSpacing={2}
+                className={cx('container')}
+            >
+                <Grid item xs={2} className={cx('')}>
+                    <TextField
+                        inputProps={{ className: cx('text-field') }}
+                        id="parent-name"
+                        label="Tên phụ huynh"
+                        value={dataForm['parent-name']}
+                        variant="filled"
+                        onChange={(e) => handleChange(e, 'parent-name')}
+                        {...(error.includes('parent-name') && { error: true, helperText: 'Vui lòng nhập' })}
+                    />
+                </Grid>
+                <Grid item xs={2} className={cx('')}>
+                    <TextField
+                        id="child-age"
+                        label="Độ tuổi trẻ"
+                        type="number"
+                        value={dataForm['child-age']}
+                        variant="filled"
+                        onChange={(e) => handleChange(e, 'child-age')}
+                        {...(error.includes('child-age') && { error: true, helperText: 'Vui lòng nhập' })}
+                    />
+                </Grid>
+                <Grid item xs={2} className={cx('')}>
+                    <TextField
+                        id="phone"
+                        label="Số điện thoại"
+                        type="number"
+                        value={dataForm.phone}
+                        variant="filled"
+                        onChange={(e) => handleChange(e, 'phone')}
+                        {...(error.includes('phone') && { error: true, helperText: 'Vui lòng nhập' })}
+                    />
+                </Grid>
+                <Grid item xs={2} className={cx('')}>
+                    <TextField
+                        id="branch"
+                        label="Chọn cơ sở"
+                        type="number"
+                        value={dataForm.branch}
+                        select
+                        variant="filled"
+                        onChange={(e) => handleChange(e, 'branch')}
+                    >
+                        <MenuItem value="cs1">Cơ sở Tân Phú</MenuItem>
+                        <MenuItem value="cs2">Cơ sở Tân Bình</MenuItem>
+                    </TextField>
+                </Grid>
+                <Grid item xs={2} className={cx('')}>
+                    <TextField
+                        id="captcha"
+                        label="12 + 5 = ?"
+                        type="number"
+                        value={dataForm.captcha}
+                        variant="filled"
+                        onChange={(e) => handleChange(e, 'captcha')}
+                        {...(error.includes('captcha') && { error: true, helperText: 'Vui lòng nhập' })}
+                    />
+                </Grid>
+                <Grid item xs={2} className={cx('')}>
+                    <Button variant="contained" className={cx('button')} onClick={handleSubmitAdmissions}>
+                        Đăng ký tư vấn
+                    </Button>
+                </Grid>
             </Grid>
-            <Grid item xs={2} className={cx('')}>
-                <TextField
-                    id="child-age"
-                    placeholder="Độ tuổi trẻ"
-                    type="number"
-                    value={dataForm['child-age']}
-                    InputProps={{style: { borderRadius: '18px' }}}
-                    style={{backgroundColor:'white', borderRadius:'18px'}}
-                    onChange={(e) => handleChange(e, 'child-age')}
-                    {...(error.includes('child-age') && { error: true, helperText: 'Vui lòng nhập' })}
-                />
-            </Grid>
-            <Grid item xs={2} className={cx('')}>
-                <TextField
-                    id="phone"
-                    placeholder="Số điện thoại"
-                    type="number"
-                    value={dataForm.phone}
-                    InputProps={{style: { borderRadius: '18px' }}}
-                    style={{backgroundColor:'white', borderRadius:'18px'}}
-                    onChange={(e) => handleChange(e, 'phone')}
-                    {...(error.includes('phone') && { error: true, helperText: 'Vui lòng nhập' })}
-                />
-            </Grid>
-            <Grid item xs={2} className={cx('')}>
-                <TextField
-                    id="branch"
-                    placeholder="Chọn cơ sở"
-                    type="number"
-                    value={dataForm.branch}
-                    select
-                    InputProps={{style: { borderRadius: '18px' }}}
-                    style={{backgroundColor:'white', borderRadius:'18px'}}
-                    onChange={(e) => handleChange(e, 'branch')}
-                >
-                    <MenuItem value="cs1">Cơ sở Tân Phú</MenuItem>
-                    <MenuItem value="cs2">Cơ sở Tân Bình</MenuItem>
-                </TextField>
-            </Grid>
-            <Grid item xs={2} className={cx('')}>
-                <TextField
-                    id="captcha"
-                    placeholder="12 + 5 = ?"
-                    type="number"
-                    value={dataForm.captcha}
-                    InputProps={{style: { borderRadius: '18px' }}}
-                    style={{backgroundColor:'white', borderRadius:'18px'}}
-                    onChange={(e) => handleChange(e, 'captcha')}
-                    {...(error.includes('captcha') && { error: true, helperText: 'Vui lòng nhập' })}
-                />
-            </Grid>
-            <Grid item xs={2} className={cx('')}>
-                <Button variant="contained" className={cx('button')} onClick={handleSubmitAdmissions}>
-                    Đăng ký tư vấn
-                </Button>
-            </Grid>
-        </Grid>
+        </div>
     );
 }
 

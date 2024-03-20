@@ -69,7 +69,7 @@ function CanLearn() {
                 <div className={cx('title')}>
                     <div>LỚP HỌC</div>
                     <h2>
-                        <span>Bé học gì ở StarKids</span>
+                        <span>Bé học gì ở SchoolKids</span>
                     </h2>
                 </div>
                 <Grid

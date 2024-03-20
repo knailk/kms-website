@@ -17,7 +17,7 @@ function WhyChoose() {
                 <Grid item xs={6}>
                     <div className={cx('title')}>
                         <div>Tại sao chọn</div>
-                        <h2>Lý do chọn StarKids</h2>
+                        <h2>Lý do chọn SchoolKids</h2>
                     </div>
                     <ul className={cx('list-items')}>
                         <li className={cx('item')}>

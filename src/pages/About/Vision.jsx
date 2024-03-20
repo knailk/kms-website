@@ -5,37 +5,39 @@ const cx = classNames.bind(styles);
 
 function Vision() {
     return (
-        <Grid
-            container
-            spacing={2}
-            columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-            rowSpacing={2}
-            style={{ margin: '25px 0px' }}
-            className={cx('content')}
-        >
-            <Grid item xs={3} className={cx('content-left')}>
-                <div className={cx('title')}>
-                    <div>Về chúng tôi</div>
-                    <h2>Tầm Nhìn</h2>
-                </div>
-            </Grid>
-            <Grid item xs={9} className={cx('content-right')}>
-                <p>
-                    Chương trình giáo dục tại StarKids được phát triển dựa trên sự thấu hiểu rằng trẻ em phát triển
-                    trong một tổng hòa phức tạp của các hệ thống có liên quan lẫn nhau, bao gồm gia đình, nhà trường,
-                    cộng đồng xung quanh và thế giới. Mặc dù các chương trình mầm non truyền thống thừa nhận tầm quan
-                    trọng của các hệ thống này, nhưng lại có khuynh hướng tách bạch từng hệ thống và thực hiện việc tác
-                    động riêng rẽ đến trẻ. Khác biệt tại StarKids là chương trình được thiết kế dựa trên nhận thức được
-                    tầm quan trọng của việc phát triển những mối liên hệ giữa các hệ thống đến trẻ, đồng thời tập trung
-                    xây dựng và phát triển các mối liên hệ này. Đặt các liên hệ vào trọng tâm của tầm nhìn giáo dục,
-                    chương trình StarKids đưa trẻ vào quỹ đạo tích cực hơn cho việc học tập và rèn luyện.
-                </p>
+        <div className={cx('content-wrapper')}>
+            <Grid
+                container
+                spacing={2}
+                columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+                rowSpacing={2}
+                className={cx('content')}
+            >
+                <Grid item xs={3} className={cx('content-left')}>
+                    <div className={cx('title')}>
+                        <div>Về chúng tôi</div>
+                        <h2>Tầm Nhìn</h2>
+                    </div>
+                </Grid>
+                <Grid item xs={9} className={cx('content-right')}>
+                    <p>
+                        Chương trình giáo dục tại SchoolKids được phát triển dựa trên sự thấu hiểu rằng trẻ em phát
+                        triển trong một tổng hòa phức tạp của các hệ thống có liên quan lẫn nhau, bao gồm gia đình, nhà
+                        trường, cộng đồng xung quanh và thế giới. Mặc dù các chương trình mầm non truyền thống thừa nhận
+                        tầm quan trọng của các hệ thống này, nhưng lại có khuynh hướng tách bạch từng hệ thống và thực
+                        hiện việc tác động riêng rẽ đến trẻ. Khác biệt tại SchoolKids là chương trình được thiết kế dựa
+                        trên nhận thức được tầm quan trọng của việc phát triển những mối liên hệ giữa các hệ thống đến
+                        trẻ, đồng thời tập trung xây dựng và phát triển các mối liên hệ này. Đặt các liên hệ vào trọng
+                        tâm của tầm nhìn giáo dục, chương trình SchoolKids đưa trẻ vào quỹ đạo tích cực hơn cho việc học
+                        tập và rèn luyện.
+                    </p>
 
-                <div>
-                    <img src="/images/vision.jpg" alt="vision" width={370} />
-                </div>
+                    <div>
+                        <img src="/images/vision.jpg" alt="vision" width={370} />
+                    </div>
+                </Grid>
             </Grid>
-        </Grid>
+        </div>
     );
 }
 

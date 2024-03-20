@@ -25,7 +25,6 @@ function About() {
     const [expanded, setExpanded] = useState({ tab1: false, tab2: false, tab3: false, tab4: false, tab5: false });
     const [tab, setTab] = useState('');
 
-
     const handleChangeTab = (tab) => {
         setTab(tab);
         window.scrollTo({
@@ -33,7 +32,7 @@ function About() {
             left: 0,
             behavior: 'smooth',
         });
-    }
+    };
 
     const renderTab = () => {
         switch (tab) {
@@ -48,11 +47,18 @@ function About() {
             default:
                 return <AboutTab />;
         }
-    }
+    };
 
     return (
         <div className={cx('container')}>
-            <div className={cx('banner-wrapper')}>
+            <div
+                className={cx('banner-wrapper')}
+                style={{
+                    backgroundImage: "url('images/backgroundhome.svg')",
+                    backgroundRepeat: 'no-repeat',
+                    backgroundSize: 'cover',
+                }}
+            >
                 <Grid
                     container
                     spacing={2}
@@ -61,24 +67,36 @@ function About() {
                     // style={{ margin: '25px 0px' }}
                     className={cx('banner-content')}
                 >
+                    <Grid item xs={5} className={cx('bread-crums')}>
+                        TRANG CHỦ {'>>'} VỀ SCHOOLKIDS
+                    </Grid>
+                    <Grid item xs={7}></Grid>
                     <Grid item xs={5} className={cx('banner')}>
                         <div className={cx('title')}>
-                            <p>"StarKids là một hệ thống giáo dục tốt nhất trong khu vực"</p>
+                            <p>"SchoolKids là một hệ thống giáo dục tốt nhất trong khu vực"</p>
                         </div>
                         <Button variant="contained" className={cx('button')}>
                             Xem Thêm
                         </Button>
                     </Grid>
-                    <Grid item xs={7}></Grid>
+                    <Grid
+                        item
+                        xs={7}
+                        style={{
+                            backgroundImage: "url('images/bgbanner.jpg')",
+                            backgroundRepeat: 'no-repeat',
+                            backgroundSize: '60%',
+                            backgroundPositionY: '-161px',
+                            backgroundPositionX: '250px',
+                        }}
+                    ></Grid>
                 </Grid>
             </div>
 
-            <Divider />
             {renderTab()}
-            <Divider />
-            <div className={cx('tab-wrapper')} style={{ background:"url('images/bgabout.png')" }}>
+            <div className={cx('tab-wrapper')}>
                 <div className={cx('tab-content')}>
-                    <h2>Về StarKids</h2>
+                    <h2>Về SchoolKids</h2>
                     <Grid container className={cx('tab-item-container')}>
                         <Grid item className={cx('tab-item')} xs={10} style={{ padding: '15px 30px' }}>
                             Mục tiêu hoạt động
@@ -98,10 +116,12 @@ function About() {
                         <Collapse in={expanded.tab1} timeout="auto" unmountOnExit>
                             <div className={cx('collapse-content')}>
                                 <p>
-                                    Chương trình phát triển theo hướng tiếp cận tiên tiến, phát huy tối đa kỹ năng tiếp nhận và
-                                    sáng tạo của trẻ trong giai đoạn 0 - 6 tuổi.
+                                    Chương trình phát triển theo hướng tiếp cận tiên tiến, phát huy tối đa kỹ năng tiếp
+                                    nhận và sáng tạo của trẻ trong giai đoạn 0 - 6 tuổi.
                                 </p>
-                                <span className={cx('btn-readmore')} onClick={() => handleChangeTab('purpose')}>Xem thêm</span>
+                                <span className={cx('btn-readmore')} onClick={() => handleChangeTab('purpose')}>
+                                    Xem thêm
+                                </span>
                             </div>
                         </Collapse>
                     </div>
@@ -121,14 +141,16 @@ function About() {
                         </Grid>
                     </Grid>
                     <div>
-                        <Collapse in={expanded.tab2} timeout="auto" unmountOnExit >
+                        <Collapse in={expanded.tab2} timeout="auto" unmountOnExit>
                             <div className={cx('collapse-content')}>
                                 <p>
-                                    Chương trình giáo dục tại StarKids được phát triển dựa trên sự thấu hiểu rằng trẻ em phát
-                                    triển trong một tổng hòa phức tạp của các hệ thống có liên quan lẫn nhau, bao gồm gia đình,
-                                    nhà trường, cộng đồng xung quanh và thế giới.
+                                    Chương trình giáo dục tại SchoolKids được phát triển dựa trên sự thấu hiểu rằng trẻ
+                                    em phát triển trong một tổng hòa phức tạp của các hệ thống có liên quan lẫn nhau,
+                                    bao gồm gia đình, nhà trường, cộng đồng xung quanh và thế giới.
                                 </p>
-                                <span className={cx('btn-readmore')} onClick={() => handleChangeTab('vision')}>Xem thêm</span>
+                                <span className={cx('btn-readmore')} onClick={() => handleChangeTab('vision')}>
+                                    Xem thêm
+                                </span>
                             </div>
                         </Collapse>
                     </div>
@@ -148,19 +170,21 @@ function About() {
                         </Grid>
                     </Grid>
                     <div>
-                        <Collapse in={expanded.tab3} timeout="auto" unmountOnExit >
+                        <Collapse in={expanded.tab3} timeout="auto" unmountOnExit>
                             <div className={cx('collapse-content')}>
                                 <p>
-                                    Cở sở StarKids Tân Phú: Tầng trệt Cc Lotus Garden 36 Trịnh Đình Thảo, Phường Hòa Thạnh, Quận
-                                    Tân Phú.
+                                    Cở sở SchoolKids Tân Phú: Tầng trệt Cc Lotus Garden 36 Trịnh Đình Thảo, Phường Hòa
+                                    Thạnh, Quận Tân Phú.
                                 </p>
-                                <span className={cx('btn-readmore')} onClick={() => handleChangeTab('facility')}>Xem thêm</span>
+                                <span className={cx('btn-readmore')} onClick={() => handleChangeTab('facility')}>
+                                    Xem thêm
+                                </span>
                             </div>
                         </Collapse>
                     </div>
                     <Grid container className={cx('tab-item-container')}>
                         <Grid item className={cx('tab-item')} xs={10} style={{ padding: '15px 30px' }}>
-                            Lý do chọn StarKids
+                            Lý do chọn SchoolKids
                         </Grid>
                         <Grid item xs={2} style={{ display: 'flex', alignItems: 'center' }}>
                             <ExpandMore
@@ -174,7 +198,7 @@ function About() {
                         </Grid>
                     </Grid>
                     <div>
-                        <Collapse in={expanded.tab5} timeout="auto" unmountOnExit >
+                        <Collapse in={expanded.tab5} timeout="auto" unmountOnExit>
                             <div className={cx('collapse-content')}>
                                 <ul className={cx('list-items')}>
                                     <li className={cx('item')}>
@@ -193,7 +217,9 @@ function About() {
                                         <span>Tối ưu cơ sở vật chất và đổi mới công cụ giảng dạy</span>
                                     </li>
                                 </ul>
-                                <span className={cx('btn-readmore')} onClick={() => handleChangeTab('why-choose')}>Xem thêm</span>
+                                <span className={cx('btn-readmore')} onClick={() => handleChangeTab('why-choose')}>
+                                    Xem thêm
+                                </span>
                             </div>
                         </Collapse>
                     </div>

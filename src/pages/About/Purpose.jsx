@@ -56,7 +56,7 @@ function Purpose() {
                         </li>
                     </ul>
                     <div>
-                        <img src="/images/purpose.jpg" alt="purpose" />
+                        <img src="/images/purpose.jpg" alt="purpose" width={800} />
                     </div>
                 </Grid>
             </Grid>

@@ -12,10 +12,10 @@ function Header() {
     React.useEffect(() => {
         const onScroll = () => {
             if (window.scrollY > 46) {
-                setSticky(true)
+                setSticky(true);
             }
             if (window.scrollY < 10) {
-                setSticky(false)
+                setSticky(false);
             }
         };
         // clean up code
@@ -25,10 +25,6 @@ function Header() {
     }, []);
     return (
         <div className={cx('header-wrapper')}>
-            <div className={cx('header-top')}>
-                <FontAwesomeIcon icon={faEnvelope} />
-                <span className={cx('mail')}>tranminhtoan.149@gmail.com</span>
-            </div>
             <div className={cx('header-bottom', { 'header-sticky': sticky })}>
                 <div className={cx('header-container')}>
                     <Grid container>
@@ -47,7 +43,7 @@ function Header() {
                     </Grid>
                 </div>
             </div>
-        </div >
+        </div>
     );
 }
 

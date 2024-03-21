@@ -1,83 +1,91 @@
 import classNames from 'classnames/bind';
 import styles from './Home.module.scss';
 import 'react-multi-carousel/lib/styles.css';
-import { Card, CardContent, CardMedia, Grid, Typography } from '@mui/material';
+import { Card, CardContent, CardMedia, Grid, Rating } from '@mui/material';
 const cx = classNames.bind(styles);
 
 function CanLearn() {
     const CardNews = ({ image }) => (
-        <Card sx={{ maxWidth: 210 }}>
+        <Card sx={{ maxWidth: 350 }} className={cx('card')}>
             <CardMedia sx={{}} image={image.imgPath} className={cx('image')} title="" />
-            <CardContent>
-                <Typography variant="h3" color="text.secondary" className={cx('name')}>
-                    {image.name}
-                </Typography>
-                <Typography variant="h3" color="text.secondary" className={cx('class')}>
-                    {image.class}
-                </Typography>
+            <CardContent className={cx('card-content')}>
+                <div className={cx('content-info')}>
+                    <span className={cx('tag-class')}>Lớp học</span>
+                    <div style={{ marginTop: 10 }}>
+                        <Rating name="read-only" value={5} readOnly size="small" />
+                    </div>
+                    <h3 style={{ maxWidth: '55%' }}>
+                        <span>{image.class}</span>
+                    </h3>
+                </div>
+                <div className={cx('content-time')}>
+                    Từ ngày {image.fromDate} đến ngày {image.toDate}
+                </div>
             </CardContent>
         </Card>
     );
     const images = [
         {
-            name: 'Lê Thị Ngọc Yến',
-            class: 'GV Lớp Owl',
-            imgPath:
-                'https://images.unsplash.com/photo-1537944434965-cf4679d1a598?auto=format&fit=crop&w=400&h=250&q=60',
+            imgPath: 'images/canlearn.webp',
+            class: 'Lớp 13 tới 18 tháng',
+            fromDate: '13/4/2023',
+            toDate: '30/10/2023',
         },
         {
-            name: 'Lê Thị Ngọc Yến',
-            class: 'GV Lớp Owl',
-            imgPath:
-                'https://images.unsplash.com/photo-1538032746644-0212e812a9e7?auto=format&fit=crop&w=400&h=250&q=60',
+            imgPath: 'images/canlearn.webp',
+            class: 'Lớp 13 tới 18 tháng',
+            fromDate: '13/4/2023',
+            toDate: '30/10/2023',
         },
         {
-            name: 'Lê Thị Ngọc Yến',
-            class: 'GV Lớp Owl',
-            imgPath: 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250',
+            imgPath: 'images/canlearn.webp',
+            class: 'Lớp 13 tới 18 tháng',
+            fromDate: '13/4/2023',
+            toDate: '30/10/2023',
         },
         {
-            name: 'Lê Thị Ngọc Yến',
-            class: 'GV Lớp Owl',
-            imgPath:
-                'https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60',
+            imgPath: 'images/canlearn.webp',
+            class: 'Lớp 13 tới 18 tháng',
+            fromDate: '13/4/2023',
+            toDate: '30/10/2023',
         },
         {
-            name: 'Lê Thị Ngọc Yến',
-            class: 'GV Lớp Owl',
-            imgPath:
-                'https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60',
+            imgPath: 'images/canlearn.webp',
+            class: 'Lớp 13 tới 18 tháng',
+            fromDate: '13/4/2023',
+            toDate: '30/10/2023',
         },
         {
-            name: 'Lê Thị Ngọc Yến',
-            class: 'GV Lớp Owl',
-            imgPath:
-                'https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60',
+            imgPath: 'images/canlearn.webp',
+            class: 'Lớp 13 tới 18 tháng',
+            fromDate: '13/4/2023',
+            toDate: '30/10/2023',
         },
     ];
 
     return (
-        <div className={cx('teacher-team')}>
-            <div className={cx('title')}>
-                <div>Đội ngũ</div>
-                <h2>
-                    <span>Giáo viên ưu tú</span>
-                </h2>
+        <div className={cx('can-learn')}>
+            <div className={cx('container')}>
+                <div className={cx('title')}>
+                    <div>LỚP HỌC</div>
+                    <h2>
+                        <span>Bé học gì ở SchoolKids</span>
+                    </h2>
+                </div>
+                <Grid
+                    container
+                    spacing={2}
+                    columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+                    rowSpacing={2}
+                    justifyContent="center"
+                >
+                    {images.map((image, index) => (
+                        <Grid key={index} item xs={4}>
+                            <CardNews image={image} />
+                        </Grid>
+                    ))}
+                </Grid>
             </div>
-            <Grid
-                container
-                spacing={2}
-                columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-                rowSpacing={2}
-                style={{ margin: '25px 0px' }}
-                justifyContent="center"
-            >
-                {images.map((image, index) => (
-                    <Grid item xs={3}>
-                        <CardNews key={index} image={image} />
-                    </Grid>
-                ))}
-            </Grid>
         </div>
     );
 }

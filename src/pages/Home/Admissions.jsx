@@ -33,13 +33,13 @@ function Admissions() {
         setError(arrError);
     };
     return (
-        <>
+        <div className={cx('admissions')}>
             <Grid
                 container
                 spacing={2}
                 columnSpacing={{ xs: 1, sm: 2, md: 3 }}
                 rowSpacing={2}
-                className={cx('admissions')}
+                className={cx('container')}
             >
                 <Grid item xs={2} className={cx('')}>
                     <TextField
@@ -105,7 +105,7 @@ function Admissions() {
                     </Button>
                 </Grid>
             </Grid>
-        </>
+        </div>
     );
 }
 

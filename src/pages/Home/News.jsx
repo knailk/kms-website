@@ -23,7 +23,7 @@ function News() {
                     alignItems={'center'}
                 >
                     <AccessTime sx={{ fontSize: 12 }} />
-                    {image.date}
+                    <span style={{ marginLeft: 5 }}>{image.date}</span>
                 </Typography>
             </CardContent>
         </Card>
@@ -36,7 +36,7 @@ function News() {
                 'https://images.unsplash.com/photo-1537944434965-cf4679d1a598?auto=format&fit=crop&w=400&h=250&q=60',
         },
         {
-            label: 'Chuyến Đi Vui Nhộn đến Đầm Sen Của Các Bạn Nhỏ Trường Mầm Non StarKids',
+            label: 'Chuyến Đi Vui Nhộn đến Đầm Sen Của Các Bạn Nhỏ Trường Mầm Non SchoolKids',
             date: '28 Tháng Mười Hai, 2023',
             imgPath:
                 'https://images.unsplash.com/photo-1538032746644-0212e812a9e7?auto=format&fit=crop&w=400&h=250&q=60',
@@ -80,21 +80,23 @@ function News() {
     return (
         <>
             <div className={cx('news')}>
-                <h1>Tin tức</h1>
-                <Carousel
-                    responsive={responsive}
-                    autoPlay={false}
-                    swipeable={true}
-                    draggable={true}
-                    partialVisible={false}
-                    dotListClass="custom-dot-list-style"
-                    itemClass={cx('carousel-item')}
-                    containerClass={cx('carousel-container')}
-                >
-                    {images.map((image, idx) => (
-                        <CardNews key={idx} image={image} />
-                    ))}
-                </Carousel>
+                <div className={cx('container')}>
+                    <h1>Tin tức</h1>
+                    <Carousel
+                        responsive={responsive}
+                        autoPlay={false}
+                        swipeable={true}
+                        draggable={true}
+                        partialVisible={false}
+                        dotListClass="custom-dot-list-style"
+                        itemClass={cx('carousel-item')}
+                        containerClass={cx('carousel-container')}
+                    >
+                        {images.map((image, idx) => (
+                            <CardNews key={idx} image={image} />
+                        ))}
+                    </Carousel>
+                </div>
             </div>
         </>
     );

@@ -5,13 +5,8 @@ import { Card, CardContent, CardMedia, Grid, Typography } from '@mui/material';
 const cx = classNames.bind(styles);
 function TeacherTeam() {
     const CardTeacher = ({ image }) => (
-        <Card sx={{ maxWidth: 210 }}>
-            <CardMedia
-                sx={{}}
-                image={image.imgPath}
-                className={cx('image')}
-                title="green iguana"
-            />
+        <Card sx={{ maxWidth: 210, boxShadow: 'none', backgroundColor: 'transparent' }}>
+            <CardMedia sx={{}} image={image.imgPath} className={cx('image')} title="green iguana" />
             <CardContent>
                 <Typography variant="h3" color="text.secondary" className={cx('name')}>
                     {image.name}
@@ -62,27 +57,29 @@ function TeacherTeam() {
     ];
 
     return (
-        <div className={cx('teacher-team')}>
-            <div className={cx('title')}>
-                <div>Đội ngũ</div>
-                <h2>
-                    <span>Giáo viên ưu tú</span>
-                </h2>
+        <div className={cx('teacher-team')} style={{ backgroundImage: 'url(images/backgroundhome2.webp)' }}>
+            <div className={cx('container')}>
+                <div className={cx('title')}>
+                    <div>Đội ngũ</div>
+                    <h2>
+                        <span>Giáo viên ưu tú</span>
+                    </h2>
+                </div>
+                <Grid
+                    container
+                    spacing={2}
+                    columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+                    rowSpacing={2}
+                    style={{ margin: '25px 0px' }}
+                    justifyContent="center"
+                >
+                    {images.map((image, index) => (
+                        <Grid key={index} item xs={3}>
+                            <CardTeacher image={image} />
+                        </Grid>
+                    ))}
+                </Grid>
             </div>
-            <Grid
-                container
-                spacing={2}
-                columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-                rowSpacing={2}
-                style={{ margin: '25px 0px' }}
-                justifyContent="center"
-            >
-                {images.map((image, index) => (
-                    <Grid item xs={3}>
-                        <CardTeacher key={index} image={image} />
-                    </Grid>
-                ))}
-            </Grid>
         </div>
     );
 }

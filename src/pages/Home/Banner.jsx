@@ -4,14 +4,21 @@ import { Button, Grid } from '@mui/material';
 const cx = classNames.bind(styles);
 
 function Banner() {
+    const styleBg = {
+        background: 'url(images/bg-banner.png)',
+        backgroundSize: 'contain',
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center',
+    };
     return (
-        <>
+        <div className={cx('banner')} style={{ backgroundImage: 'url(images/backgroundhome.svg)' }}>
+            {/* <img src="images/backgroundhome.svg" alt="" /> */}
             <Grid
                 container
                 spacing={2}
                 columnSpacing={{ xs: 1, sm: 2, md: 3 }}
                 rowSpacing={2}
-                style={{ margin: '25px 0px' }}
+                className={cx('container')}
             >
                 <Grid item xs={7} className={cx('banner')}>
                     <div className={cx('title')}>
@@ -24,10 +31,10 @@ function Banner() {
                         </p>
                     </div>
                     <div className={cx('content')}>
-                        Hệ thống Trường Mầm non Tinh Tú StarKids là một hệ thống giáo dục hiện đại không ngừng nâng cao
-                        chất lượng – mang lại cho học sinh môi trường học tập và nền tảng học vấn vững chắc, bằng sự kết
-                        hợp hài hòa các phương pháp giáo dục tiên tiến nhất với hình thức học qua chơi, học qua khám phá
-                        trải nghiệm thực tế. Chúng tôi khuyến khích sự phát triển tự nhiên của trẻ, giúp các con yêu
+                        Hệ thống Trường Mầm non Tinh Tú SchoolKids là một hệ thống giáo dục hiện đại không ngừng nâng
+                        cao chất lượng – mang lại cho học sinh môi trường học tập và nền tảng học vấn vững chắc, bằng sự
+                        kết hợp hài hòa các phương pháp giáo dục tiên tiến nhất với hình thức học qua chơi, học qua khám
+                        phá trải nghiệm thực tế. Chúng tôi khuyến khích sự phát triển tự nhiên của trẻ, giúp các con yêu
                         thích việc học tập và rèn luyện các kỹ năng đầu đời chuẩn bị cho thành công ở những bậc học cao
                         hơn.
                     </div>
@@ -35,9 +42,9 @@ function Banner() {
                         Xem Thêm
                     </Button>
                 </Grid>
-                <Grid item xs={5}></Grid>
+                <Grid item xs={5} style={styleBg}></Grid>
             </Grid>
-        </>
+        </div>
     );
 }
 

@@ -5,22 +5,31 @@ import Admissions from './Admissions';
 import News from './News';
 import WhyChoose from './WhyChoose';
 import TeacherTeam from './TeacherTeam';
+import CanLearn from './CanLearn';
 import { Divider } from '@mui/material';
+// import BoxChat from '~/components/BoxChat';
 const cx = classNames.bind(styles);
 
 function Home() {
-    return <div className={cx('container')}>
-        <Banner />
-        <Divider />
-        <Admissions />
-        <Divider />
-        <News />
-        <Divider />
-        <WhyChoose />
-        <Divider />
-        <TeacherTeam />
-
-    </div>;
+    const styleBg = {
+        backgroundImage: 'url(images/bghome2.png)',
+        backgroundPositionY: '-495px'
+    }
+    return (
+        <div>
+            {/* <BoxChat /> */}
+            <Banner />
+            <div style={styleBg}>
+                <Admissions />
+                <News />
+            </div>
+            <WhyChoose />
+            <Divider />
+            <TeacherTeam />
+            <Divider />
+            <CanLearn />
+        </div>
+    );
 }
 
 export default Home;

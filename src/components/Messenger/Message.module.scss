@@ -1,0 +1,10 @@
+.card-wrapper {
+    display: flex;
+    box-shadow: none !important;
+    max-width: 375px;
+    padding: 10px 10px;
+    cursor: pointer;
+    &:hover {
+        background: #dddddd5d;
+    }
+}

@@ -1,4 +1,3 @@
-import * as React from 'react';
 import MuiAppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -13,6 +12,9 @@ import MenuProfile from './MenuProfile';
 import { styled } from '@mui/material/styles';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import SideBar from '../SideBar';
+import ListPopover from '~/components/ListPopover';
+import MessagePopover from '~/components/Messenger/MessagePopover';
+import { useEffect, useState } from 'react';
 
 const drawerWidth = 240;
 
@@ -33,8 +35,17 @@ const AppBar = styled(MuiAppBar, {
     }),
 }));
 
+const IconOpen = () => (
+    <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+        <Badge badgeContent={4} color="error">
+            <MailIcon />
+        </Badge>
+    </IconButton>
+)
+
 export default function MainLayout({ children }) {
-    const [anchorEl, setAnchorEl] = React.useState(null);
+    const [anchorEl, setAnchorEl] = useState(null);
+    const [messages, setMessages] = useState([{}]);
 
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
@@ -43,12 +54,37 @@ export default function MainLayout({ children }) {
     const handleMenuClose = () => {
         setAnchorEl(null);
     };
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
 
 
     const handleDrawer = (status = false) => {
         setOpen(status);
     }
+
+    useEffect(() => {
+        //get data unread message but cannot call api so use dummy data
+        const dataMessage = [
+            {
+                name: 'Trần Thị Thu Hà',
+                'latest-message-time': '10:00',
+                'latest-message-text': 'Chào cô',
+                'unread-message': 3
+            },
+            {
+                name: 'Nguyễn Thị Thanh Hà',
+                'latest-message-time': '10:00',
+                'latest-message-text': 'Xin chào toàn thể cán bộ giáo viên và học sinh',
+                'unread-message': 3
+            },
+            {
+                name: 'Lê Thị Thanh Hà',
+                'latest-message-time': '10:00',
+                'latest-message-text': 'Chào cô',
+                'unread-message': 3
+            }
+        ]
+        setMessages(dataMessage)
+    }, [])
 
     return (
         <Box sx={{ flexGrow: 1 }}>
@@ -75,11 +111,7 @@ export default function MainLayout({ children }) {
                     </Typography>
                     <Box sx={{ flexGrow: 1 }} />
                     <Box sx={{ display: { md: 'flex' } }}>
-                        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-                            <Badge badgeContent={4} color="error">
-                                <MailIcon />
-                            </Badge>
-                        </IconButton>
+                        <ListPopover iconOpen={<IconOpen />} children={<MessagePopover data={messages} />} />
                         <IconButton
                             size="large"
                             aria-label="show 17 new notifications"

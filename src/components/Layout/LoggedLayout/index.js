@@ -1,16 +1,15 @@
-import Header from './Header';
-import Footer from './Footer';
-import { Divider } from '@mui/material';
+import MainLayout from './MainLayout';
 
-function DefaultLayout({ children }) {
+function LoggedLayout({ children }) {
     return (
         <>
-            <Header />
-            {children}
-            <Divider />
-            <Footer />
+            <MainLayout>
+                {children}
+            </MainLayout>
+            {/* <Divider />
+            <Footer /> */}
         </>
     );
 }
 
-export default DefaultLayout;
+export default LoggedLayout;

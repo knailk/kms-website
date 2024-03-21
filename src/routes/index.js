@@ -4,8 +4,8 @@ import CourseInfo from '~/pages/CourseInfo';
 import News from '~/pages/News';
 import Notification from '~/pages/Notifications';
 import { LoggedLayout } from '~/components/Layout';
-import Schedule from '~/components/Schedule';
-import Profile from '~/components/Profile';
+import Schedule from '~/pages/Management/Common/Schedule';
+import Profile from '~/pages/Management/Common/Profile';
 export const publicRoutes = [
     { path: '/', component: Home },
     { path: '/about', component: About },

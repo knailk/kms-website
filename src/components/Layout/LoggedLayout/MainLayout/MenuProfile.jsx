@@ -2,6 +2,9 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import { Avatar, Divider, ListItemIcon } from '@mui/material';
 import { Logout, Settings, Payment } from '@mui/icons-material';
+import MessageList from './MessageList';
+import { Link } from 'react-router-dom';
+
 
 export default function MenuProfile({ anchorEl, handleMenuClose }) {
     const isMenuOpen = Boolean(anchorEl);
@@ -43,16 +46,20 @@ export default function MenuProfile({ anchorEl, handleMenuClose }) {
             anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
         >
             <div>
-                <MenuItem onClick={handleMenuClose}>
-                    <Avatar /> Hồ sơ của tôi
-                </MenuItem>
+                <Link to={'/profile'}>
+                    <MenuItem onClick={handleMenuClose}>
+                        <Avatar /> Hồ sơ của tôi
+                    </MenuItem>
+                </Link>
                 <Divider />
-                <MenuItem onClick={handleMenuClose}>
-                    <ListItemIcon>
-                        <Payment fontSize="small" />
-                    </ListItemIcon>
-                    Thanh toán
-                </MenuItem>
+                <Link to={'/payment'}>
+                    <MenuItem onClick={handleMenuClose}>
+                        <ListItemIcon>
+                            <Payment fontSize="small" />
+                        </ListItemIcon>
+                        Thanh toán
+                    </MenuItem>
+                </Link>
                 <MenuItem onClick={handleMenuClose}>
                     <ListItemIcon>
                         <Settings fontSize="small" />

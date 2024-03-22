@@ -6,13 +6,11 @@ import Typography from '@mui/material/Typography';
 import Badge from '@mui/material/Badge';
 import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MenuProfile from './MenuProfile';
 import { styled } from '@mui/material/styles';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import SideBar from '../SideBar';
-import ListPopover from '~/components/ListPopover';
 import MessagePopover from '~/components/Messenger/MessagePopover';
 import { useEffect, useState } from 'react';
 
@@ -34,14 +32,6 @@ const AppBar = styled(MuiAppBar, {
         }),
     }),
 }));
-
-const IconOpen = () => (
-    <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-        <Badge badgeContent={4} color="error">
-            <MailIcon />
-        </Badge>
-    </IconButton>
-)
 
 export default function MainLayout({ children }) {
     const [anchorEl, setAnchorEl] = useState(null);
@@ -65,22 +55,46 @@ export default function MainLayout({ children }) {
         //get data unread message but cannot call api so use dummy data
         const dataMessage = [
             {
-                name: 'Trần Thị Thu Hà',
-                'latest-message-time': '10:00',
-                'latest-message-text': 'Chào cô',
-                'unread-message': 3
+                'name': 'Trần Thị Thu Hà',
+                'latest-message-time': '10 giờ',
+                'latest-message-text': 'Tin nhắn và cuộc gọi được bảo mật',
+                'avatar': 'https://mui.com/static/images/avatar/1.jpg'
             },
             {
-                name: 'Nguyễn Thị Thanh Hà',
-                'latest-message-time': '10:00',
+                'name': 'Nguyễn Thị Thanh Hà',
+                'latest-message-time': '10 giờ',
                 'latest-message-text': 'Xin chào toàn thể cán bộ giáo viên và học sinh',
-                'unread-message': 3
+                'avatar': 'https://mui.com/static/images/avatar/2.jpg'
             },
             {
-                name: 'Lê Thị Thanh Hà',
-                'latest-message-time': '10:00',
+                'name': 'Lê Thị Thanh Hà',
+                'latest-message-time': '10 giờ',
                 'latest-message-text': 'Chào cô',
-                'unread-message': 3
+                'avatar': 'https://mui.com/static/images/avatar/3.jpg'
+            },
+            {
+                'name': 'Lê Thị Thanh Hà',
+                'latest-message-time': '10 giờ',
+                'latest-message-text': 'Chào cô',
+                'avatar': 'https://mui.com/static/images/avatar/4.jpg'
+            },
+            {
+                'name': 'Lê Thị Thanh Hà',
+                'latest-message-time': '10 giờ',
+                'latest-message-text': 'Chào cô',
+                'avatar': 'https://mui.com/static/images/avatar/5.jpg'
+            },
+            {
+                'name': 'Lê Thị Thanh Hà',
+                'latest-message-time': '10 giờ',
+                'latest-message-text': 'Chào cô',
+                'avatar': 'https://mui.com/static/images/avatar/6.jpg'
+            },
+            {
+                'name': 'Lê Thị Thanh Hà',
+                'latest-message-time': '10 giờ',
+                'latest-message-text': 'Chào cô',
+                'avatar': 'https://mui.com/static/images/avatar/7.jpg'
             }
         ]
         setMessages(dataMessage)
@@ -111,7 +125,7 @@ export default function MainLayout({ children }) {
                     </Typography>
                     <Box sx={{ flexGrow: 1 }} />
                     <Box sx={{ display: { md: 'flex' } }}>
-                        <ListPopover iconOpen={<IconOpen />} children={<MessagePopover data={messages} />} />
+                        <MessagePopover data={messages} />
                         <IconButton
                             size="large"
                             aria-label="show 17 new notifications"

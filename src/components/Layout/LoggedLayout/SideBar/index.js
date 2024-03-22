@@ -1,7 +1,7 @@
 import { Divider, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography } from '@mui/material';
 import { CalendarMonth, Message, ListAlt, RestaurantMenu, Filter9Plus, Payment, AccountBox, Logout } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './SideBar.module.scss';
@@ -129,12 +129,12 @@ export default function SideBar({ open, children }) {
 
             </DrawerHeader>
             {sideBar.map((listItem, index) => (
-                <>
+                <Fragment key={'list-devide' + index}>
                     <Divider />
-                    <List key={'list-devide' + index}>
+                    <List >
                         {listItem.map((item, index) => (
-                            <Link to={item.path}>
-                                <ListItem key={'item' + index} disablePadding className={cx({ 'active': currentPage === item.path })}>
+                            <Link to={item.path} key={'item' + index}>
+                                <ListItem disablePadding className={cx({ 'active': currentPage === item.path })}>
                                     <ListItemButton>
                                         <ListItemIcon>
                                             {item.icon}
@@ -145,7 +145,7 @@ export default function SideBar({ open, children }) {
                             </Link>
                         ))}
                     </List >
-                </>
+                </Fragment>
             ))}
         </Drawer >
         <Main open={open}>

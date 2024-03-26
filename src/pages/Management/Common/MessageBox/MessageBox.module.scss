@@ -1,0 +1,48 @@
+.message-box-wrapper {
+    height: calc(100vh - 113px);
+    background-color: white;
+    .content-left {
+        overflow: scroll;
+        width: 340px;
+        height: calc(100vh - 113px);
+        .search-box-wrapper {
+            position: fixed;
+            width: 300px;
+            background-color: white;
+            z-index: 100;
+        }
+    }
+    .content-right {
+        overflow: scroll;
+        height: calc(100vh - 113px);
+        width: calc(100% - 340px);
+        .chat-container {
+            position: relative;
+            width: 100%;
+            overflow: scroll;
+            .card-wrapper {
+                position: sticky;
+                z-index: 100;
+                top: 0;
+                left: 0;
+                display: flex;
+                box-shadow: none !important;
+                padding: 7px 5px;
+                margin: 0px -20px;
+                background-color: #e2eef9;
+                .card-actions {
+                    span {
+                        color: #0072cd;
+                        cursor: pointer;
+                        &:hover {
+                            opacity: 0.7;
+                        }
+                        svg {
+                            font-size: 25px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

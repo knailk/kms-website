@@ -44,9 +44,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     fontSize: 15,
 }));
 
-function SearchBox({ placeholder }) {
+function SearchBox({ placeholder, style }) {
     return (
-        <Search>
+        <Search style={style}>
             <SearchIconWrapper>
                 <SearchIcon style={{ color: '#0000005e' }} />
             </SearchIconWrapper>

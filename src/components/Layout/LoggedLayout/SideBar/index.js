@@ -1,12 +1,12 @@
 import { Divider, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Typography } from '@mui/material';
 import { CalendarMonth, Message, ListAlt, RestaurantMenu, Filter9Plus, Payment, AccountBox, Logout } from '@mui/icons-material';
+import Logo from '~/components/Logo/Logo';
 import { styled } from '@mui/material/styles';
 import { Fragment, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './SideBar.module.scss';
 const cx = classNames.bind(styles);
-
 
 const drawerWidth = 240;
 const DrawerHeader = styled('div')(({ theme }) => ({
@@ -126,7 +126,7 @@ export default function SideBar({ open, children }) {
             open={open}
         >
             <DrawerHeader>
-
+                <Logo />
             </DrawerHeader>
             {sideBar.map((listItem, index) => (
                 <Fragment key={'list-devide' + index}>

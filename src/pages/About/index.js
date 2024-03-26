@@ -68,12 +68,12 @@ function About() {
                     className={cx('banner-content')}
                 >
                     <Grid item xs={5} className={cx('bread-crums')}>
-                        TRANG CHỦ {'>>'} VỀ SCHOOLKIDS
+                        TRANG CHỦ {'>>'} VỀ Smart Kindergarten
                     </Grid>
                     <Grid item xs={7}></Grid>
                     <Grid item xs={5} className={cx('banner')}>
                         <div className={cx('title')}>
-                            <p>"SchoolKids là một hệ thống giáo dục tốt nhất trong khu vực"</p>
+                            <p>"Smart Kindergarten là một hệ thống giáo dục tốt nhất trong khu vực"</p>
                         </div>
                         <Button variant="contained" className={cx('button')}>
                             Xem Thêm
@@ -96,7 +96,7 @@ function About() {
             {renderTab()}
             <div className={cx('tab-wrapper')}>
                 <div className={cx('tab-content')}>
-                    <h2>Về SchoolKids</h2>
+                    <h2>Về Smart Kindergarten</h2>
                     <Grid container className={cx('tab-item-container')}>
                         <Grid item className={cx('tab-item')} xs={10} style={{ padding: '15px 30px' }}>
                             Mục tiêu hoạt động
@@ -144,7 +144,7 @@ function About() {
                         <Collapse in={expanded.tab2} timeout="auto" unmountOnExit>
                             <div className={cx('collapse-content')}>
                                 <p>
-                                    Chương trình giáo dục tại SchoolKids được phát triển dựa trên sự thấu hiểu rằng trẻ
+                                    Chương trình giáo dục tại Smart Kindergarten được phát triển dựa trên sự thấu hiểu rằng trẻ
                                     em phát triển trong một tổng hòa phức tạp của các hệ thống có liên quan lẫn nhau,
                                     bao gồm gia đình, nhà trường, cộng đồng xung quanh và thế giới.
                                 </p>
@@ -173,7 +173,7 @@ function About() {
                         <Collapse in={expanded.tab3} timeout="auto" unmountOnExit>
                             <div className={cx('collapse-content')}>
                                 <p>
-                                    Cở sở SchoolKids Tân Phú: Tầng trệt Cc Lotus Garden 36 Trịnh Đình Thảo, Phường Hòa
+                                    Cở sở Smart Kindergarten Tân Phú: Tầng trệt Cc Lotus Garden 36 Trịnh Đình Thảo, Phường Hòa
                                     Thạnh, Quận Tân Phú.
                                 </p>
                                 <span className={cx('btn-readmore')} onClick={() => handleChangeTab('facility')}>
@@ -184,7 +184,7 @@ function About() {
                     </div>
                     <Grid container className={cx('tab-item-container')}>
                         <Grid item className={cx('tab-item')} xs={10} style={{ padding: '15px 30px' }}>
-                            Lý do chọn SchoolKids
+                            Lý do chọn Smart Kindergarten
                         </Grid>
                         <Grid item xs={2} style={{ display: 'flex', alignItems: 'center' }}>
                             <ExpandMore

@@ -5,9 +5,51 @@ import { Divider, Grid } from '@mui/material';
 import Conversation from '~/components/Messenger/Conversation';
 import SearchBox from '~/components/SearchBox/SearchBox';
 import ChatContainer from './ChatContainer';
+import chatHistory from './data.json';
+import convertDataMessageList from '~/utils/ConverDataMessage';
+import { useEffect } from 'react';
 
 const cx = classNames.bind(styles);
+
+const messageHistoryToday = [
+    {
+        date: '',
+        messages: [
+            {
+                id: 'msg_',
+                content: 'How are you!',
+                sender: {
+                    uid: '11',
+                    name: 'Trần Thị Thu Hà',
+                    avatar: 'https://mui.com/static/images/avatar/2.jpg',
+                },
+            },
+            {
+                id: 'msg_',
+                content: 'How are you!',
+                sender: {
+                    uid: '11',
+                    name: 'Trần Thị Thu Hà',
+                    avatar: 'https://mui.com/static/images/avatar/2.jpg',
+                },
+            },
+            {
+                id: 'msg_',
+                content: 'I am fine!',
+                sender: {
+                    uid: '1',
+                    name: 'Trần Minh Toàn',
+                    avatar: 'https://mui.com/static/images/avatar/2.jpg',
+                },
+            },
+        ],
+    },
+];
 function MessageBox() {
+    const userLoginId = '1';
+    const messageHistory = convertDataMessageList(chatHistory, userLoginId);
+    const messageHistoryTodayShow = convertDataMessageList(messageHistoryToday, userLoginId);
+
     const dataMessage = [
         {
             name: 'Trần Thị Thu Hà',
@@ -66,9 +108,13 @@ function MessageBox() {
                     </div>
                 </div>
             </Grid>
-            <Grid item className={cx('content-right')}>
+            <Grid item className={cx('content-right')} id="message-content">
                 <div className={cx('chat-container')} style={{ padding: '0px 20px', height: '100%' }}>
-                    <ChatContainer />
+                    <ChatContainer
+                        chatHistory={messageHistory}
+                        messageHistoryToday={messageHistoryToday}
+                        messageHistoryTodayShow={messageHistoryTodayShow}
+                    />
                 </div>
             </Grid>
         </Grid>

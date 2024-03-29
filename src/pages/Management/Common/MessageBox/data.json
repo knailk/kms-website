@@ -6,61 +6,46 @@
                 "id": "msg_",
                 "content": "Hello!",
                 "sender": {
-                    "uid": "1",
+                    "uid": "11",
                     "name": "Trần Thị Thu Hà",
                     "avatar": "https://mui.com/static/images/avatar/1.jpg"
-                },
-                "direction": "incoming",
-                "position": "first",
-                "showAvatar": false
+                }
             },
             {
                 "id": "msg_",
                 "content": "How are you!How are youHow are youHow are youHow are youHow are youHow are you",
                 "sender": {
-                    "uid": "1",
+                    "uid": "11",
                     "name": "Trần Thị Thu Hà",
                     "avatar": "https://mui.com/static/images/avatar/1.jpg"
-                },
-                "direction": "incoming",
-                "position": "last",
-                "showAvatar": true
+                }
             },
             {
                 "id": "msg_",
                 "content": "lorem ipsum dolor sit amet, consectetur adipiscing elit",
                 "sender": {
-                    "uid": "3",
+                    "uid": "33",
                     "name": "Trần Thị Thu Hà",
                     "avatar": "https://mui.com/static/images/avatar/3.jpg"
-                },
-                "direction": "incoming",
-                "position": "first",
-                "showAvatar": false
+                }
             },
             {
                 "id": "msg_",
                 "content": "lorem ipsum dolor sit amet, consectetur adipiscing elit",
                 "sender": {
-                    "uid": "3",
+                    "uid": "33",
                     "name": "Trần Thị Thu Hà",
                     "avatar": "https://mui.com/static/images/avatar/3.jpg"
-                },
-                "direction": "incoming",
-                "position": "normal",
-                "showAvatar": false
+                }
             },
             {
                 "id": "msg_",
                 "content": "How are you!How are youHow are youHow are youHow are youHow are youHow are you",
                 "sender": {
-                    "uid": "3",
+                    "uid": "33",
                     "name": "Trần Thị Thu Hà",
                     "avatar": "https://mui.com/static/images/avatar/3.jpg"
-                },
-                "direction": "incoming",
-                "position": "last",
-                "showAvatar": true
+                }
             },
             {
                 "id": "msg_",
@@ -69,10 +54,7 @@
                     "uid": "1",
                     "name": "Trần Minh Toàn",
                     "avatar": "https://mui.com/static/images/avatar/2.jpg"
-                },
-                "direction": "outgoing",
-                "position": "single",
-                "showAvatar": false
+                }
             }
         ]
     },
@@ -83,49 +65,37 @@
                 "id": "msg_",
                 "content": "How are you!",
                 "sender": {
-                    "uid": "1",
+                    "uid": "11",
                     "name": "Trần Thị Thu Hà",
                     "avatar": "https://mui.com/static/images/avatar/1.jpg"
-                },
-                "direction": "incoming",
-                "position": "single",
-                "showAvatar": true
+                }
             },
             {
                 "id": "msg_",
                 "content": "lorem ipsum dolor sit amet, consectetur adipiscing elit",
                 "sender": {
-                    "uid": "3",
+                    "uid": "33",
                     "name": "Trần Thị Thu Hà",
                     "avatar": "https://mui.com/static/images/avatar/3.jpg"
-                },
-                "direction": "incoming",
-                "position": "first",
-                "showAvatar": false
+                }
             },
             {
                 "id": "msg_",
                 "content": "lorem ipsum dolor sit amet, consectetur adipiscing elit",
                 "sender": {
-                    "uid": "3",
+                    "uid": "33",
                     "name": "Trần Thị Thu Hà",
                     "avatar": "https://mui.com/static/images/avatar/3.jpg"
-                },
-                "direction": "incoming",
-                "position": "normal",
-                "showAvatar": false
+                }
             },
             {
                 "id": "msg_",
                 "content": "How are you!How are youHow are youHow are youHow are youHow are youHow are you",
                 "sender": {
-                    "uid": "3",
+                    "uid": "33",
                     "name": "Trần Thị Thu Hà",
                     "avatar": "https://mui.com/static/images/avatar/3.jpg"
-                },
-                "direction": "incoming",
-                "position": "last",
-                "showAvatar": true
+                }
             },
             {
                 "id": "msg_",
@@ -134,10 +104,7 @@
                     "uid": "1",
                     "name": "Trần Minh Toàn",
                     "avatar": "https://mui.com/static/images/avatar/2.jpg"
-                },
-                "direction": "outgoing",
-                "position": "single",
-                "showAvatar": false
+                }
             }
         ]
     },
@@ -148,13 +115,10 @@
                 "id": "msg_",
                 "content": "How are you!",
                 "sender": {
-                    "uid": "1",
+                    "uid": "11",
                     "name": "Trần Thị Thu Hà",
                     "avatar": "https://mui.com/static/images/avatar/1.jpg"
-                },
-                "direction": "incoming",
-                "position": "single",
-                "showAvatar": true
+                }
             },
             {
                 "id": "msg_",
@@ -163,70 +127,52 @@
                     "uid": "1",
                     "name": "Trần Minh Toàn",
                     "avatar": "https://mui.com/static/images/avatar/2.jpg"
-                },
-                "direction": "outgoing",
-                "position": "single",
-                "showAvatar": false
+                }
             },
             {
                 "id": "msg_",
                 "content": "How are you!",
                 "sender": {
-                    "uid": "1",
+                    "uid": "11",
                     "name": "Trần Thị Thu Hà",
                     "avatar": "https://mui.com/static/images/avatar/1.jpg"
-                },
-                "direction": "incoming",
-                "position": "first",
-                "showAvatar": false
+                }
             },
             {
                 "id": "msg_",
                 "content": "How are you!",
                 "sender": {
-                    "uid": "1",
+                    "uid": "11",
                     "name": "Trần Thị Thu Hà",
                     "avatar": "https://mui.com/static/images/avatar/1.jpg"
-                },
-                "direction": "incoming",
-                "position": "normal",
-                "showAvatar": false
+                }
             },
             {
                 "id": "msg_",
                 "content": "How are you!",
                 "sender": {
-                    "uid": "1",
+                    "uid": "11",
                     "name": "Trần Thị Thu Hà",
                     "avatar": "https://mui.com/static/images/avatar/1.jpg"
-                },
-                "direction": "incoming",
-                "position": "normal",
-                "showAvatar": false
+                }
             },
             {
                 "id": "msg_",
                 "content": "How are you!",
                 "sender": {
-                    "uid": "1",
+                    "uid": "11",
                     "name": "Trần Thị Thu Hà",
                     "avatar": "https://mui.com/static/images/avatar/1.jpg"
-                },
-                "direction": "incoming",
-                "position": "normal",
-                "showAvatar": false
+                }
             },
             {
                 "id": "msg_",
                 "content": "How are you!",
                 "sender": {
-                    "uid": "1",
+                    "uid": "11",
                     "name": "Trần Thị Thu Hà",
                     "avatar": "https://mui.com/static/images/avatar/1.jpg"
-                },
-                "direction": "incoming",
-                "position": "last",
-                "showAvatar": true
+                }
             },
             {
                 "id": "msg_",
@@ -235,10 +181,7 @@
                     "uid": "1",
                     "name": "Trần Minh Toàn",
                     "avatar": "https://mui.com/static/images/avatar/2.jpg"
-                },
-                "direction": "outgoing",
-                "position": "first",
-                "showAvatar": false
+                }
             },
             {
                 "id": "msg_",
@@ -247,22 +190,16 @@
                     "uid": "1",
                     "name": "Trần Minh Toàn",
                     "avatar": "https://mui.com/static/images/avatar/2.jpg"
-                },
-                "direction": "outgoing",
-                "position": "normal",
-                "showAvatar": false
+                }
             },
             {
                 "id": "msg_",
                 "content": "I am fine!",
                 "sender": {
-                    "uid": "1",
-                    "name": "Trần Minh Toàn",
-                    "avatar": "https://mui.com/static/images/avatar/2.jpg"
-                },
-                "direction": "outgoing",
-                "position": "last",
-                "showAvatar": false
+                    "uid": "11",
+                    "name": "rần Thị Thu Hà",
+                    "avatar": "https://mui.com/static/images/avatar/1.jpg"
+                }
             }
         ]
     }

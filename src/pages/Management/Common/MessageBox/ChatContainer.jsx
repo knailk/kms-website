@@ -1,14 +1,13 @@
-import { Avatar as AvatarChatUi } from '@chatscope/chat-ui-kit-react';
 import InputBase from '@mui/material/InputBase';
 import { MessageSeparator } from '@chatscope/chat-ui-kit-react';
 import ChatContainerHeader from './ChatContainerHeader';
 import MessageHistory from './MessageHistory';
-import chatHistory from './data.json';
 import classNames from 'classnames/bind';
 import styles from './MessageBox.module.scss';
-import { AddCircle, Mood, ThumbUp } from '@mui/icons-material';
+import { AddCircle, Mood, ThumbUp, Send } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import convertDataMessageList from '~/utils/ConverDataMessage';
 const cx = classNames.bind(styles);
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
@@ -17,59 +16,36 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     '& .MuiInputBase-input': {
         padding: theme.spacing(1, 1, 1, 0),
         paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-        // vertical padding + font size from searchIcon
-        // paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+        paddingRight: `calc(1em + ${theme.spacing(4)})`,
         transition: theme.transitions.create('width'),
         width: '100%',
     },
     fontSize: 15,
 }));
 
-function ChatContainer() {
+function ChatContainer({ chatHistory, messageHistoryToday, messageHistoryTodayShow }) {
     const data = {
         uid: '1',
         name: 'Trần Thị Thu Hà',
         avatar: 'https://mui.com/static/images/avatar/1.jpg',
     };
-    const currentUser = {
-        uid: '2',
-        name: 'Nguyễn Văn A',
-        avatar: 'https://mui.com/static/images/avatar/2.jpg',
-    };
+    const curentUser = '1';
 
-    const messageHistoryToday = [
-        {
-            id: 'msg_',
-            content: 'How are you!',
-            sender: {
-                uid: '1',
-                name: 'Trần Thị Thu Hà',
-                avatar: 'https://mui.com/static/images/avatar/1.jpg',
-            },
-            direction: 'incoming',
-            position: 'single',
-            showAvatar: true,
-        },
-        {
-            id: 'msg_',
-            content: 'I am fine!',
-            sender: {
-                uid: '1',
-                name: 'Trần Minh Toàn',
-                avatar: 'https://mui.com/static/images/avatar/2.jpg',
-            },
-            direction: 'outgoing',
-            position: 'single',
-            showAvatar: false,
-        },
-    ];
+    const myRef = useRef(null);
     const [textMessage, setTextMessage] = useState('');
-    const [messageList, setMessageList] = useState([{ messages: messageHistoryToday }]);
+    const [messageList, setMessageList] = useState(messageHistoryToday);
+    const [messageListShow, setMessageListShow] = useState(messageHistoryTodayShow);
 
-    const handleSendMessage = (e) => {
-        if (e.keyCode === 13) {
-            setMessageList([
+    useEffect(() => {
+        myRef.current.scrollIntoView();
+    }, [messageList]);
+
+    const handleSendMessage = (e, type = '') => {
+        if (textMessage.trim() !== '' && (e.keyCode === 13 || type === 'click')) {
+            console.log(messageList);
+            let newMessage = [
                 {
+                    date: '',
                     messages: [
                         ...messageList[0].messages,
                         {
@@ -86,7 +62,9 @@ function ChatContainer() {
                         },
                     ],
                 },
-            ]);
+            ];
+            setMessageList(newMessage);
+            setMessageListShow(convertDataMessageList(newMessage, curentUser));
             setTextMessage('');
         }
     };
@@ -94,9 +72,12 @@ function ChatContainer() {
     return (
         <>
             <ChatContainerHeader data={data} />
-            <MessageHistory chatHistory={chatHistory} showSeperator="show" />
-            <MessageSeparator content={'Hôm nay'} />
-            <MessageHistory chatHistory={messageList} />
+            <div>
+                <MessageHistory chatHistory={chatHistory} showSeperator="show" />
+                <MessageSeparator content={'Hôm nay'} />
+                <MessageHistory chatHistory={messageListShow} />
+                <div ref={myRef}></div>
+            </div>
             <div className={cx('chat-container-footer')}>
                 <div className={cx('icon')}>
                     <AddCircle />
@@ -111,6 +92,10 @@ function ChatContainer() {
                             setTextMessage(e.target.value);
                         }}
                         onKeyDown={(e) => handleSendMessage(e)}
+                    />
+                    <Send
+                        className={cx('icon-send', { 'icon-disabled': textMessage.trim() === '' })}
+                        onClick={(e) => handleSendMessage(e, 'click')}
                     />
                 </div>
                 <div className={cx('icon')}>

@@ -1,4 +1,3 @@
-import * as React from 'react';
 import MuiAppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -7,12 +6,13 @@ import Typography from '@mui/material/Typography';
 import Badge from '@mui/material/Badge';
 import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MenuProfile from './MenuProfile';
 import { styled } from '@mui/material/styles';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import SideBar from '../SideBar';
+import MessagePopover from '~/components/Messenger/MessagePopover';
+import { useEffect, useState } from 'react';
 
 const drawerWidth = 240;
 
@@ -34,7 +34,8 @@ const AppBar = styled(MuiAppBar, {
 }));
 
 export default function MainLayout({ children }) {
-    const [anchorEl, setAnchorEl] = React.useState(null);
+    const [anchorEl, setAnchorEl] = useState(null);
+    const [messages, setMessages] = useState([{}]);
 
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
@@ -43,16 +44,65 @@ export default function MainLayout({ children }) {
     const handleMenuClose = () => {
         setAnchorEl(null);
     };
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(true);
 
 
     const handleDrawer = (status = false) => {
         setOpen(status);
     }
 
+    useEffect(() => {
+        //get data unread message but cannot call api so use dummy data
+        const dataMessage = [
+            {
+                'name': 'Trần Thị Thu Hà',
+                'time': '10 giờ',
+                'text': 'Tin nhắn và cuộc gọi được bảo mật bằng phương thức end-to-end',
+                'avatar': 'https://mui.com/static/images/avatar/1.jpg'
+            },
+            {
+                'name': 'Nguyễn Thị Thanh Hà',
+                'time': '10 giờ',
+                'text': 'Xin chào toàn thể cán bộ giáo viên và học sinh',
+                'avatar': 'https://mui.com/static/images/avatar/2.jpg'
+            },
+            {
+                'name': 'Lê Thị Thanh Hà',
+                'time': '10 giờ',
+                'text': 'Chào cô',
+                'avatar': 'https://mui.com/static/images/avatar/3.jpg'
+            },
+            {
+                'name': 'Lê Thị Thanh Hà',
+                'time': '10 giờ',
+                'text': 'Chào cô',
+                'avatar': 'https://mui.com/static/images/avatar/4.jpg'
+            },
+            {
+                'name': 'Lê Thị Thanh Hà',
+                'time': '10 giờ',
+                'text': 'Chào cô',
+                'avatar': 'https://mui.com/static/images/avatar/5.jpg'
+            },
+            {
+                'name': 'Lê Thị Thanh Hà',
+                'time': '10 giờ',
+                'text': 'Chào cô',
+                'avatar': 'https://mui.com/static/images/avatar/6.jpg'
+            },
+            {
+                'name': 'Lê Thị Thanh Hà',
+                'time': '10 giờ',
+                'text': 'Chào cô',
+                'avatar': 'https://mui.com/static/images/avatar/7.jpg'
+            }
+        ]
+        setMessages(dataMessage)
+    }, [])
+
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="fixed" open={open}>
+            <AppBar position="fixed" open={open} style={{ backgroundColor: '#0072cd' }}>
                 <Toolbar>
                     <IconButton
                         size="large"
@@ -71,15 +121,11 @@ export default function MainLayout({ children }) {
                         component="div"
                         sx={{ display: { sm: 'block' } }}
                     >
-                        SchoolKids
+                        Smart Kindergarten
                     </Typography>
                     <Box sx={{ flexGrow: 1 }} />
                     <Box sx={{ display: { md: 'flex' } }}>
-                        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-                            <Badge badgeContent={4} color="error">
-                                <MailIcon />
-                            </Badge>
-                        </IconButton>
+                        <MessagePopover data={messages} />
                         <IconButton
                             size="large"
                             aria-label="show 17 new notifications"

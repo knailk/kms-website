@@ -2,9 +2,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import { Avatar, Divider, ListItemIcon } from '@mui/material';
 import { Logout, Settings, Payment } from '@mui/icons-material';
-import MessageList from './MessageList';
 import { Link } from 'react-router-dom';
-
 
 export default function MenuProfile({ anchorEl, handleMenuClose }) {
     const isMenuOpen = Boolean(anchorEl);

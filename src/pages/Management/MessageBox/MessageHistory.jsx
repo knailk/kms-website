@@ -3,7 +3,6 @@ import { Message, MessageSeparator } from '@chatscope/chat-ui-kit-react';
 import { memo } from 'react';
 
 function MessageHistory({ chatHistory, showSeperator }) {
-    console.log(chatHistory);
     const formatDate = (dateStr) => {
         let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
         let date = new Date(dateStr);

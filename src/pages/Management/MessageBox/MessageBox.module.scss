@@ -73,10 +73,10 @@
                 width: calc(100% - 80px);
                 background-color: rgba(0, 0, 0, 0.1);
                 &:hover {
-                    background-color: rgba(0, 0, 0, 0.2);
+                    background-color: rgba(0, 0, 0, 0.15);
                 }
-                &:focus {
-                    background-color: rgba(0, 0, 0, 0.2);
+                &:active {
+                    background-color: rgba(0, 0, 0, 0.15);
                 }
                 margin: 10px 0px;
                 position: relative;
@@ -96,6 +96,32 @@
                     -moz-transform: translateY(-50%);
                     -ms-transform: translateY(-50%);
                     -o-transform: translateY(-50%);
+                }
+
+                .icon-send {
+                    position: absolute;
+                    z-index: 100;
+                    cursor: pointer;
+                    right: 15px;
+                    top: 50%;
+                    color: rgba(0, 0, 0, 0.3);
+                    font-size: 25px;
+                    &:hover {
+                        opacity: 0.7;
+                    }
+                    transform: translateY(-50%);
+                    -webkit-transform: translateY(-50%);
+                    -moz-transform: translateY(-50%);
+                    -ms-transform: translateY(-50%);
+                    -o-transform: translateY(-50%);
+                }
+
+                .icon-disabled {
+                    color: rgba(0, 0, 0, 0.3);
+                    &:hover {
+                        opacity: 1;
+                    }
+                    cursor: default;
                 }
 
                 border-radius: 50px;

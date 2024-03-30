@@ -36,7 +36,7 @@ function News() {
                 'https://images.unsplash.com/photo-1537944434965-cf4679d1a598?auto=format&fit=crop&w=400&h=250&q=60',
         },
         {
-            label: 'Chuyến Đi Vui Nhộn đến Đầm Sen Của Các Bạn Nhỏ Trường Mầm Non SchoolKids',
+            label: 'Chuyến Đi Vui Nhộn đến Đầm Sen Của Các Bạn Nhỏ Trường Mầm Non Smart Kindergarten',
             date: '28 Tháng Mười Hai, 2023',
             imgPath:
                 'https://images.unsplash.com/photo-1538032746644-0212e812a9e7?auto=format&fit=crop&w=400&h=250&q=60',

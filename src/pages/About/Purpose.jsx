@@ -20,7 +20,10 @@ function Purpose() {
                     </div>
                 </Grid>
                 <Grid item xs={9} className={cx('content-right')}>
-                    <p>Hệ thống Trường Mầm non Tinh Tú SchoolKids hoạt động theo những mục tiêu dài hạn như sau:</p>
+                    <p>
+                        Hệ thống Trường Mầm non Tinh Tú Smart Kindergarten hoạt động theo những mục tiêu dài hạn như
+                        sau:
+                    </p>
                     <ul className={cx('list-items')}>
                         <li className={cx('item')}>
                             <span>

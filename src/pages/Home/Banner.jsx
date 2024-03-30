@@ -31,12 +31,12 @@ function Banner() {
                         </p>
                     </div>
                     <div className={cx('content')}>
-                        Hệ thống Trường Mầm non Tinh Tú SchoolKids là một hệ thống giáo dục hiện đại không ngừng nâng
-                        cao chất lượng – mang lại cho học sinh môi trường học tập và nền tảng học vấn vững chắc, bằng sự
-                        kết hợp hài hòa các phương pháp giáo dục tiên tiến nhất với hình thức học qua chơi, học qua khám
-                        phá trải nghiệm thực tế. Chúng tôi khuyến khích sự phát triển tự nhiên của trẻ, giúp các con yêu
-                        thích việc học tập và rèn luyện các kỹ năng đầu đời chuẩn bị cho thành công ở những bậc học cao
-                        hơn.
+                        Hệ thống Trường Mầm non Tinh Tú Smart Kindergarten là một hệ thống giáo dục hiện đại không ngừng
+                        nâng cao chất lượng – mang lại cho học sinh môi trường học tập và nền tảng học vấn vững chắc,
+                        bằng sự kết hợp hài hòa các phương pháp giáo dục tiên tiến nhất với hình thức học qua chơi, học
+                        qua khám phá trải nghiệm thực tế. Chúng tôi khuyến khích sự phát triển tự nhiên của trẻ, giúp
+                        các con yêu thích việc học tập và rèn luyện các kỹ năng đầu đời chuẩn bị cho thành công ở những
+                        bậc học cao hơn.
                     </div>
                     <Button variant="contained" className={cx('button')}>
                         Xem Thêm

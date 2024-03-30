@@ -1,0 +1,206 @@
+[
+    {
+        "date": "2021-09-01",
+        "messages": [
+            {
+                "id": "msg_",
+                "content": "Hello!",
+                "sender": {
+                    "uid": "11",
+                    "name": "Trần Thị Thu Hà",
+                    "avatar": "https://mui.com/static/images/avatar/1.jpg"
+                }
+            },
+            {
+                "id": "msg_",
+                "content": "How are you!How are youHow are youHow are youHow are youHow are youHow are you",
+                "sender": {
+                    "uid": "11",
+                    "name": "Trần Thị Thu Hà",
+                    "avatar": "https://mui.com/static/images/avatar/1.jpg"
+                }
+            },
+            {
+                "id": "msg_",
+                "content": "lorem ipsum dolor sit amet, consectetur adipiscing elit",
+                "sender": {
+                    "uid": "33",
+                    "name": "Trần Thị Thu Hà",
+                    "avatar": "https://mui.com/static/images/avatar/3.jpg"
+                }
+            },
+            {
+                "id": "msg_",
+                "content": "lorem ipsum dolor sit amet, consectetur adipiscing elit",
+                "sender": {
+                    "uid": "33",
+                    "name": "Trần Thị Thu Hà",
+                    "avatar": "https://mui.com/static/images/avatar/3.jpg"
+                }
+            },
+            {
+                "id": "msg_",
+                "content": "How are you!How are youHow are youHow are youHow are youHow are youHow are you",
+                "sender": {
+                    "uid": "33",
+                    "name": "Trần Thị Thu Hà",
+                    "avatar": "https://mui.com/static/images/avatar/3.jpg"
+                }
+            },
+            {
+                "id": "msg_",
+                "content": "Hi!",
+                "sender": {
+                    "uid": "1",
+                    "name": "Trần Minh Toàn",
+                    "avatar": "https://mui.com/static/images/avatar/2.jpg"
+                }
+            }
+        ]
+    },
+    {
+        "date": "2021-09-02",
+        "messages": [
+            {
+                "id": "msg_",
+                "content": "How are you!",
+                "sender": {
+                    "uid": "11",
+                    "name": "Trần Thị Thu Hà",
+                    "avatar": "https://mui.com/static/images/avatar/1.jpg"
+                }
+            },
+            {
+                "id": "msg_",
+                "content": "lorem ipsum dolor sit amet, consectetur adipiscing elit",
+                "sender": {
+                    "uid": "33",
+                    "name": "Trần Thị Thu Hà",
+                    "avatar": "https://mui.com/static/images/avatar/3.jpg"
+                }
+            },
+            {
+                "id": "msg_",
+                "content": "lorem ipsum dolor sit amet, consectetur adipiscing elit",
+                "sender": {
+                    "uid": "33",
+                    "name": "Trần Thị Thu Hà",
+                    "avatar": "https://mui.com/static/images/avatar/3.jpg"
+                }
+            },
+            {
+                "id": "msg_",
+                "content": "How are you!How are youHow are youHow are youHow are youHow are youHow are you",
+                "sender": {
+                    "uid": "33",
+                    "name": "Trần Thị Thu Hà",
+                    "avatar": "https://mui.com/static/images/avatar/3.jpg"
+                }
+            },
+            {
+                "id": "msg_",
+                "content": "I am fine!",
+                "sender": {
+                    "uid": "1",
+                    "name": "Trần Minh Toàn",
+                    "avatar": "https://mui.com/static/images/avatar/2.jpg"
+                }
+            }
+        ]
+    },
+    {
+        "date": "2021-09-03",
+        "messages": [
+            {
+                "id": "msg_",
+                "content": "How are you!",
+                "sender": {
+                    "uid": "11",
+                    "name": "Trần Thị Thu Hà",
+                    "avatar": "https://mui.com/static/images/avatar/1.jpg"
+                }
+            },
+            {
+                "id": "msg_",
+                "content": "I am fine!",
+                "sender": {
+                    "uid": "1",
+                    "name": "Trần Minh Toàn",
+                    "avatar": "https://mui.com/static/images/avatar/2.jpg"
+                }
+            },
+            {
+                "id": "msg_",
+                "content": "How are you!",
+                "sender": {
+                    "uid": "11",
+                    "name": "Trần Thị Thu Hà",
+                    "avatar": "https://mui.com/static/images/avatar/1.jpg"
+                }
+            },
+            {
+                "id": "msg_",
+                "content": "How are you!",
+                "sender": {
+                    "uid": "11",
+                    "name": "Trần Thị Thu Hà",
+                    "avatar": "https://mui.com/static/images/avatar/1.jpg"
+                }
+            },
+            {
+                "id": "msg_",
+                "content": "How are you!",
+                "sender": {
+                    "uid": "11",
+                    "name": "Trần Thị Thu Hà",
+                    "avatar": "https://mui.com/static/images/avatar/1.jpg"
+                }
+            },
+            {
+                "id": "msg_",
+                "content": "How are you!",
+                "sender": {
+                    "uid": "11",
+                    "name": "Trần Thị Thu Hà",
+                    "avatar": "https://mui.com/static/images/avatar/1.jpg"
+                }
+            },
+            {
+                "id": "msg_",
+                "content": "How are you!",
+                "sender": {
+                    "uid": "11",
+                    "name": "Trần Thị Thu Hà",
+                    "avatar": "https://mui.com/static/images/avatar/1.jpg"
+                }
+            },
+            {
+                "id": "msg_",
+                "content": "I am fine!",
+                "sender": {
+                    "uid": "1",
+                    "name": "Trần Minh Toàn",
+                    "avatar": "https://mui.com/static/images/avatar/2.jpg"
+                }
+            },
+            {
+                "id": "msg_",
+                "content": "I am fine!",
+                "sender": {
+                    "uid": "1",
+                    "name": "Trần Minh Toàn",
+                    "avatar": "https://mui.com/static/images/avatar/2.jpg"
+                }
+            },
+            {
+                "id": "msg_",
+                "content": "I am fine!",
+                "sender": {
+                    "uid": "11",
+                    "name": "rần Thị Thu Hà",
+                    "avatar": "https://mui.com/static/images/avatar/1.jpg"
+                }
+            }
+        ]
+    }
+]

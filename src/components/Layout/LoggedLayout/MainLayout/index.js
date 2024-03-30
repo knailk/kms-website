@@ -44,7 +44,7 @@ export default function MainLayout({ children }) {
     const handleMenuClose = () => {
         setAnchorEl(null);
     };
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(true);
 
 
     const handleDrawer = (status = false) => {
@@ -56,44 +56,44 @@ export default function MainLayout({ children }) {
         const dataMessage = [
             {
                 'name': 'Trần Thị Thu Hà',
-                'latest-message-time': '10 giờ',
-                'latest-message-text': 'Tin nhắn và cuộc gọi được bảo mật',
+                'time': '10 giờ',
+                'text': 'Tin nhắn và cuộc gọi được bảo mật bằng phương thức end-to-end',
                 'avatar': 'https://mui.com/static/images/avatar/1.jpg'
             },
             {
                 'name': 'Nguyễn Thị Thanh Hà',
-                'latest-message-time': '10 giờ',
-                'latest-message-text': 'Xin chào toàn thể cán bộ giáo viên và học sinh',
+                'time': '10 giờ',
+                'text': 'Xin chào toàn thể cán bộ giáo viên và học sinh',
                 'avatar': 'https://mui.com/static/images/avatar/2.jpg'
             },
             {
                 'name': 'Lê Thị Thanh Hà',
-                'latest-message-time': '10 giờ',
-                'latest-message-text': 'Chào cô',
+                'time': '10 giờ',
+                'text': 'Chào cô',
                 'avatar': 'https://mui.com/static/images/avatar/3.jpg'
             },
             {
                 'name': 'Lê Thị Thanh Hà',
-                'latest-message-time': '10 giờ',
-                'latest-message-text': 'Chào cô',
+                'time': '10 giờ',
+                'text': 'Chào cô',
                 'avatar': 'https://mui.com/static/images/avatar/4.jpg'
             },
             {
                 'name': 'Lê Thị Thanh Hà',
-                'latest-message-time': '10 giờ',
-                'latest-message-text': 'Chào cô',
+                'time': '10 giờ',
+                'text': 'Chào cô',
                 'avatar': 'https://mui.com/static/images/avatar/5.jpg'
             },
             {
                 'name': 'Lê Thị Thanh Hà',
-                'latest-message-time': '10 giờ',
-                'latest-message-text': 'Chào cô',
+                'time': '10 giờ',
+                'text': 'Chào cô',
                 'avatar': 'https://mui.com/static/images/avatar/6.jpg'
             },
             {
                 'name': 'Lê Thị Thanh Hà',
-                'latest-message-time': '10 giờ',
-                'latest-message-text': 'Chào cô',
+                'time': '10 giờ',
+                'text': 'Chào cô',
                 'avatar': 'https://mui.com/static/images/avatar/7.jpg'
             }
         ]
@@ -102,7 +102,7 @@ export default function MainLayout({ children }) {
 
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="fixed" open={open}>
+            <AppBar position="fixed" open={open} style={{ backgroundColor: '#0072cd' }}>
                 <Toolbar>
                     <IconButton
                         size="large"
@@ -121,7 +121,7 @@ export default function MainLayout({ children }) {
                         component="div"
                         sx={{ display: { sm: 'block' } }}
                     >
-                        SchoolKids
+                        Smart Kindergarten
                     </Typography>
                     <Box sx={{ flexGrow: 1 }} />
                     <Box sx={{ display: { md: 'flex' } }}>

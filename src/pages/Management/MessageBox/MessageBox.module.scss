@@ -1,12 +1,31 @@
 .message-box-wrapper {
-    height: calc(100vh - 113px);
+    height: calc(100vh - 90px);
     background-color: white;
     .content-left {
         overflow: scroll;
         width: 340px;
-        height: calc(100vh - 113px);
+        height: calc(100vh - 90px);
+        border-right: 1px solid rgba(0, 0, 0, 0.05);
+        .content-header-left {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 10px;
+            h2 {
+                color: #000000b8;
+                font-size: 1.7em;
+                font-weight: bold;
+            }
+            span {
+                font-size: 18px;
+                color: #000000b8;
+                cursor: pointer;
+                &:hover {
+                    opacity: 0.7;
+                }
+            }
+        }
         .search-box-wrapper {
-            position: fixed;
+            position: sticky;
             width: 300px;
             background-color: white;
             z-index: 100;
@@ -14,7 +33,7 @@
     }
     .content-right {
         overflow: scroll;
-        height: calc(100vh - 113px);
+        height: calc(100vh - 90px);
         width: calc(100% - 340px);
         .chat-container {
             position: relative;
@@ -26,10 +45,9 @@
                 top: 0;
                 left: 0;
                 display: flex;
-                box-shadow: none !important;
                 padding: 7px 5px;
                 margin: 0px -20px;
-                background-color: #e5e5e5;
+                box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
                 .card-actions {
                     span {
                         color: #0072cd;
@@ -45,7 +63,8 @@
             }
         }
         .chat-container-footer {
-            padding-top: 5px;
+            padding-top: 10px;
+            padding-bottom: 10px;
             margin-top: 5px;
             position: sticky;
             bottom: 0;
@@ -123,17 +142,79 @@
                     }
                     cursor: default;
                 }
-
                 border-radius: 50px;
                 -webkit-border-radius: 50px;
                 -moz-border-radius: 50px;
                 -ms-border-radius: 50px;
                 -o-border-radius: 50px;
-                transition: background-color 0.1ss;
+                transition: background-color 0.1s;
                 -webkit-transition: background-color 0.1s;
                 -moz-transition: background-color 0.1s;
                 -ms-transition: background-color 0.1s;
                 -o-transition: background-color 0.1s;
+            }
+        }
+    }
+}
+.modal-create-group {
+    .user-select-wrapper {
+        padding: 5px 0px;
+        .user-list {
+            max-height: 130px;
+            overflow: scroll;
+            .badge-wrapper {
+                margin: 4px;
+                font-size: 0.8125rem;
+                display: inline-block;
+                .content {
+                    display: inline-flex;
+                    align-items: center;
+                    padding: 2px 2px 2px 8px;
+                    background-color: #1d85fc33;
+                    color: #0866ff;
+                    .delete {
+                        width: 28px;
+                        height: 28px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        cursor: pointer;
+                        &:hover {
+                            background-color: #1d85fc33;
+                        }
+                        border-radius: 50%;
+                        -webkit-border-radius: 50%;
+                        -moz-border-radius: 50%;
+                        -ms-border-radius: 50%;
+                        -o-border-radius: 50%;
+                    }
+
+                    border-radius: 6px;
+                    -webkit-border-radius: 6px;
+                    -moz-border-radius: 6px;
+                    -ms-border-radius: 6px;
+                    -o-border-radius: 6px;
+                }
+            }
+        }
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+    .search-result-wrapper {
+        padding-top: 4px;
+        .card-list {
+            overflow: scroll;
+            max-height: 200px;
+            .user-card-wrapper {
+                padding: 8px 4px;
+                cursor: pointer;
+                &:hover {
+                    background: #dddddd5d;
+                }
+                border-radius: 10px;
+                -webkit-border-radius: 10px;
+                -moz-border-radius: 10px;
+                -ms-border-radius: 10px;
+                -o-border-radius: 10px;
             }
         }
     }

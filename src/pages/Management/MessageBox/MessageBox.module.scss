@@ -157,6 +157,8 @@
     }
 }
 .modal-create-group {
+    height: 100%;
+    position: relative;
     .user-select-wrapper {
         padding: 5px 0px;
         .user-list {
@@ -216,5 +218,17 @@
                 -o-border-radius: 10px;
             }
         }
+        .show-loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+    .btn-create-wrapper {
+        padding-top: 5px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 }

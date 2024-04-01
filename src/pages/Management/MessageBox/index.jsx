@@ -16,7 +16,7 @@ const cx = classNames.bind(styles);
 const style = {
     position: 'absolute',
     width: '350px',
-    height: '390px',
+    height: '435px',
     bgcolor: 'white',
     zIndex: 1000,
     p: '10px',
@@ -24,6 +24,9 @@ const style = {
     top: '25%',
     left: '50%',
     transform: 'translateX(-50%)',
+    '&:focus': {
+        outline: 'none',
+    },
 };
 
 const messageHistoryToday = [

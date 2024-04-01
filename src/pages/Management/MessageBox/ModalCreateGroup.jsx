@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
 import styles from './MessageBox.module.scss';
-import { Grid, TextField } from '@mui/material';
+import { Button, CircularProgress, Grid, TextField } from '@mui/material';
 import Avatar from '~/components/Avatar/Avatar';
 import { useEffect, useRef, useState } from 'react';
 const cx = classNames.bind(styles);
@@ -18,9 +18,9 @@ const BadgeUser = ({ name }) => {
     );
 };
 
-const UserCard = ({ name, avatar }) => {
+const UserCard = ({ id, name, avatar, handleSelectUser }) => {
     return (
-        <div className={cx('user-card-wrapper')}>
+        <div className={cx('user-card-wrapper')} onClick={() => handleSelectUser(id, name)}>
             <Grid container>
                 <Grid item xs={2}>
                     <Avatar src={avatar} width={40} height={40} />
@@ -34,23 +34,70 @@ const UserCard = ({ name, avatar }) => {
 };
 
 function ModalCreateGroup() {
-    //state
-    const modalRef = useRef();
+    //state for ui
     const userSelectRef = useRef();
     const userCardRef = useRef();
+    const userSelectedRef = useRef();
+    const textRef = useRef();
+    const [showLoading, setShowLoading] = useState(false);
     const [height, setHeight] = useState(0);
+    const [widthInputText, setWidthInputText] = useState('10ch');
+
+    //state for data
     const [searchText, setSearchText] = useState('');
-    const [userList, setUserList] = useState([]);
-    const [selectedUser, setSelectedUser] = useState([{ name: 'Tran thi ' }]);
+    const [userListSearch, setUserListSearch] = useState([]);
+    const [selectedUsers, setSelectedUsers] = useState([]);
 
     //button handle
-    console.log(selectedUser);
+    const handleChangeSearch = (text) => {
+        setWidthInputText(text.length + 'ch');
+        setSearchText(text);
+    };
+
+    const handleSelectUser = (id, name) => {
+        setSearchText('');
+        setUserListSearch([]);
+        setHeight(330 - userSelectRef.current.offsetHeight);
+        setSelectedUsers([...selectedUsers, { id, name }]);
+        textRef.current.focus();
+    };
+
     //render
     useEffect(() => {
         setHeight(330 - userSelectRef.current.offsetHeight);
-    }, []);
+    }, [widthInputText]);
+
+    useEffect(() => {
+        userSelectRef.current.scrollTop = userSelectRef.current.scrollHeight;
+    }, [selectedUsers]);
+
+    //search after 1s since user stop typing
+    useEffect(() => {
+        if (searchText === '') {
+            setUserListSearch([]);
+            return;
+        }
+        setShowLoading(true);
+        const delayDebounceFn = setTimeout(() => {
+            // Send Axios request here
+            //
+            // setUserListSearch(response.data);
+            setUserListSearch([
+                { uid: '1', name: 'Thanh Thúy', avatar: 'https://mui.com/static/images/avatar/1.jpg' },
+                { uid: '2', name: 'Minh Toàn', avatar: 'https://mui.com/static/images/avatar/2.jpg' },
+                { uid: '3', name: 'Tiến Dũng', avatar: 'https://mui.com/static/images/avatar/3.jpg' },
+                { uid: '4', name: 'Nhật Hoàng', avatar: 'https://mui.com/static/images/avatar/4.jpg' },
+                { uid: '5', name: 'Quyết Thắng', avatar: 'https://mui.com/static/images/avatar/5.jpg' },
+                { uid: '6', name: 'Trần Minh Toàn', avatar: 'https://mui.com/static/images/avatar/6.jpg' },
+                { uid: '7', name: 'Diễm My', avatar: 'https://mui.com/static/images/avatar/7.jpg' },
+            ]);
+            setHeight(330 - userSelectRef.current.offsetHeight);
+            setShowLoading(false);
+        }, 1000);
+        return () => clearTimeout(delayDebounceFn);
+    }, [searchText]);
     return (
-        <div className={cx('modal-create-group')} ref={modalRef}>
+        <div className={cx('modal-create-group')}>
             <h2 style={{ padding: '8px 0px' }}>Tạo nhóm chat</h2>
             <div className={cx('user-select-wrapper')}>
                 <Grid container rowSpacing={1}>
@@ -58,21 +105,54 @@ function ModalCreateGroup() {
                         Đến:
                     </Grid>
                     <Grid item xs={10} className={cx('user-list')} ref={userSelectRef}>
-                        <span>
-                            {selectedUser &&
-                                selectedUser.map((user, index) => <BadgeUser key={index} name={user.name} />)}
+                        <span ref={userSelectedRef}>
+                            {selectedUsers &&
+                                selectedUsers.map((user, index) => <BadgeUser key={index} name={user.name} />)}
                         </span>
-                        <TextField id="standard-basic" label="" variant="standard" />
+                        <TextField
+                            id="standard-basic"
+                            label=""
+                            variant="standard"
+                            sx={{
+                                '& .MuiInputBase-root::before': { content: 'none' },
+                                '& .MuiInputBase-root::after': { content: 'none' },
+                                margin: '4px',
+                                width: widthInputText,
+                                maxWidth: '270px',
+                                minWidth: '10px',
+                            }}
+                            value={searchText}
+                            inputRef={textRef}
+                            onChange={(e) => handleChangeSearch(e.target.value)}
+                            autoComplete="off"
+                        />
                     </Grid>
                 </Grid>
             </div>
             <div className={cx('search-result-wrapper')}>
-                <div className={cx('card-list')} ref={userCardRef} style={{ maxHeight: height }}>
-                    {userList &&
-                        userList.map((user, index) => <UserCard key={index} name={user.name} avatar={user.avatar} />)}
+                <div
+                    className={cx('card-list', { 'show-loading': showLoading })}
+                    ref={userCardRef}
+                    style={{ height: height }}
+                >
+                    {userListSearch &&
+                        userListSearch.map((user, index) => (
+                            <UserCard
+                                key={index}
+                                id={user.id}
+                                name={user.name}
+                                avatar={user.avatar}
+                                handleSelectUser={handleSelectUser}
+                            />
+                        ))}
+                    {showLoading && <CircularProgress className={cx('loading-search')} />}
                 </div>
             </div>
-            <div className={cx('btn-create-wrapper')}></div>
+            <div className={cx('btn-create-wrapper')}>
+                <Button variant="text" disabled={selectedUsers.length <= 0}>
+                    Tạo nhóm
+                </Button>
+            </div>
         </div>
     );
 }

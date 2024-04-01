@@ -1,0 +1,29 @@
+.title {
+    padding-bottom: 10px;
+}
+.search-wrapper {
+    width: 30%;
+    padding-bottom: 15px;
+}
+.snack-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    div {
+        display: flex;
+        align-items: center;
+        span {
+            padding: 0px 5px;
+        }
+        cursor: pointer;
+        &:hover {
+            .icon-check {
+                color: #69f0ae;
+            }
+            .icon-cancel {
+                color: #ff5252;
+            }
+        }
+    }
+}

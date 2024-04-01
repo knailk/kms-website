@@ -1,8 +1,8 @@
 import classNames from 'classnames/bind';
 import styles from './MessageBox.module.scss';
-import { Grid } from '@mui/material';
+import { Grid, TextField } from '@mui/material';
 import Avatar from '~/components/Avatar/Avatar';
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 const cx = classNames.bind(styles);
 
 const BadgeUser = ({ name }) => {
@@ -34,9 +34,21 @@ const UserCard = ({ name, avatar }) => {
 };
 
 function ModalCreateGroup() {
+    //state
     const modalRef = useRef();
     const userSelectRef = useRef();
     const userCardRef = useRef();
+    const [height, setHeight] = useState(0);
+    const [searchText, setSearchText] = useState('');
+    const [userList, setUserList] = useState([]);
+    const [selectedUser, setSelectedUser] = useState([{ name: 'Tran thi ' }]);
+
+    //button handle
+    console.log(selectedUser);
+    //render
+    useEffect(() => {
+        setHeight(330 - userSelectRef.current.offsetHeight);
+    }, []);
     return (
         <div className={cx('modal-create-group')} ref={modalRef}>
             <h2 style={{ padding: '8px 0px' }}>Tạo nhóm chat</h2>
@@ -47,28 +59,20 @@ function ModalCreateGroup() {
                     </Grid>
                     <Grid item xs={10} className={cx('user-list')} ref={userSelectRef}>
                         <span>
-                            <BadgeUser name="Thanh Thúy" />
-                            <BadgeUser name="Minh Toàn" />
-                            {/* <BadgeUser name="Trần My" />
-                            <BadgeUser name="Trần My" />
-                            <BadgeUser name="Trần My" />
-                            <BadgeUser name="Trần My" />
-                            <BadgeUser name="Trần My" />
-                            <BadgeUser name="Trần My" />
-                            <BadgeUser name="Trần My" /> */}
+                            {selectedUser &&
+                                selectedUser.map((user, index) => <BadgeUser key={index} name={user.name} />)}
                         </span>
+                        <TextField id="standard-basic" label="" variant="standard" />
                     </Grid>
                 </Grid>
             </div>
             <div className={cx('search-result-wrapper')}>
-                <div className={cx('card-list')} ref={userCardRef}>
-                    <UserCard name="Thanh Thuý" avatar={'https://mui.com/static/images/avatar/1.jpg'} />
-                    <UserCard name="Thanh Thuý" avatar={'https://mui.com/static/images/avatar/1.jpg'} />
-                    <UserCard name="Thanh Thuý" avatar={'https://mui.com/static/images/avatar/1.jpg'} />
-                    <UserCard name="Thanh Thuý" avatar={'https://mui.com/static/images/avatar/1.jpg'} />
-                    <UserCard name="Thanh Thuý" avatar={'https://mui.com/static/images/avatar/1.jpg'} />
+                <div className={cx('card-list')} ref={userCardRef} style={{ maxHeight: height }}>
+                    {userList &&
+                        userList.map((user, index) => <UserCard key={index} name={user.name} avatar={user.avatar} />)}
                 </div>
             </div>
+            <div className={cx('btn-create-wrapper')}></div>
         </div>
     );
 }

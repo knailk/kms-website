@@ -45,20 +45,21 @@
                 top: 0;
                 left: 0;
                 display: flex;
-                padding: 7px 5px;
+                padding: 0px 5px;
                 margin: 0px -20px;
                 box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
                 .card-actions {
                     span {
-                        color: #0072cd;
-                        cursor: pointer;
-                        &:hover {
-                            opacity: 0.7;
-                        }
-                        svg {
-                            font-size: 25px;
+                        button {
+                            color: #0072cd;
+                            svg {
+                                font-size: 25px;
+                            }
                         }
                     }
+                    // .more-icon{
+
+                    // }
                 }
             }
         }

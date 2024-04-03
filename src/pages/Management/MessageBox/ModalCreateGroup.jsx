@@ -2,25 +2,27 @@ import classNames from 'classnames/bind';
 import styles from './MessageBox.module.scss';
 import { Button, CircularProgress, Grid, TextField } from '@mui/material';
 import Avatar from '~/components/Avatar/Avatar';
-import { useEffect, useRef, useState } from 'react';
+import { memo, useEffect, useRef, useState } from 'react';
 const cx = classNames.bind(styles);
 
-const BadgeUser = ({ name }) => {
+const BadgeUser = ({ uid, name, handleRemoveUser }) => {
     return (
         <div className={cx('badge-wrapper')}>
             <span>
                 <div className={cx('content')}>
                     <div style={{ fontWeight: 700 }}>{name}</div>
-                    <div className={cx('delete')}>&#10006;</div>
+                    <div className={cx('delete')} onClick={() => handleRemoveUser(uid)}>
+                        &#10006;
+                    </div>
                 </div>
             </span>
         </div>
     );
 };
 
-const UserCard = ({ id, name, avatar, handleSelectUser }) => {
+const UserCard = ({ uid, name, avatar, handleSelectUser }) => {
     return (
-        <div className={cx('user-card-wrapper')} onClick={() => handleSelectUser(id, name)}>
+        <div className={cx('user-card-wrapper')} onClick={() => handleSelectUser(uid, name)}>
             <Grid container>
                 <Grid item xs={2}>
                     <Avatar src={avatar} width={40} height={40} />
@@ -33,7 +35,7 @@ const UserCard = ({ id, name, avatar, handleSelectUser }) => {
     );
 };
 
-function ModalCreateGroup() {
+function ModalCreateGroup({ type }) {
     //state for ui
     const userSelectRef = useRef();
     const userCardRef = useRef();
@@ -54,18 +56,30 @@ function ModalCreateGroup() {
         setSearchText(text);
     };
 
-    const handleSelectUser = (id, name) => {
+    const handleSelectUser = (uid, name) => {
         setSearchText('');
         setUserListSearch([]);
         setHeight(330 - userSelectRef.current.offsetHeight);
-        setSelectedUsers([...selectedUsers, { id, name }]);
+        setSelectedUsers([...selectedUsers, { uid, name }]);
         textRef.current.focus();
+    };
+
+    const handleRemoveUser = (uid) => {
+        setSelectedUsers(selectedUsers.filter((user) => user.uid !== uid));
+    };
+
+    const handleCreateGroup = () => {
+        //call api to create group
+    };
+
+    const handleEditGroup = () => {
+        //call api to edit group
     };
 
     //render
     useEffect(() => {
         setHeight(330 - userSelectRef.current.offsetHeight);
-    }, [widthInputText]);
+    }, [widthInputText, selectedUsers]);
 
     useEffect(() => {
         userSelectRef.current.scrollTop = userSelectRef.current.scrollHeight;
@@ -96,9 +110,23 @@ function ModalCreateGroup() {
         }, 1000);
         return () => clearTimeout(delayDebounceFn);
     }, [searchText]);
+
+    useEffect(() => {
+        if (type === 'edit') {
+            //call api to get user list of group
+            setSelectedUsers([
+                { id: '1', name: 'Thanh Thúy' },
+                { id: '2', name: 'Minh Toàn' },
+            ]);
+        }
+    }, [type]);
+
     return (
         <div className={cx('modal-create-group')}>
-            <h2 style={{ padding: '8px 0px' }}>Tạo nhóm chat</h2>
+            <h2 style={{ padding: '8px 0px' }}>
+                {type === 'create' && 'Tạo nhóm chat'}
+                {type === 'edit' && 'Chỉnh sửa thành viên'}
+            </h2>
             <div className={cx('user-select-wrapper')}>
                 <Grid container rowSpacing={1}>
                     <Grid item xs={2} style={{ paddingTop: 15 }}>
@@ -107,7 +135,14 @@ function ModalCreateGroup() {
                     <Grid item xs={10} className={cx('user-list')} ref={userSelectRef}>
                         <span ref={userSelectedRef}>
                             {selectedUsers &&
-                                selectedUsers.map((user, index) => <BadgeUser key={index} name={user.name} />)}
+                                selectedUsers.map((user, index) => (
+                                    <BadgeUser
+                                        key={index}
+                                        uid={user.uid}
+                                        name={user.name}
+                                        handleRemoveUser={handleRemoveUser}
+                                    />
+                                ))}
                         </span>
                         <TextField
                             id="standard-basic"
@@ -119,7 +154,7 @@ function ModalCreateGroup() {
                                 margin: '4px',
                                 width: widthInputText,
                                 maxWidth: '270px',
-                                minWidth: '10px',
+                                minWidth: '40px',
                             }}
                             value={searchText}
                             inputRef={textRef}
@@ -139,7 +174,7 @@ function ModalCreateGroup() {
                         userListSearch.map((user, index) => (
                             <UserCard
                                 key={index}
-                                id={user.id}
+                                uid={user.uid}
                                 name={user.name}
                                 avatar={user.avatar}
                                 handleSelectUser={handleSelectUser}
@@ -149,12 +184,19 @@ function ModalCreateGroup() {
                 </div>
             </div>
             <div className={cx('btn-create-wrapper')}>
-                <Button variant="text" disabled={selectedUsers.length <= 0}>
-                    Tạo nhóm
-                </Button>
+                {type === 'create' && (
+                    <Button variant="text" disabled={selectedUsers.length <= 0} onClick={handleCreateGroup}>
+                        Tạo nhóm
+                    </Button>
+                )}
+                {type === 'edit' && (
+                    <Button variant="text" disabled={selectedUsers.length <= 0} onClick={handleEditGroup}>
+                        Lưu thay đổi
+                    </Button>
+                )}
             </div>
         </div>
     );
 }
 
-export default ModalCreateGroup;
+export default memo(ModalCreateGroup);

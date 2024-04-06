@@ -85,7 +85,7 @@ export default function SideBar({ open, children }) {
     ]
     const currentPage = window.location.pathname;
 
-    const userRole = 'teacher';
+    const userRole = 'chef';
     // const userRole = 'parent';
     //const userRole = 'driver';
     // const userRole = 'chef';

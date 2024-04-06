@@ -51,10 +51,10 @@ export default function HeaderItems() {
             title: 'Lớp Học',
             url: '/course',
         },
-        {
-            title: 'Thông Báo',
-            url: '/notification',
-        },
+        // {
+        //     title: 'Thông Báo',
+        //     url: '/notification',
+        // },
         {
             title: 'Tin Tức',
             url: '/news',

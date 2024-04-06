@@ -56,7 +56,7 @@ function About() {
                 style={{
                     backgroundImage: "url('images/backgroundhome.svg')",
                     backgroundRepeat: 'no-repeat',
-                    backgroundSize: 'cover',
+                    backgroundSize: '100% 100%',
                 }}
             >
                 <Grid

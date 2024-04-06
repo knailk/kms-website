@@ -13,7 +13,8 @@ const cx = classNames.bind(styles);
 function Home() {
     const styleBg = {
         backgroundImage: 'url(images/bghome2.png)',
-        backgroundPositionY: '-495px'
+        // backgroundPositionY: '-100px',
+        backgroundSize:'100% 110%'
     }
     return (
         <div>

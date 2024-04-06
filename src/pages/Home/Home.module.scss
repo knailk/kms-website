@@ -108,7 +108,12 @@
     }
 }
 .why-choose {
+    background-color: #F2EEE9;
+    height: 34rem;
     .container {
+        display: flex;
+        align-content: center;
+        height: 100%;
         width: 1200px;
         padding: 25px 0px;
         margin: 0px auto;

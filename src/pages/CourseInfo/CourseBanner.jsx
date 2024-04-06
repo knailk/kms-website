@@ -9,7 +9,7 @@ export default function CourseBanner() {
         backgroundPosition: 'center',
     };
     return (
-        <Grid container sx={{ backgroundImage: 'url(images/backgroundhome.svg)', px: '300px', minHeight: '300px' }}>
+        <Grid container sx={{ backgroundImage: 'url(images/backgroundhome.svg)', px: '300px', minHeight: '300px', backgroundSize:'100% 100%' }}>
             <Grid item xs={7} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                 <Typography>Trang chủ >> Lớp học</Typography>
                 <Typography

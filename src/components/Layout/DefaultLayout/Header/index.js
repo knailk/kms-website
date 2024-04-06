@@ -36,8 +36,8 @@ function Header({children}) {
                             <Grid item xs={2}>
                                 <div></div>
                             </Grid>
-                            <Grid item xs={1} className={cx('logo')}>
-                                Logo
+                            <Grid item xs={1} className={cx('logo')} sx={{backgroundImage: 'url(images/logo-nobg.png)', backgroundSize:'100% 100%'}}>
+                                {/*<img src={"images/logo.jpg"} alt={""}/>*/}
                             </Grid>
                             <Grid item xs={7}>
                                 <HeaderItems />

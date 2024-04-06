@@ -11,7 +11,7 @@ function Banner() {
         backgroundPosition: 'center',
     };
     return (
-        <div className={cx('banner')} style={{ backgroundImage: 'url(images/backgroundhome.svg)' }}>
+        <div className={cx('banner')} style={{ backgroundImage: 'url(images/backgroundhome.svg)', backgroundSize:'100% 100%' }}>
             {/* <img src="images/backgroundhome.svg" alt="" /> */}
             <Grid
                 container

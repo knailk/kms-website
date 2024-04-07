@@ -1,0 +1,30 @@
+.profile-wrapper {
+    height: calc(100vh - 115px);
+    position: relative;
+    .background {
+        height: 100%;
+        position: absolute;
+        width: 100%;
+        .background-top {
+            height: 30%;
+            background-size: cover;
+        }
+    }
+    .profile-content-wrapper {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        position: sticky;
+        justify-content: space-around;
+        .content-left {
+            height: 80%;
+            width: 30%;
+            background-color: white;
+        }
+        .content-right {
+            height: 80%;
+            width: 60%;
+            background-color: white;
+        }
+    }
+}

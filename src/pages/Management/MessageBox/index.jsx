@@ -1,16 +1,16 @@
 import classNames from 'classnames/bind';
 import styles from './MessageBox.module.scss';
 import '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css';
-import { Box, CircularProgress, Fade, Grid, Modal } from '@mui/material';
+import { Box, Grid, Modal } from '@mui/material';
 import Conversation from '~/components/Messenger/Conversation';
 import SearchBox from '~/components/SearchBox/SearchBox';
 import ChatContainer from './ChatContainer';
 import chatHistory from './data.json';
-import convertDataMessageList from '~/utils/ConverDataMessage';
 import { GroupAdd } from '@mui/icons-material';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Backdrop from '@mui/material/Backdrop';
 import ModalCreateGroup from './ModalCreateGroup';
+import request from '~/utils/http';
 
 const cx = classNames.bind(styles);
 const style = {
@@ -76,6 +76,17 @@ function MessageBox() {
             avatar: 'https://mui.com/static/images/avatar/7.jpg',
         },
     ];
+
+    useEffect(() => {
+        getListGroup();
+    }, []);
+
+    const getListGroup = async () => {
+        //call api to get list group
+        await request.get('/student/chat').then((response) => {
+            console.log(response.data);
+        });
+    };
     return (
         <>
             <Grid container className={cx('message-box-wrapper')}>

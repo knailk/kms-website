@@ -83,7 +83,7 @@ function MessageBox() {
 
     const getListGroup = async () => {
         //call api to get list group
-        await request.get('/student/chat').then((response) => {
+        await request.get('/chat').then((response) => {
             console.log(response.data);
         });
     };

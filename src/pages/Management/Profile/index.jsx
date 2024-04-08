@@ -81,15 +81,15 @@ export default function Profile() {
                         </div>
                     </div>
                     <div className={cx('content-right')}>
-                        <Box sx={{ bgcolor: 'background.paper', width: '100%' }}>
-                            <AppBar position="static">
+                        <Box sx={{ width: '100%' }}>
+                            <AppBar position="static" style={{ color: 'black', backgroundColor: 'white' }}>
                                 <Tabs
                                     value={value}
                                     onChange={handleChange}
-                                    indicatorColor="secondary"
-                                    textColor="inherit"
-                                    variant="fullWidth"
+                                    indicatorColor="primary"
+                                    textColor="black"
                                     aria-label="full width tabs example"
+                                    bgcolor="white"
                                 >
                                     <Tab label="Thông tin cá nhân" {...a11yProps(0)} />
                                     <Tab label="Lịch sử thanh toán" {...a11yProps(1)} />

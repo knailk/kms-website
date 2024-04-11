@@ -2,16 +2,19 @@ import classNames from 'classnames/bind';
 import styles from './MessageBox.module.scss';
 import { Button, CircularProgress, Grid, TextField } from '@mui/material';
 import Avatar from '~/components/Avatar/Avatar';
-import { memo, useEffect, useRef, useState } from 'react';
+import { memo, useContext, useEffect, useRef, useState } from 'react';
+import request from '~/utils/http';
+import { FeedBackContext } from '~/components/Layout/LoggedLayout';
+import { MessageBoxContext } from '.';
 const cx = classNames.bind(styles);
 
-const BadgeUser = ({ uid, name, handleRemoveUser }) => {
+const BadgeUser = ({ username, fullName, handleRemoveUser }) => {
     return (
         <div className={cx('badge-wrapper')}>
             <span>
                 <div className={cx('content')}>
-                    <div style={{ fontWeight: 700 }}>{name}</div>
-                    <div className={cx('delete')} onClick={() => handleRemoveUser(uid)}>
+                    <div style={{ fontWeight: 700 }}>{fullName}</div>
+                    <div className={cx('delete')} onClick={() => handleRemoveUser(username)}>
                         &#10006;
                     </div>
                 </div>
@@ -20,30 +23,34 @@ const BadgeUser = ({ uid, name, handleRemoveUser }) => {
     );
 };
 
-const UserCard = ({ uid, name, avatar, handleSelectUser }) => {
+const UserCard = ({ username, fullName, avatar, handleSelectUser }) => {
     return (
-        <div className={cx('user-card-wrapper')} onClick={() => handleSelectUser(uid, name)}>
+        <div className={cx('user-card-wrapper')} onClick={() => handleSelectUser(username, fullName)}>
             <Grid container>
                 <Grid item xs={2}>
                     <Avatar src={avatar} width={40} height={40} />
                 </Grid>
                 <Grid item xs={10} style={{ display: 'flex', alignItems: 'center' }}>
-                    {name}
+                    {fullName}
                 </Grid>
             </Grid>
         </div>
     );
 };
 
-function ModalCreateGroup({ type }) {
+function ModalCreateGroup({ type, listMember }) {
+    console.log(listMember);
     //state for ui
+    const currUser = 'teacher';
     const userSelectRef = useRef();
     const userCardRef = useRef();
     const userSelectedRef = useRef();
     const textRef = useRef();
+    const context = useContext(FeedBackContext);
     const [showLoading, setShowLoading] = useState(false);
     const [height, setHeight] = useState(0);
     const [widthInputText, setWidthInputText] = useState('10ch');
+    const messageBoxContext = useContext(MessageBoxContext);
 
     //state for data
     const [searchText, setSearchText] = useState('');
@@ -56,20 +63,33 @@ function ModalCreateGroup({ type }) {
         setSearchText(text);
     };
 
-    const handleSelectUser = (uid, name) => {
+    const handleSelectUser = (username, fullName) => {
         setSearchText('');
         setUserListSearch([]);
         setHeight(330 - userSelectRef.current.offsetHeight);
-        setSelectedUsers([...selectedUsers, { uid, name }]);
+        setSelectedUsers([...selectedUsers, { username, fullName }]);
         textRef.current.focus();
     };
 
-    const handleRemoveUser = (uid) => {
-        setSelectedUsers(selectedUsers.filter((user) => user.uid !== uid));
+    const handleRemoveUser = (username) => {
+        setSelectedUsers(selectedUsers.filter((user) => user.username !== username));
     };
 
-    const handleCreateGroup = () => {
+    const handleCreateGroup = async () => {
         //call api to create group
+        let arrUser = selectedUsers.map((user) => user.username);
+        try {
+            await request
+                .post('/chat', { participants: arrUser })
+                .then((response) => {
+                    context.setShowSnackbar('Tạo nhóm thành công', 'success');
+                    messageBoxContext.setOpen(false);
+                    messageBoxContext.setReloadData((prev) => !prev);
+                })
+                .catch((error) => {
+                    context.setShowSnackbar('Tạo nhóm thất bại', 'error');
+                });
+        } catch (error) {}
     };
 
     const handleEditGroup = () => {
@@ -93,18 +113,7 @@ function ModalCreateGroup({ type }) {
         }
         setShowLoading(true);
         const delayDebounceFn = setTimeout(() => {
-            // Send Axios request here
-            //
-            // setUserListSearch(response.data);
-            setUserListSearch([
-                { uid: '1', name: 'Thanh Thúy', avatar: 'https://mui.com/static/images/avatar/1.jpg' },
-                { uid: '2', name: 'Minh Toàn', avatar: 'https://mui.com/static/images/avatar/2.jpg' },
-                { uid: '3', name: 'Tiến Dũng', avatar: 'https://mui.com/static/images/avatar/3.jpg' },
-                { uid: '4', name: 'Nhật Hoàng', avatar: 'https://mui.com/static/images/avatar/4.jpg' },
-                { uid: '5', name: 'Quyết Thắng', avatar: 'https://mui.com/static/images/avatar/5.jpg' },
-                { uid: '6', name: 'Trần Minh Toàn', avatar: 'https://mui.com/static/images/avatar/6.jpg' },
-                { uid: '7', name: 'Diễm My', avatar: 'https://mui.com/static/images/avatar/7.jpg' },
-            ]);
+            apiGetUserBySearch(searchText);
             setHeight(330 - userSelectRef.current.offsetHeight);
             setShowLoading(false);
         }, 1000);
@@ -113,13 +122,41 @@ function ModalCreateGroup({ type }) {
 
     useEffect(() => {
         if (type === 'edit') {
-            //call api to get user list of group
-            setSelectedUsers([
-                { id: '1', name: 'Thanh Thúy' },
-                { id: '2', name: 'Minh Toàn' },
-            ]);
+            // call api to get user list of group
+            setSelectedUsers(() => {
+                return listMember.map((user) => {
+                    return { username: user.username, fullName: user.name };
+                });
+            });
         }
     }, [type]);
+
+    //get user by search key
+    const apiGetUserBySearch = async (searchKey) => {
+        //call api to get user by search key
+        try {
+            await request.get(`/profile?keyword=${searchKey}`).then((response) => {
+                if (response.data.users && response.data.users.length > 0) {
+                    let data = [];
+                    if (selectedUsers && selectedUsers.length > 0) {
+                        data = response.data.users.filter(
+                            (user) =>
+                                selectedUsers.findIndex(
+                                    (u) => u.username === user.username && u.username !== currUser,
+                                ) === -1,
+                        );
+                    } else {
+                        data = response.data.users;
+                    }
+                    console.log(data);
+                    setUserListSearch(data);
+                }
+            });
+        } catch (error) {
+            context.setShowSnackbar('Có lỗi xảy ra', 'error');
+            console.log(error);
+        }
+    };
 
     return (
         <div className={cx('modal-create-group')}>
@@ -138,8 +175,8 @@ function ModalCreateGroup({ type }) {
                                 selectedUsers.map((user, index) => (
                                     <BadgeUser
                                         key={index}
-                                        uid={user.uid}
-                                        name={user.name}
+                                        username={user.username}
+                                        fullName={user.fullName}
                                         handleRemoveUser={handleRemoveUser}
                                     />
                                 ))}
@@ -174,9 +211,9 @@ function ModalCreateGroup({ type }) {
                         userListSearch.map((user, index) => (
                             <UserCard
                                 key={index}
-                                uid={user.uid}
-                                name={user.name}
-                                avatar={user.avatar}
+                                username={user.username}
+                                fullName={user.fullName}
+                                avatar={user.pictureURL}
                                 handleSelectUser={handleSelectUser}
                             />
                         ))}

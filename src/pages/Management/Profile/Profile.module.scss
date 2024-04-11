@@ -16,15 +16,127 @@
         align-items: center;
         position: sticky;
         justify-content: space-around;
+        padding: 30px 80px 0px 80px;
         .content-left {
             height: 80%;
-            width: 30%;
+            width: 20%;
             background-color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            .avatar-wrapper {
+                margin-top: 30px;
+                width: 200px;
+                height: 200px;
+                position: relative;
+                .icon-camera {
+                    position: absolute;
+                    bottom: -10px;
+                    right: 25px;
+                    cursor: pointer;
+                    svg {
+                        font-size: 40px;
+                        color: white;
+                        background-color: #0072cd;
+                        padding: 7px;
+                        border: 5px solid white;
+                        border-radius: 50px;
+                        -webkit-border-radius: 50px;
+                        -moz-border-radius: 50px;
+                        -ms-border-radius: 50px;
+                        -o-border-radius: 50px;
+                    }
+                    &:hover svg {
+                        background-color: #3e98e3;
+                    }
+                }
+            }
+            .fixed-infor {
+                width: 100%;
+                .group-infor {
+                    h3 {
+                        margin-top: 20px;
+                        width: 100%;
+                        text-align: center;
+                    }
+                    p {
+                        text-align: center;
+                    }
+                }
+            }
         }
         .content-right {
             height: 80%;
-            width: 60%;
+            width: 70%;
             background-color: white;
+            .account-setting-wrapper {
+                padding: 30px;
+                .text-field-group {
+                    width: 100%;
+                    align-items: center;
+                    place-content: space-between;
+                    display: flex;
+                    margin-bottom: 30px;
+                }
+                .button-wrapper {
+                    display: flex;
+                    justify-content: flex-end;
+                }
+            }
+            .payment-history-wrapper {
+                .list-wrapper {
+                    margin-top: 10px;
+                    padding: 0px 30px;
+                    .card-wrapper {
+                        margin-bottom: 20px;
+                        .payment-infor {
+                            width: 20%;
+                            .title {
+                                font-size: 16px;
+                                font-weight: bold;
+                                color: rgba(0, 0, 0, 0.6);
+                                height: 30px;
+                            }
+                            .content {
+                                font-size: 15px;
+                                font-weight: bold;
+                                text-overflow: ellipsis;
+                                overflow: hidden;
+                                white-space: nowrap;
+                                max-width: 80%;
+                            }
+                        }
+                        .btn-detail {
+                            width: 10%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                        }
+                    }
+                }
+                .pagination-wrapper {
+                    width: 100%;
+                    display: flex;
+                    justify-content: center;
+                }
+            }
+
+            .payment-detail-wrapper {
+                .payment-detail-content {
+                    display: flex;
+                    place-content: space-between;
+                    .content-left {
+                        width: 50%;
+                        border: 1px solid;
+                        height: 200px;
+                    }
+                    .content-right {
+                        width: 40%;
+                        border: 1px solid;
+                        height: 200px;
+                    }
+                }
+            }
         }
     }
 }

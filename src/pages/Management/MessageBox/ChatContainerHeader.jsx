@@ -5,7 +5,7 @@ import classNames from 'classnames/bind';
 import styles from './MessageBox.module.scss';
 import ModalCreateGroup from './ModalCreateGroup';
 import Backdrop from '@mui/material/Backdrop';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 const cx = classNames.bind(styles);
 
 const style = {
@@ -23,20 +23,19 @@ const style = {
         outline: 'none',
     },
 };
-function ChatContainerHeader({ data }) {
+function ChatContainerHeader({ data, listMember }) {
     const [openModal, setOpenModal] = useState(false);
     const handleOpenModal = () => {
         setOpenModal(true);
     };
-
     return (
         <>
             <Card className={cx('card-wrapper')}>
-                <Avatar src={data['avatar']} name={data['name']} style={{ marginTop: '5px' }} />
+                <Avatar src={data.avatar} name={data.name} style={{ marginTop: '5px' }} />
                 <CardContent sx={{ padding: '0px 0px 0px 10px !important', width: '100%' }}>
                     <Grid container style={{ height: '100%', paddingTop: 5 }}>
                         <Grid item xs={12} style={{ fontWeight: 600, fontSize: 16, alignSelf: 'center' }}>
-                            {data['name']}
+                            {data.name}
                         </Grid>
                         <Grid
                             item
@@ -54,7 +53,7 @@ function ChatContainerHeader({ data }) {
                                     overflow: 'hidden',
                                 }}
                             >
-                                12 người tham gia
+                                {listMember?.length} người tham gia
                             </div>
                         </Grid>
                     </Grid>
@@ -92,7 +91,7 @@ function ChatContainerHeader({ data }) {
                         }}
                     >
                         <Box sx={style}>
-                            <ModalCreateGroup type="edit" groupId={1} />
+                            <ModalCreateGroup type="edit" groupId={data.id} listMember={listMember} />
                         </Box>
                     </Modal>
                 </div>
@@ -100,4 +99,4 @@ function ChatContainerHeader({ data }) {
         </>
     );
 }
-export default ChatContainerHeader;
+export default memo(ChatContainerHeader);

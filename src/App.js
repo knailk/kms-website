@@ -7,7 +7,7 @@ import ScrollToTop from './utils/ScrollToTop';
 function App() {
     return (
         <Router>
-            <div className="App" style={{position:"absolute", width:'100%'}}>
+            <div className="App">
                 <Routes>
                     {publicRoutes.map((route, index) => {
                         let Page = route.component;

@@ -7,12 +7,15 @@ import SearchBox from '~/components/SearchBox/SearchBox';
 import ChatContainer from './ChatContainer';
 import chatHistory from './data.json';
 import { GroupAdd } from '@mui/icons-material';
-import { useEffect, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import Backdrop from '@mui/material/Backdrop';
 import ModalCreateGroup from './ModalCreateGroup';
+import ConversationSkeleton from '~/components/Messenger/ConversationSkeleton';
+import { getDiffTime } from '~/utils/GetDiffTime';
 import request from '~/utils/http';
-
 const cx = classNames.bind(styles);
+export const MessageBoxContext = createContext();
+
 const style = {
     position: 'absolute',
     width: '350px',
@@ -31,64 +34,41 @@ const style = {
 
 function MessageBox() {
     const [open, setOpen] = useState(false);
-
-    const dataMessage = [
-        {
-            name: 'Trần Thị Thu Hà',
-            time: '10 giờ',
-            text: 'Tin nhắn và cuộc gọi được bảo mật ',
-            avatar: 'https://mui.com/static/images/avatar/1.jpg',
-        },
-        {
-            name: 'Nguyễn Thị Thanh Hà',
-            time: '10 giờ',
-            text: 'Xin chào toàn thể cán bộ giáo viên và học sinh',
-            avatar: 'https://mui.com/static/images/avatar/2.jpg',
-        },
-        {
-            name: 'Lê Thị Thanh Hà',
-            time: '10 giờ',
-            text: 'Chào cô',
-            avatar: 'https://mui.com/static/images/avatar/3.jpg',
-        },
-        {
-            name: 'Lê Thị Thanh Hà',
-            time: '10 giờ',
-            text: 'Chào cô',
-            avatar: 'https://mui.com/static/images/avatar/4.jpg',
-        },
-        {
-            name: 'Lê Thị Thanh Hà',
-            time: '10 giờ',
-            text: 'Chào cô',
-            avatar: 'https://mui.com/static/images/avatar/5.jpg',
-        },
-        {
-            name: 'Lê Thị Thanh Hà',
-            time: '10 giờ',
-            text: 'Chào cô',
-            avatar: 'https://mui.com/static/images/avatar/6.jpg',
-        },
-        {
-            name: 'Lê Thị Thanh Hà',
-            time: '10 giờ',
-            text: 'Chào cô',
-            avatar: 'https://mui.com/static/images/avatar/7.jpg',
-        },
-    ];
+    const [listMessage, setListMessage] = useState(null);
+    const [selectedGroup, setSelectedGroup] = useState('');
+    const [reloadData, setReloadData] = useState(false);
 
     useEffect(() => {
         getListGroup();
-    }, []);
-
+    }, [reloadData]);
     const getListGroup = async () => {
         //call api to get list group
-        await request.get('/chat').then((response) => {
-            console.log(response.data);
-        });
+        try {
+            await request.get('/chat').then((response) => {
+                let chatSessions = response.data.chatSessions;
+                if (chatSessions.length > 0) {
+                    let messages = [];
+                    chatSessions.forEach((element) => {
+                        messages.push({
+                            id: element.id,
+                            name: element.name,
+                            time: element.latestMessage ? getDiffTime(new Date(element.latestMessage.createdAt)) : '',
+                            text: element.latestMessage ? element.latestMessage.content : '',
+                            avatar: element.chatPicture,
+                        });
+                    });
+                    setListMessage(messages);
+                    setSelectedGroup(messages[0].id);
+                } else {
+                    setListMessage([]);
+                }
+            });
+        } catch (error) {
+            console.log(error);
+        }
     };
     return (
-        <>
+        <MessageBoxContext.Provider value={{ setOpen: setOpen, setReloadData: setReloadData }}>
             <Grid container className={cx('message-box-wrapper')}>
                 <Grid item className={cx('content-left')}>
                     <div style={{ padding: '0px 20px' }}>
@@ -102,14 +82,28 @@ function MessageBox() {
                             <SearchBox placeholder={'Tìm kiếm trên hộp thoại'} />
                         </div>
                         <div>
-                            {dataMessage.map((value, index) => (
-                                <Conversation key={'conversation' + index} data={value} />
-                            ))}
+                            {listMessage !== null &&
+                                listMessage.map((value, index) => (
+                                    <Conversation
+                                        key={'conversation' + index}
+                                        data={value}
+                                        handleSelected={() => setSelectedGroup(value.id)}
+                                        active={selectedGroup === value.id}
+                                    />
+                                ))}
+                            {listMessage === null && (
+                                <>
+                                    <ConversationSkeleton />
+                                    <ConversationSkeleton />
+                                    <ConversationSkeleton />
+                                    <ConversationSkeleton />
+                                </>
+                            )}
                         </div>
                     </div>
                 </Grid>
                 <Grid item className={cx('content-right')} id="message-content">
-                    <ChatContainer chatHistory={chatHistory} />
+                    {selectedGroup && <ChatContainer groupId={selectedGroup} />}
                 </Grid>
             </Grid>
             <div>
@@ -131,7 +125,7 @@ function MessageBox() {
                     </Box>
                 </Modal>
             </div>
-        </>
+        </MessageBoxContext.Provider>
     );
 }
 

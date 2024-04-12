@@ -2,12 +2,26 @@ import classNames from 'classnames/bind';
 import styles from './LoginForm.module.scss';
 import 'react-multi-carousel/lib/styles.css';
 import { Box, Button, Checkbox, FormControlLabel, Grid, TextField, Typography } from '@mui/material';
+import request from '~/utils/http';
 import { useRef, useState } from 'react';
 const cx = classNames.bind(styles);
 
 function LoginForm() {
     const [typePage, setTypePage] = useState('login');
-    const [dataForm, setDataForm] = useState({ username: '', password: '', remember: false });
+    const [dataForm, setDataForm] = useState({ username: '', password: '' });
+
+    const handleLoginBtn = () => {
+        if (dataForm.username !== '' && dataForm.password !== '') {
+            request
+                .post('/auth/login', dataForm)
+                .then((res) => {
+                    window.location.href = 'http://localhost:3000/management';
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        }
+    };
     return (
         <div>
             <h1 style={{ textAlign: 'center', marginBottom: '30px' }}>Đăng nhập</h1>
@@ -42,7 +56,7 @@ function LoginForm() {
                     }
                 />
             </div>
-            <Button className={cx('btn-login')} variant="contained" onClick={() => console.log(dataForm)}>
+            <Button className={cx('btn-login')} variant="contained" onClick={() => handleLoginBtn()}>
                 Đăng nhập
             </Button>
             <div style={{ display: 'flex', justifyContent: 'center' }}>

@@ -1,18 +1,34 @@
 import { Avatar, Card, CardContent, Grid } from '@mui/material';
+import { generateColor } from '~/utils/BgColorTextAvatar';
 import classNames from 'classnames/bind';
 import styles from './Messenger.module.scss';
 const cx = classNames.bind(styles);
 
-function Conversation({ data }) {
+function Conversation({ data, handleSelected, active }) {
     return (
-        <Card className={cx('card-wrapper')}>
+        <Card className={cx('card-wrapper', { 'active-card': active })} onClick={handleSelected}>
             {data['avatar'] && <Avatar sx={{ width: 50, height: 50 }} src={data['avatar']} alt={data['name']} />}
             {!data['avatar'] && (
-                <Avatar sx={{ width: 50, height: 50 }}>{data['name'] ? data['name'].charAt(0) : ''}</Avatar>
+                <Avatar
+                    sx={{ width: 50, height: 50, backgroundColor: generateColor(data['name'].charAt(0).toUpperCase()) }}
+                >
+                    {data['name'] ? data['name'].charAt(0).toUpperCase() : ''}
+                </Avatar>
             )}
             <CardContent sx={{ padding: '0px 0px 0px 10px !important' }}>
                 <Grid container>
-                    <Grid item xs={12} style={{ fontWeight: 600, fontSize: 16 }}>
+                    <Grid
+                        item
+                        xs={12}
+                        style={{
+                            fontWeight: 600,
+                            fontSize: 16,
+                            textOverflow: 'ellipsis',
+                            whiteSpace: 'nowrap',
+                            overflow: 'hidden',
+                            width: '220px',
+                        }}
+                    >
                         {data['name']}
                     </Grid>
 
@@ -30,7 +46,7 @@ function Conversation({ data }) {
                                 textOverflow: 'ellipsis',
                                 whiteSpace: 'nowrap',
                                 overflow: 'hidden',
-                                width: 180,
+                                width: 160,
                             }}
                         >
                             {data['text']}

@@ -1,4 +1,5 @@
 import TextField from '@mui/material/TextField';
+
 import Button from '@mui/material/Button';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
@@ -26,7 +27,6 @@ function AccountSetting() {
     const handleChange = (event) => {
         setGender(event.target.value);
     };
-
     return (
         <div className={cx('account-setting-wrapper')}>
             <div className={cx('text-field-group')}>

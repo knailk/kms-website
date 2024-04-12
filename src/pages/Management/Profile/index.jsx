@@ -19,7 +19,6 @@ import BeachAccessIcon from '@mui/icons-material/BeachAccess';
 import Box from '@mui/material/Box';
 import PaymentHistory from './PaymentHistory';
 import AccountSetting from './AccountSetting';
-
 import PaymentDetail from './PaymentDetail';
 const cx = classNames.bind(styles);
 

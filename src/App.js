@@ -5,6 +5,7 @@ import { DefaultLayout } from './components/Layout';
 import Home from './pages/Home';
 import ScrollToTop from './utils/ScrollToTop';
 import { useCookies } from 'react-cookie';
+import PageNotFound from "./pages/NotFound";
 
 function App() {
     const [cookies] = useCookies(['user-infor']);
@@ -26,17 +27,15 @@ function App() {
                             if (route.requireAuth && !cookies['user-infor']) {
                                 Page = Home;
                                 Layout = DefaultLayout;
-
                             }
 
                             return (
                                 <Route
                                     key={index}
                                     path={route.path}
-                                    render={() => (
-                                        route.requireAuth && !cookies['user-infor'] ? (
-                                            <Navigate to="/" />
-                                        ) : null)}
+                                    render={() =>
+                                        route.requireAuth && !cookies['user-infor'] ? <Navigate to="/" /> : null
+                                    }
                                     element={
                                         <Layout>
                                             <ScrollToTop />
@@ -46,6 +45,8 @@ function App() {
                                 />
                             );
                         })}
+
+                        <Route path="*" element={<PageNotFound />} />
                     </Routes>
                 </div>
             </Router>

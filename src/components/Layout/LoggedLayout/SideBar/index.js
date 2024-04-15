@@ -135,6 +135,7 @@ export default function SideBar({ open, children }) {
             { name: 'Lớp học', icon: <Message />, path: '/admin/class' },
             { name: 'Lịch biểu', icon: <ListAlt />, path: '/admin/schedule' },
             { name: 'Tin nhắn', icon: <Filter9Plus />, path: '/admin/message' },
+            { name: 'Đoạn chat', icon: <Filter9Plus />, path: '/admin/chat-session' },
         ],
         [
             { name: 'Hồ sơ cá nhân', icon: <AccountBox />, path: '/profile' },

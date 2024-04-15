@@ -97,6 +97,7 @@ function ChatContainer({ groupId }) {
             });
         } catch (error) {
             console.log(error);
+            context.setShowSnackbar('Có lỗi xảy ra, vui lòng thử lại sau', 'error');
         }
     };
 
@@ -109,7 +110,9 @@ function ChatContainer({ groupId }) {
                     getChatHistory();
                     textMessage.current.value = '';
                 })
-                .catch((error) => {});
+                .catch((error) => {
+                    context.setShowSnackbar('Gửi tin nhắn thất bại', 'error');
+                });
         }
     };
 

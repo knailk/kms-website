@@ -6,12 +6,13 @@ import Conversation from '~/components/Messenger/Conversation';
 import SearchBox from '~/components/SearchBox/SearchBox';
 import ChatContainer from './ChatContainer';
 import { GroupAdd } from '@mui/icons-material';
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useEffect, useState, useContext } from 'react';
 import Backdrop from '@mui/material/Backdrop';
 import ModalCreateGroup from './ModalCreateGroup';
 import ConversationSkeleton from '~/components/Messenger/ConversationSkeleton';
 import { getDiffTime } from '~/utils/GetDiffTime';
 import request from '~/utils/http';
+import { LoggedContext } from '~/components/Layout/LoggedLayout';
 const cx = classNames.bind(styles);
 export const MessageBoxContext = createContext();
 
@@ -36,6 +37,7 @@ function MessageBox() {
     const [listMessage, setListMessage] = useState(null);
     const [selectedGroup, setSelectedGroup] = useState('');
     const [reloadData, setReloadData] = useState(false);
+    const context = useContext(LoggedContext);
 
     useEffect(() => {
         getListGroup();
@@ -64,6 +66,7 @@ function MessageBox() {
             });
         } catch (error) {
             console.log(error);
+            context.setShowSnackbar('Có lỗi xảy ra, vui lòng thử lại sai', 'error');
         }
     };
     return (

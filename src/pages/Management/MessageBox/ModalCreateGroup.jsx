@@ -1,10 +1,11 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import classNames from 'classnames/bind';
 import styles from './MessageBox.module.scss';
 import { Button, CircularProgress, Grid, TextField } from '@mui/material';
 import Avatar from '~/components/Avatar/Avatar';
 import { memo, useContext, useEffect, useRef, useState } from 'react';
 import request from '~/utils/http';
-import { FeedBackContext } from '~/components/Layout/LoggedLayout';
+import { LoggedContext } from '~/components/Layout/LoggedLayout';
 import { MessageBoxContext } from '.';
 const cx = classNames.bind(styles);
 
@@ -41,12 +42,12 @@ const UserCard = ({ username, fullName, avatar, handleSelectUser }) => {
 function ModalCreateGroup({ type, listMember }) {
     console.log(listMember);
     //state for ui
-    const currUser = 'teacher';
     const userSelectRef = useRef();
     const userCardRef = useRef();
     const userSelectedRef = useRef();
     const textRef = useRef();
-    const context = useContext(FeedBackContext);
+    const context = useContext(LoggedContext);
+    const currUser = context.userInfo.username;
     const [showLoading, setShowLoading] = useState(false);
     const [height, setHeight] = useState(0);
     const [widthInputText, setWidthInputText] = useState('10ch');

@@ -5,7 +5,6 @@ import { Box, Grid, Modal } from '@mui/material';
 import Conversation from '~/components/Messenger/Conversation';
 import SearchBox from '~/components/SearchBox/SearchBox';
 import ChatContainer from './ChatContainer';
-import chatHistory from './data.json';
 import { GroupAdd } from '@mui/icons-material';
 import { createContext, useEffect, useState } from 'react';
 import Backdrop from '@mui/material/Backdrop';

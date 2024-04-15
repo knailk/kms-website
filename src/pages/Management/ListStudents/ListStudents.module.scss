@@ -2,8 +2,11 @@
     padding-bottom: 10px;
 }
 .search-wrapper {
-    width: 30%;
+    width: 40%;
     padding-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 .snack-wrapper {
     display: flex;

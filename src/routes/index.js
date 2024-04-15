@@ -8,13 +8,15 @@ import Schedule from '~/pages/Management/Schedule';
 import Profile from '~/pages/Management/Profile';
 import MessageBox from '~/pages/Management/MessageBox';
 import ListStudent from '~/pages/Management/ListStudents';
+import RoadMap from '~/pages/Management/RoadMap';
 export const publicRoutes = [
     { path: '/', component: Home },
     { path: '/about', component: About },
     { path: '/course', component: CourseInfo },
     { path: '/news', component: News },
     { path: '/notification', component: Notification },
-    { path: '/management', component: Schedule, layout: LoggedLayout },
+    { path: '/schedule', component: Schedule, layout: LoggedLayout },
+    { path: '/road-map', component: RoadMap, layout: LoggedLayout },
     { path: '/message', component: MessageBox, layout: LoggedLayout },
     { path: '/list-student', component: ListStudent, layout: LoggedLayout },
     { path: '/score-table', component: Schedule, layout: LoggedLayout },

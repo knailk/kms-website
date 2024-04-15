@@ -1,4 +1,4 @@
-import { Avatar, Card, CardContent, Grid, Skeleton } from '@mui/material';
+import { Card, CardContent, Grid, Skeleton } from '@mui/material';
 import classNames from 'classnames/bind';
 import styles from './Messenger.module.scss';
 const cx = classNames.bind(styles);

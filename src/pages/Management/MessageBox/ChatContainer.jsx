@@ -5,11 +5,12 @@ import classNames from 'classnames/bind';
 import styles from './MessageBox.module.scss';
 import { AddCircle, Mood, ThumbUp, Send } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
-import { memo, useEffect, useRef, useState } from 'react';
+import { memo, useContext, useEffect, useRef, useState } from 'react';
 import convertDataMessageList from '~/utils/ConverDataMessage';
-import EmojiPicker from 'emoji-picker-react';
+// import EmojiPicker from 'emoji-picker-react';
 import request from '~/utils/http';
 import { Box, CircularProgress } from '@mui/material';
+import { LoggedContext } from '~/components/Layout/LoggedLayout';
 const cx = classNames.bind(styles);
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
@@ -26,11 +27,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 function ChatContainer({ groupId }) {
+    const context = useContext(LoggedContext);
     const messageContentRef = useRef();
     const chatContainerRef = useRef(null);
     const isNoMoredata = useRef(false);
     const chatHistory = useRef([]);
-    const currentUser = 'teacher';
+    const currentUser = context.userInfo.username;
     const textMessage = useRef();
     const doScroll = useRef(true);
     const currentLimit = useRef(20);

@@ -1,7 +1,8 @@
 import * as React from 'react';
 import classNames from 'classnames/bind';
 import styles from './ListStudents.module.scss';
-
+import { DatePicker } from 'rsuite';
+import 'rsuite/dist/rsuite.min.css';
 import { DataGrid } from '@mui/x-data-grid';
 import Avatar from '~/components/Avatar/Avatar';
 import { Backdrop, CircularProgress, Snackbar } from '@mui/material';
@@ -19,7 +20,7 @@ const columns = [
     },
     {
         field: 'avatar',
-        headerName: 'Avatar',
+        headerName: 'Họ và tên',
         width: 300,
         editable: true,
         valueGetter: (value, row) => ({ src: value, name: row.fullName }),
@@ -35,7 +36,7 @@ const columns = [
 
     {
         field: 'phone',
-        headerName: 'Phone',
+        headerName: 'Số điện thoại',
         width: 150,
         editable: true,
     },
@@ -178,7 +179,7 @@ const rows = [
     },
 ];
 
-export default function DataGridDemo() {
+export default function ListStudents() {
     //state
     const snackBarRef = React.useRef(false);
     const [rowSelectionModel, setRowSelectionModel] = React.useState([]);
@@ -216,7 +217,8 @@ export default function DataGridDemo() {
         <>
             <h2 className={cx('title')}>Danh sách học sinh</h2>
             <div className={cx('search-wrapper')}>
-                <SearchBox placeholder="Tìm kiếm học sinh" />
+                <SearchBox placeholder="Tìm kiếm học sinh" style={{ width: '50%' }} />
+                <DatePicker style={{ width: '40%' }} />
             </div>
             <div style={{ height: 'calc(100vh - 196px)', width: '100%' }}>
                 <DataGrid

@@ -1,11 +1,16 @@
-import { createContext, useState } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import { createContext, useEffect, useState } from 'react';
 import MainLayout from './MainLayout';
-import { Backdrop, CircularProgress, Snackbar, Alert, Slide } from '@mui/material';
+import { Backdrop, CircularProgress, Snackbar, Alert } from '@mui/material';
+import { useCookies } from 'react-cookie';
+import { useNavigate } from 'react-router-dom';
 
-export const FeedBackContext = createContext();
+export const LoggedContext = createContext();
 function LoggedLayout({ children }) {
     const [showBackDrop, setShowBackDrop] = useState(false)
     const [snackbar, setSnackbar] = useState(false)
+    const [cookies] = useCookies(['user-infor']);
+    const nagivate = useNavigate();
     const [snackbarContent, setSnackbarContent] = useState({ 'message': '', 'severity': '' })
     const setShowSnackbar = (message, severity) => {
         setSnackbarContent({ message, severity })
@@ -14,14 +19,18 @@ function LoggedLayout({ children }) {
             setSnackbar(false)
         }, 1000);
     }
-
+    useEffect(() => {
+        if (!cookies['user-infor']) {
+            nagivate('/')
+        }
+    }, [])
     return (
         <>
-            <FeedBackContext.Provider value={{ setShowBackDrop, setShowSnackbar }}>
+            <LoggedContext.Provider value={{ setShowBackDrop, setShowSnackbar, userInfo: cookies['user-infor'] }}>
                 <MainLayout>
                     {children}
                 </MainLayout>
-            </FeedBackContext.Provider>
+            </LoggedContext.Provider>
             <Backdrop open={showBackDrop} >
                 <CircularProgress color="inherit" />
             </Backdrop>

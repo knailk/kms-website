@@ -10,7 +10,7 @@ const Search = styled('div')(({ theme }) => ({
         backgroundColor: alpha(theme.palette.common.black, 0.2),
     },
     '&:focus': {
-        backgroundColor: alpha(theme.palette.common.black, 0.2),
+        backgroundColor: alpha(theme.palette.common.black, 0.1),
     },
     width: '100%',
     [theme.breakpoints.up('sm')]: {

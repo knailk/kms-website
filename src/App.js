@@ -1,10 +1,14 @@
 import { Fragment } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { publicRoutes } from './routes';
 import { DefaultLayout } from './components/Layout';
+import Home from './pages/Home';
 import ScrollToTop from './utils/ScrollToTop';
+import { useCookies } from 'react-cookie';
 
 function App() {
+    const [cookies] = useCookies(['user-infor']);
+
     return (
         <>
             <Router>
@@ -18,10 +22,21 @@ function App() {
                             } else if (route.layout === null) {
                                 Layout = Fragment;
                             }
+                            //check auth require
+                            if (route.requireAuth && !cookies['user-infor']) {
+                                Page = Home;
+                                Layout = DefaultLayout;
+
+                            }
+
                             return (
                                 <Route
                                     key={index}
                                     path={route.path}
+                                    render={() => (
+                                        route.requireAuth && !cookies['user-infor'] ? (
+                                            <Navigate to="/" />
+                                        ) : null)}
                                     element={
                                         <Layout>
                                             <ScrollToTop />

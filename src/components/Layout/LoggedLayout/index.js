@@ -3,14 +3,12 @@ import { createContext, useEffect, useState } from 'react';
 import MainLayout from './MainLayout';
 import { Backdrop, CircularProgress, Snackbar, Alert } from '@mui/material';
 import { useCookies } from 'react-cookie';
-import { useNavigate } from 'react-router-dom';
 
 export const LoggedContext = createContext();
 function LoggedLayout({ children }) {
     const [showBackDrop, setShowBackDrop] = useState(false)
     const [snackbar, setSnackbar] = useState(false)
     const [cookies] = useCookies(['user-infor']);
-    const nagivate = useNavigate();
     const [snackbarContent, setSnackbarContent] = useState({ 'message': '', 'severity': '' })
     const setShowSnackbar = (message, severity) => {
         setSnackbarContent({ message, severity })
@@ -19,11 +17,7 @@ function LoggedLayout({ children }) {
             setSnackbar(false)
         }, 1000);
     }
-    useEffect(() => {
-        if (!cookies['user-infor']) {
-            nagivate('/')
-        }
-    }, [])
+
     return (
         <>
             <LoggedContext.Provider value={{ setShowBackDrop, setShowSnackbar, userInfo: cookies['user-infor'] }}>

@@ -10,19 +10,19 @@ import MessageBox from '~/pages/Management/MessageBox';
 import ListStudent from '~/pages/Management/ListStudents';
 import RoadMap from '~/pages/Management/RoadMap';
 export const publicRoutes = [
-    { path: '/', component: Home },
-    { path: '/about', component: About },
-    { path: '/course', component: CourseInfo },
-    { path: '/news', component: News },
-    { path: '/notification', component: Notification },
-    { path: '/schedule', component: Schedule, layout: LoggedLayout },
-    { path: '/road-map', component: RoadMap, layout: LoggedLayout },
-    { path: '/message', component: MessageBox, layout: LoggedLayout },
-    { path: '/list-student', component: ListStudent, layout: LoggedLayout },
-    { path: '/score-table', component: Schedule, layout: LoggedLayout },
-    { path: '/profile', component: Profile, layout: LoggedLayout },
-    { path: '/payment', component: Schedule, layout: LoggedLayout },
-    { path: '/food-menu', component: Schedule, layout: LoggedLayout },
-    { path: '/logout', component: Schedule, layout: LoggedLayout },
+    { path: '/', component: Home, requireAuth: false},
+    { path: '/about', component: About, requireAuth: false },
+    { path: '/course', component: CourseInfo, requireAuth: false },
+    { path: '/news', component: News, requireAuth: false },
+    { path: '/notification', component: Notification, requireAuth: false },
+    { path: '/schedule', component: Schedule, layout: LoggedLayout, requireAuth: true},
+    { path: '/road-map', component: RoadMap, layout: LoggedLayout, requireAuth: true},
+    { path: '/message', component: MessageBox, layout: LoggedLayout, requireAuth: true },
+    { path: '/list-student', component: ListStudent, layout: LoggedLayout, requireAuth: true },
+    { path: '/score-table', component: Schedule, layout: LoggedLayout, requireAuth: true },
+    { path: '/profile', component: Profile, layout: LoggedLayout, requireAuth: true},
+    { path: '/payment', component: Schedule, layout: LoggedLayout, requireAuth: true},
+    { path: '/food-menu', component: Schedule, layout: LoggedLayout, requireAuth: true },
+    { path: '/logout', component: Schedule, layout: LoggedLayout, requireAuth: true},
 ];
 export const privateRoutes = [];

@@ -12,39 +12,69 @@ import { styled } from '@mui/material/styles';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import SideBar from '../SideBar';
 import MessagePopover from '~/components/Messenger/MessagePopover';
-import { useEffect, useState } from 'react';
-
+import { useContext, useEffect, useState } from 'react';
+import request from '~/utils/http';
+import { useNavigate } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
+import { LoggedContext } from '..';
+import CssBaseline from '@mui/material/CssBaseline';
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 const drawerWidth = 240;
-
 const AppBar = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== 'open',
 })(({ theme, open }) => ({
-    transition: theme.transitions.create(['margin', 'width'], {
+    zIndex: theme.zIndex.drawer + 1,
+    transition: theme.transitions.create(['width', 'margin'], {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
     }),
     ...(open && {
+        marginLeft: drawerWidth,
         width: `calc(100% - ${drawerWidth}px)`,
-        marginLeft: `${drawerWidth}px`,
-        transition: theme.transitions.create(['margin', 'width'], {
-            easing: theme.transitions.easing.easeOut,
+        transition: theme.transitions.create(['width', 'margin'], {
+            easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.enteringScreen,
         }),
     }),
 }));
 
+
 export default function MainLayout({ children }) {
+    const theme = useTheme();
+    const sm = useMediaQuery(theme.breakpoints.up('sm'));
     const [anchorEl, setAnchorEl] = useState(null);
     const [messages, setMessages] = useState([{}]);
+    const [cookies, setCookie, removeCookie] = useCookies(['user-infor']);
+    const context = useContext(LoggedContext);
+    const navigate = useNavigate()
+    const [open, setOpen] = useState(sm);
+    //on resize
+    window.onresize = () => {
+        if (window.innerWidth < 900 && open === true) {
+            setOpen(false);
+        } else if (window.innerWidth >= 900 && open === false) {
+            setOpen(true);
+        }
+    };
 
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
     };
 
-    const handleMenuClose = () => {
+    const handleMenuClose = (type = "") => {
         setAnchorEl(null);
+        if (type === 'logout') {
+            //call api logout
+            request.post('/auth/logout').then(() => {
+                navigate('/')
+                removeCookie('user-infor');
+            }).catch((err) => {
+                context.setShowSnackbar("Có lỗi xảy ra", "error")
+            });
+
+        }
     };
-    const [open, setOpen] = useState(true);
 
     const handleDrawer = (status = false) => {
         setOpen(status);
@@ -101,6 +131,7 @@ export default function MainLayout({ children }) {
 
     return (
         <Box sx={{ flexGrow: 1, height: '100%' }}>
+            <CssBaseline />
             <AppBar position="fixed" open={open} style={{ backgroundColor: '#0072cd' }}>
                 <Toolbar>
                     <IconButton
@@ -110,6 +141,7 @@ export default function MainLayout({ children }) {
                         aria-label="open drawer"
                         onClick={() => handleDrawer(!open)}
                         sx={{ mr: 2 }}
+                        disabled={!sm}
                     >
                         {!open && <MenuIcon />}
                         {open && <ChevronLeftIcon />}
@@ -118,7 +150,7 @@ export default function MainLayout({ children }) {
                         Smart Kindergarten
                     </Typography>
                     <Box sx={{ flexGrow: 1 }} />
-                    <Box sx={{ display: { md: 'flex' } }}>
+                    <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                         <MessagePopover data={messages} />
                         <IconButton size="large" aria-label="show 17 new notifications" color="inherit">
                             <Badge badgeContent={17} color="error">

@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
 import styles from './About.module.scss';
-import { Button, Grid, Divider, Collapse, IconButton } from '@mui/material';
+import { Button, Grid,  Collapse, IconButton } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import AboutTab from './AboutTab';
 import Purpose from './Purpose';

@@ -1,5 +1,3 @@
-import classNames from 'classnames/bind';
-import styles from './Home.module.scss';
 import Banner from './Banner';
 import Admissions from './Admissions';
 import News from './News';
@@ -8,7 +6,6 @@ import TeacherTeam from './TeacherTeam';
 import CanLearn from './CanLearn';
 import { Divider } from '@mui/material';
 // import BoxChat from '~/components/BoxChat';
-const cx = classNames.bind(styles);
 
 function Home() {
     const styleBg = {

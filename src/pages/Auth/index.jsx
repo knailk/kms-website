@@ -1,21 +1,30 @@
 import classNames from 'classnames/bind';
 import styles from './LoginForm.module.scss';
 import 'react-multi-carousel/lib/styles.css';
-import { Box, Button, Checkbox, FormControlLabel, Grid, TextField, Typography } from '@mui/material';
+import { Button, Checkbox, FormControlLabel, TextField } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 import request from '~/utils/http';
 import { useRef, useState } from 'react';
 const cx = classNames.bind(styles);
 
 function LoginForm() {
-    const [typePage, setTypePage] = useState('login');
+    const nagivate = useNavigate();
+    const [cookies, setCookie] = useCookies(['user-infor']);
     const [dataForm, setDataForm] = useState({ username: '', password: '' });
-
+    const usernameRef = useRef();
+    const passwordRef = useRef();
     const handleLoginBtn = () => {
-        if (dataForm.username !== '' && dataForm.password !== '') {
+        if (usernameRef.current.value !== '' && passwordRef.current.value !== '') {
             request
-                .post('/auth/login', dataForm)
+                .post('/auth/login', {
+                    username: usernameRef.current.value,
+                    password: passwordRef.current.value,
+                })
                 .then((res) => {
-                    window.location.href = 'http://localhost:3000/management';
+                    //set cookies
+                    setCookie('user-infor', res.data);
+                    nagivate('/schedule');
                 })
                 .catch((err) => {
                     console.log(err);
@@ -30,16 +39,14 @@ function LoginForm() {
                 label="Tài khoản"
                 variant="outlined"
                 className={cx('input-field')}
-                value={dataForm.username}
-                onChange={(e) => setDataForm({ ...dataForm, username: e.target.value })}
+                inputRef={usernameRef}
             />
             <TextField
                 id="password"
                 label="Mật khẩu"
                 variant="outlined"
                 className={cx('input-field')}
-                value={dataForm.password}
-                onChange={(e) => setDataForm({ ...dataForm, password: e.target.value })}
+                inputRef={passwordRef}
             />
             <div>
                 <FormControlLabel

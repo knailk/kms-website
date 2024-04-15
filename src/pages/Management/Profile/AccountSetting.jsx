@@ -6,7 +6,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import classNames from 'classnames/bind';
-import { FeedBackContext } from '~/components/Layout/LoggedLayout';
+import { LoggedContext } from '~/components/Layout/LoggedLayout';
 import styles from './Profile.module.scss';
 import { useContext, useState } from 'react';
 
@@ -14,7 +14,7 @@ const cx = classNames.bind(styles);
 
 function AccountSetting() {
     const [gender, setGender] = useState('');
-    const context = useContext(FeedBackContext);
+    const context = useContext(LoggedContext);
 
     const handleSaveBtn = () => {
         context.setShowBackDrop(true);

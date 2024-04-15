@@ -1,4 +1,3 @@
-import { Box } from '@mui/material';
 
 function Logo() {
     const styles = {

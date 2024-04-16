@@ -2,13 +2,12 @@ import * as React from 'react';
 
 import classNames from 'classnames/bind';
 import styles from './Class.module.scss';
-import Avatar from '~/components/Avatar/Avatar';
 import { DatePicker } from 'rsuite';
 import 'rsuite/dist/rsuite.min.css';
 import { DataGrid } from '@mui/x-data-grid';
-import { Backdrop, CircularProgress, Snackbar } from '@mui/material';
-import { Cancel, CheckCircle } from '@mui/icons-material';
+import Chip from '@mui/material/Chip';
 import SearchBox from '~/components/SearchBox/SearchBox';
+import ToTime from '~/utils/convertDateFormat';
 const cx = classNames.bind(styles);
 
 const columns = [
@@ -31,21 +30,28 @@ const columns = [
         headerName: 'Ngày bắt đầu',
         width: 200,
         editable: true,
-        valueGetter: (value, row) => row.fromDate,
+        valueGetter: (value, row) => ToTime(row.fromDate),
     },
     {
         field: 'toDate',
         headerName: 'Ngày kết thúc',
         width: 200,
         editable: true,
-        valueGetter: (value, row) => row.toDate,
+        valueGetter: (value, row) => ToTime(row.toDate),
     },
     {
         field: 'status',
         headerName: 'Trạng thái',
         width: 200,
         editable: true,
-        valueGetter: (value, row) => row.status,
+        renderCell: (params) => {
+            const status = params.value;
+            if (status === 'active') {
+                return <Chip label={status} color="success" />;
+            } else {
+                return <Chip label={status} color="primary" />;
+            }
+        },
     },
     {
         field: 'className',
@@ -59,15 +65,8 @@ const columns = [
         headerName: 'Giá vào lớp',
         width: 200,
         editable: true,
-        valueGetter: (value, row) => row.price,
-    },
-    {
-        field: 'currency',
-        headerName: 'Đơn vị',
-        width: 200,
-        editable: true,
-        valueGetter: (value, row) => row.currency,
-    },
+        valueGetter: (value, row) => `${row.price || 0} ${row.currency || 'VND'}`,
+    }
 ];
 
 const rows = [
@@ -89,7 +88,7 @@ const rows = [
         driverID: 'driver',
         fromDate: 20240101,
         toDate: 20240430,
-        status: 'active',
+        status: 'inactive',
         className: 'Lop 5 tuoi',
         ageGroup: 5,
         price: 100,

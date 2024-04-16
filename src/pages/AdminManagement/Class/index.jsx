@@ -2,72 +2,19 @@ import * as React from 'react';
 
 import classNames from 'classnames/bind';
 import styles from './Class.module.scss';
+import { useContext } from 'react';
 import { DatePicker } from 'rsuite';
 import 'rsuite/dist/rsuite.min.css';
 import { DataGrid } from '@mui/x-data-grid';
 import Chip from '@mui/material/Chip';
 import SearchBox from '~/components/SearchBox/SearchBox';
 import ToTime from '~/utils/convertDateFormat';
-const cx = classNames.bind(styles);
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import { Button } from '@mui/material';
+import { LoggedContext } from '~/components/Layout/LoggedLayout';
+import request from '~/utils/http';
 
-const columns = [
-    {
-        field: 'teacherID',
-        headerName: 'Giáo viên',
-        width: 100,
-        editable: true,
-        valueGetter: (value, row) => row.teacherID,
-    },
-    {
-        field: 'driverID',
-        headerName: 'Tài xế',
-        width: 100,
-        editable: true,
-        valueGetter: (value, row) => row.driverID,
-    },
-    {
-        field: 'fromDate',
-        headerName: 'Ngày bắt đầu',
-        width: 200,
-        editable: true,
-        valueGetter: (value, row) => ToTime(row.fromDate),
-    },
-    {
-        field: 'toDate',
-        headerName: 'Ngày kết thúc',
-        width: 200,
-        editable: true,
-        valueGetter: (value, row) => ToTime(row.toDate),
-    },
-    {
-        field: 'status',
-        headerName: 'Trạng thái',
-        width: 200,
-        editable: true,
-        renderCell: (params) => {
-            const status = params.value;
-            if (status === 'active') {
-                return <Chip label={status} color="success" />;
-            } else {
-                return <Chip label={status} color="primary" />;
-            }
-        },
-    },
-    {
-        field: 'className',
-        headerName: 'Tên lớp',
-        width: 200,
-        editable: true,
-        valueGetter: (value, row) => row.className,
-    },
-    {
-        field: 'price',
-        headerName: 'Giá vào lớp',
-        width: 200,
-        editable: true,
-        valueGetter: (value, row) => `${row.price || 0} ${row.currency || 'VND'}`,
-    }
-];
+const cx = classNames.bind(styles);
 
 const rows = [
     {
@@ -97,6 +44,100 @@ const rows = [
 ];
 
 export default function Class() {
+    const context = useContext(LoggedContext);
+    const [members, setMembers] = React.useState([]);
+
+    const handleViewMembers = (id) => {
+        try {
+            request.get(`/class/${id}/members`).then((res) => {
+                setMembers(res.data);
+                context.setShowSnackbar('Xem thông tin thành viên', 'success');
+            });
+        } catch (error) {
+            context.setShowSnackbar('Tìm thông tin thành viên không thành công', 'error');
+        }
+    };
+
+    const columns = [
+        {
+            field: 'teacherID',
+            headerName: 'Giáo viên',
+            width: 100,
+            editable: true,
+            align: 'center',
+            valueGetter: (value, row) => row.teacherID,
+        },
+        {
+            field: 'driverID',
+            headerName: 'Tài xế',
+            width: 100,
+            editable: true,
+            align: 'center',
+            valueGetter: (value, row) => row.driverID,
+        },
+        {
+            field: 'fromDate',
+            headerName: 'Ngày bắt đầu',
+            width: 200,
+            align: 'center',
+            editable: true,
+            valueGetter: (value, row) => ToTime(row.fromDate),
+        },
+        {
+            field: 'toDate',
+            headerName: 'Ngày kết thúc',
+            width: 200,
+            align: 'center',
+            editable: true,
+            valueGetter: (value, row) => ToTime(row.toDate),
+        },
+        {
+            field: 'status',
+            headerName: 'Trạng thái',
+            width: 200,
+            editable: true,
+            align: 'center',
+            renderCell: (params) => {
+                const status = params.value;
+                if (status === 'active') {
+                    return <Chip label={status} color="success" />;
+                } else {
+                    return <Chip label={status} color="primary" />;
+                }
+            },
+        },
+        {
+            field: 'className',
+            headerName: 'Tên lớp',
+            width: 200,
+            editable: true,
+            align: 'center',
+            valueGetter: (value, row) => row.className,
+        },
+        {
+            field: 'price',
+            headerName: 'Giá vào lớp',
+            width: 200,
+            align: 'center',
+            editable: true,
+            valueGetter: (value, row) => `${row.price || 0} ${row.currency || 'VND'}`,
+        },
+        {
+            field: 'members',
+            headerName: 'Học viên',
+            width: 50,
+            align: 'center',
+            editable: false,
+            renderCell: (params) => {
+                return (
+                    <Button onClick={handleViewMembers(params.id)}>
+                        <RemoveRedEyeIcon />
+                    </Button>
+                );
+            },
+        },
+    ];
+
     return (
         <>
             <h2 className={cx('title')}>Danh sách lớp học</h2>

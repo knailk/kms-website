@@ -8,7 +8,7 @@ import { useCookies } from 'react-cookie';
 import PageNotFound from "./pages/NotFound";
 
 function App() {
-    const [cookies] = useCookies(['user-infor']);
+    const [cookies] = useCookies();
 
     return (
         <>
@@ -24,7 +24,7 @@ function App() {
                                 Layout = Fragment;
                             }
                             //check auth require
-                            if (route.requireAuth && !cookies['user-infor']) {
+                            if (route.requireAuth && !cookies['user-infor'] && !cookies['KMS_jwt_access']) {
                                 Page = Home;
                                 Layout = DefaultLayout;
                             }

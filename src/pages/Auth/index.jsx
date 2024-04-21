@@ -23,13 +23,10 @@ function LoginForm() {
                 })
                 .then((res) => {
                     //set cookies
-                    console.log(res.data);
-                    setCookie('user-infor', res.data);
-                    if (res.data.role === 'admin') {
-                        nagivate('/admin');
-                    } else {
-                        nagivate('/schedule');
-                    }
+                    let date = new Date();
+                    date.setHours(date.getHours() + 4);
+                    setCookie('user-infor', res.data, { expires: date });
+                    nagivate('/schedule');
                 })
                 .catch((err) => {
                     console.log(err);

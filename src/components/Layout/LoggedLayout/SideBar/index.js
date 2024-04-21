@@ -1,15 +1,6 @@
 import { Divider, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 import MuiDrawer from '@mui/material/Drawer';
-import {
-    CalendarMonth,
-    Message,
-    ListAlt,
-    RestaurantMenu,
-    Filter9Plus,
-    Payment,
-    AccountBox,
-    Logout,
-} from '@mui/icons-material';
+import { CalendarMonth, Message, ListAlt, RestaurantMenu, Filter9Plus, Payment, AccountBox, Logout } from '@mui/icons-material';
 import Logo from '~/components/Logo/Logo';
 import { styled } from '@mui/material/styles';
 import { Fragment, useContext, useEffect, useState } from 'react';
@@ -51,20 +42,23 @@ const DrawerHeader = styled('div')(({ theme }) => ({
     ...theme.mixins.toolbar,
 }));
 
-const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(({ theme, open }) => ({
-    width: drawerWidth,
-    flexShrink: 0,
-    whiteSpace: 'nowrap',
-    boxSizing: 'border-box',
-    ...(open && {
-        ...openedMixin(theme),
-        '& .MuiDrawer-paper': openedMixin(theme),
+const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
+    ({ theme, open }) => ({
+        width: drawerWidth,
+        flexShrink: 0,
+        whiteSpace: 'nowrap',
+        boxSizing: 'border-box',
+        ...(open && {
+            ...openedMixin(theme),
+            '& .MuiDrawer-paper': openedMixin(theme),
+        }),
+        ...(!open && {
+            ...closedMixin(theme),
+            '& .MuiDrawer-paper': closedMixin(theme),
+        }),
     }),
-    ...(!open && {
-        ...closedMixin(theme),
-        '& .MuiDrawer-paper': closedMixin(theme),
-    }),
-}));
+);
+
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(({ theme, open }) => ({
     flexGrow: 1,
@@ -129,18 +123,6 @@ export default function SideBar({ open, children }) {
             { name: 'Đăng xuất', icon: <Logout />, path: '/logout' },
         ],
     ];
-    const sideBarAdmin = [
-        [
-            { name: 'Thông tin chung', icon: <CalendarMonth />, path: '/admin' },
-            { name: 'Lớp học', icon: <Message />, path: '/admin/class' },
-            { name: 'Lịch biểu', icon: <ListAlt />, path: '/admin/schedule' },
-            { name: 'Tin nhắn', icon: <Filter9Plus />, path: '/admin/message' },
-        ],
-        [
-            { name: 'Hồ sơ cá nhân', icon: <AccountBox />, path: '/profile' },
-            { name: 'Đăng xuất', icon: <Logout />, path: '/logout' },
-        ],
-    ];
     const currentPage = window.location.pathname;
 
     const userRole = context.userInfo.role;
@@ -160,9 +142,6 @@ export default function SideBar({ open, children }) {
             case 'chef':
                 setSideBar(sideBarChef);
                 break;
-            case 'admin':
-                setSideBar(sideBarAdmin);
-                break;
             default:
                 break;
         }
@@ -170,7 +149,10 @@ export default function SideBar({ open, children }) {
 
     return (
         <>
-            <Drawer variant="permanent" open={open}>
+            <Drawer
+                variant="permanent"
+                open={open}
+            >
                 <DrawerHeader>
                     <Logo />
                 </DrawerHeader>
@@ -192,7 +174,7 @@ export default function SideBar({ open, children }) {
                     </Fragment>
                 ))}
             </Drawer>
-            <Main open={open}>
+            <Main open={open} >
                 <DrawerHeader />
                 {children}
             </Main>

@@ -104,8 +104,9 @@ function ModalCreateGroup({ type, listMember, groupId }) {
         if (type === 'add') {
             let arrUserSelected;
             // request.post('/chat/member', { chat_id: groupId, username: });
+        } else if (type === 'delete') {
+            console.log(removedUsers);
         }
-        console.log(selectedUsers);
     };
 
     //render
@@ -119,6 +120,7 @@ function ModalCreateGroup({ type, listMember, groupId }) {
 
     //search after 1s since user stop typing
     useEffect(() => {
+        setUserListSearch([]);
         if (searchText === '') {
             setUserListSearch([]);
             return;

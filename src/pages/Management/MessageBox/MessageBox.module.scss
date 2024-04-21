@@ -6,29 +6,34 @@
         width: 340px;
         height: calc(100vh - 90px);
         border-right: 1px solid rgba(0, 0, 0, 0.05);
-        .content-header-left {
-            display: flex;
-            justify-content: space-between;
-            padding-top: 10px;
-            h2 {
-                color: #000000b8;
-                font-size: 1.7em;
-                font-weight: bold;
-            }
-            span {
-                font-size: 18px;
-                color: #000000b8;
-                cursor: pointer;
-                &:hover {
-                    opacity: 0.7;
+        position: relative;
+        .left-sticky {
+            position: sticky;
+            top: 0px;
+            z-index: 100;
+            background-color: white;
+            .content-header-left {
+                display: flex;
+                justify-content: space-between;
+                padding-top: 10px;
+                h2 {
+                    color: #000000b8;
+                    font-size: 1.7em;
+                    font-weight: bold;
+                }
+                span {
+                    font-size: 18px;
+                    color: #000000b8;
+                    cursor: pointer;
+                    &:hover {
+                        opacity: 0.7;
+                    }
                 }
             }
-        }
-        .search-box-wrapper {
-            position: sticky;
-            width: 300px;
-            background-color: white;
-            z-index: 100;
+            .search-box-wrapper {
+                width: 300px;
+                padding-bottom: 1px;
+            }
         }
     }
     .content-right {
@@ -190,6 +195,13 @@
                         -moz-border-radius: 50%;
                         -ms-border-radius: 50%;
                         -o-border-radius: 50%;
+                    }
+                    .not-delete {
+                        width: 8px;
+                        height: 28px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
                     }
 
                     border-radius: 6px;

@@ -74,14 +74,16 @@ function MessageBox() {
             <Grid container className={cx('message-box-wrapper')}>
                 <Grid item className={cx('content-left')}>
                     <div style={{ padding: '0px 20px' }}>
-                        <div className={cx('content-header-left')}>
-                            <h2>Đoạn chat</h2>
-                            <span onClick={() => setOpen(true)}>
-                                <GroupAdd />
-                            </span>
-                        </div>
-                        <div className={cx('search-box-wrapper')}>
-                            <SearchBox placeholder={'Tìm kiếm trên hộp thoại'} />
+                        <div className={cx('left-sticky')}>
+                            <div className={cx('content-header-left')}>
+                                <h2>Đoạn chat</h2>
+                                <span onClick={() => setOpen(true)}>
+                                    <GroupAdd />
+                                </span>
+                            </div>
+                            <div className={cx('search-box-wrapper')}>
+                                <SearchBox placeholder={'Tìm kiếm trên hộp thoại'} />
+                            </div>
                         </div>
                         <div>
                             {listMessage !== null &&

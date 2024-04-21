@@ -1,13 +1,14 @@
 import * as React from 'react';
 import classNames from 'classnames/bind';
 import styles from './ListStudents.module.scss';
-import { DatePicker } from 'rsuite'; 
+import { DatePicker } from 'rsuite';
 import 'rsuite/dist/rsuite.min.css';
 import { DataGrid } from '@mui/x-data-grid';
 import Avatar from '~/components/Avatar/Avatar';
 import { Backdrop, CircularProgress, Snackbar } from '@mui/material';
 import { Cancel, CheckCircle } from '@mui/icons-material';
 import SearchBox from '~/components/SearchBox/SearchBox';
+import { LoggedContext } from '~/components/Layout/LoggedLayout';
 const cx = classNames.bind(styles);
 
 const columns = [
@@ -183,16 +184,17 @@ export default function ListStudents() {
     //state
     const snackBarRef = React.useRef(false);
     const [rowSelectionModel, setRowSelectionModel] = React.useState([]);
-    const [backdrop, setBackdrop] = React.useState(false);
+
+    const context = React.useContext(LoggedContext);
 
     //button handler
 
     //api call
     const handleAttendenceCheck = (type) => {
         snackBarRef.current = false;
-        setBackdrop(true);
+        context.setShowBackDrop(true);
         setTimeout(() => {
-            setBackdrop(false);
+            context.setShowBackDrop(false);
             setRowSelectionModel([]);
         }, 1000);
     };
@@ -220,7 +222,7 @@ export default function ListStudents() {
                 <SearchBox placeholder="Tìm kiếm học sinh" style={{ width: '50%' }} />
                 <DatePicker style={{ width: '40%' }} />
             </div>
-            <div style={{ height: 'calc(100vh - 196px)', width: '100%' }}>
+            <div style={{ height: 'calc(100vh - 220px)', width: '100%' }}>
                 <DataGrid
                     rows={rows}
                     columns={columns}
@@ -241,10 +243,6 @@ export default function ListStudents() {
                     rowSelectionModel={rowSelectionModel}
                 />
             </div>
-            <Backdrop open={backdrop}>
-                <CircularProgress color="inherit" />
-            </Backdrop>
-
             <Snackbar
                 anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
                 open={snackBarRef.current}

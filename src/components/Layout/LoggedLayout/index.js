@@ -25,7 +25,7 @@ function LoggedLayout({ children }) {
                     {children}
                 </MainLayout>
             </LoggedContext.Provider>
-            <Backdrop open={showBackDrop} >
+            <Backdrop open={showBackDrop} sx={{ zIndex: 99999999999999999 }}>
                 <CircularProgress color="inherit" />
             </Backdrop>
             <Snackbar

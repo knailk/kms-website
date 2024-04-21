@@ -11,7 +11,7 @@ const cx = classNames.bind(styles);
 const style = {
     position: 'absolute',
     width: '350px',
-    height: '435px',
+    height: '465px',
     bgcolor: 'white',
     zIndex: 1000,
     p: '10px',

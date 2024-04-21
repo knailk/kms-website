@@ -40,7 +40,6 @@ const UserCard = ({ username, fullName, avatar, handleSelectUser }) => {
 };
 
 function ModalCreateGroup({ type, listMember }) {
-    console.log(listMember);
     //state for ui
     const userSelectRef = useRef();
     const userCardRef = useRef();
@@ -149,7 +148,6 @@ function ModalCreateGroup({ type, listMember }) {
                     } else {
                         data = response.data.users;
                     }
-                    console.log(data);
                     setUserListSearch(data);
                 }
             });
@@ -163,7 +161,7 @@ function ModalCreateGroup({ type, listMember }) {
         <div className={cx('modal-create-group')}>
             <h2 style={{ padding: '8px 0px' }}>
                 {type === 'create' && 'Tạo nhóm chat'}
-                {type === 'edit' && 'Chỉnh sửa thành viên'}
+                {type === 'edit' && 'Chỉnh sửa'}
             </h2>
             <div className={cx('user-select-wrapper')}>
                 <Grid container rowSpacing={1}>

@@ -9,7 +9,10 @@ import Profile from '~/pages/Management/Profile';
 import MessageBox from '~/pages/Management/MessageBox';
 import ListStudent from '~/pages/Management/ListStudents';
 import RoadMap from '~/pages/Management/RoadMap';
-import Class from '~/pages/AdminManagement/Class/class';
+import AdminClass from '~/pages/AdminManagement/Class';
+import General from '~/pages/AdminManagement/General';
+import AdminSchedule from '~/pages/AdminManagement/Schedule';
+import AdminChatSession from '~/pages/AdminManagement/ChatSession';
 
 export const publicRoutes = [
     { path: '/', component: Home, requireAuth: false },
@@ -27,6 +30,10 @@ export const publicRoutes = [
     { path: '/food-menu', component: Schedule, layout: LoggedLayout, requireAuth: true },
     { path: '/logout', component: Schedule, layout: LoggedLayout, requireAuth: true },
 
-    { path: '/admin/class', component: Class, layout: LoggedLayout, requireAuth: true },
+    { path: '/admin', component: General, layout: LoggedLayout, requireAuth: true },
+    { path: '/admin/class', component: AdminClass, layout: LoggedLayout, requireAuth: true },
+    { path: '/admin/schedule', component: AdminSchedule, layout: LoggedLayout, requireAuth: true },
+    { path: '/admin/message', component: MessageBox, layout: LoggedLayout, requireAuth: true },
+    { path: '/admin/chat-session', component: AdminChatSession, layout: LoggedLayout, requireAuth: true },
 ];
 export const privateRoutes = [];

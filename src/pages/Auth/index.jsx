@@ -42,6 +42,7 @@ function LoginForm() {
                 variant="outlined"
                 className={cx('input-field')}
                 inputRef={usernameRef}
+                defaultValue="admin"
             />
             <TextField
                 id="password"
@@ -49,6 +50,7 @@ function LoginForm() {
                 variant="outlined"
                 className={cx('input-field')}
                 inputRef={passwordRef}
+                defaultValue="ndtd1234"
             />
             <div>
                 <FormControlLabel

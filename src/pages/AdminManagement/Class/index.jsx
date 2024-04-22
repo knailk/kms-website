@@ -21,6 +21,7 @@ import { Button } from '@mui/material';
 import { LoggedContext } from '~/components/Layout/LoggedLayout';
 import request from '~/utils/http';
 import AddMembersForm from './AddMembersForm';
+import CreateClassForm from './CreateClassForm';
 
 const cx = classNames.bind(styles);
 
@@ -138,6 +139,7 @@ export default function Class() {
     const [members, setMembers] = React.useState([]);
     const [classSelected, setClassSelected] = React.useState({});
     const [openAddMembers, setOpenAddMembers] = React.useState(false);
+    const [openCreateClass, setOpenCreateClass] = React.useState(false);
     const [membersCanRemoved, setMembersCanRemoved] = React.useState([]);
 
     React.useEffect(() => {
@@ -186,24 +188,33 @@ export default function Class() {
         <>
             <h2 className={cx('title')}>Danh sách lớp học</h2>
             <div className={cx('classes-wrapper')}>
-                <FormControl sx={{ m: 1, minWidth: 240 }} size="small">
-                    <InputLabel id="demo-simple-select-label">Chọn lớp</InputLabel>
-                    <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={classSelected}
-                        label="Chọn lớp"
-                        onChange={(event) => {
-                            setClassSelected(event.target.value);
-                        }}
+                <div style={{ alignItems: 'center', display: 'flex' }}>
+                    <FormControl sx={{ m: 1, minWidth: 240 }} size="small">
+                        <InputLabel id="demo-simple-select-label">Chọn lớp</InputLabel>
+                        <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value={classSelected}
+                            label="Chọn lớp"
+                            onChange={(event) => {
+                                setClassSelected(event.target.value);
+                            }}
+                        >
+                            {classes.map((classMap) => (
+                                <MenuItem key={classMap.id} value={classMap}>
+                                    {classMap.className}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+                    <Button
+                        variant="contained"
+                        startIcon={<PersonAddAlt1Icon />}
+                        onClick={() => setOpenCreateClass(true)}
                     >
-                        {classes.map((classMap) => (
-                            <MenuItem key={classMap.id} value={classMap}>
-                                {classMap.className}
-                            </MenuItem>
-                        ))}
-                    </Select>
-                </FormControl>
+                        Thêm thành viên
+                    </Button>
+                </div>
                 <div>
                     <Button
                         variant="contained"
@@ -257,6 +268,16 @@ export default function Class() {
                         setOpenAddMembers={setOpenAddMembers}
                         currentClass={classSelected}
                     />
+                </Box>
+            </Modal>
+            <Modal
+                open={openCreateClass}
+                onClose={() => setOpenCreateClass(false)}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box sx={styleBox}>
+                    <CreateClassForm />
                 </Box>
             </Modal>
         </>

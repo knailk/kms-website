@@ -1,0 +1,30 @@
+.autocomplete-wrapper {
+    .suggestion-container {
+        position: relative;
+        .suggestion-wraper {
+            position: absolute;
+            z-index: 1;
+            background-color: white;
+            width: 100%;
+            .item-wrapper {
+                display: flex;
+                align-items: center;
+                height: 50px;
+                width: 100%;
+                background-color: rgb(255, 255, 255);
+                .icon-place {
+                    width: 90px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+                p {
+                    width: 570px;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    overflow: hidden;
+                }
+            }
+        }
+    }
+}

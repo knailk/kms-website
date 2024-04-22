@@ -7,7 +7,7 @@ const Search = styled('div')(({ theme }) => ({
     borderRadius: '50px',
     backgroundColor: alpha(theme.palette.common.black, 0.1),
     '&:hover': {
-        backgroundColor: alpha(theme.palette.common.black, 0.2),
+        backgroundColor: alpha(theme.palette.common.black, 0.08),
     },
     '&:focus': {
         backgroundColor: alpha(theme.palette.common.black, 0.1),
@@ -42,13 +42,19 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     fontSize: 15,
 }));
 
-function SearchBox({ placeholder, style }) {
+function SearchBox({ placeholder, style, inputRef, value, onChange }) {
     return (
         <Search style={style}>
             <SearchIconWrapper>
                 <SearchIcon style={{ color: '#0000005e' }} />
             </SearchIconWrapper>
-            <StyledInputBase placeholder={placeholder} inputProps={{ 'aria-label': 'search' }} />
+            <StyledInputBase
+                placeholder={placeholder}
+                inputProps={{ 'aria-label': 'search' }}
+                inputRef={inputRef}
+                value={value}
+                onChange={onChange}
+            />
         </Search>
     );
 }

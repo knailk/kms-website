@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import styles from './Profile.module.scss';
@@ -20,7 +20,11 @@ import Box from '@mui/material/Box';
 import PaymentHistory from './PaymentHistory';
 import AccountSetting from './AccountSetting';
 import PaymentDetail from './PaymentDetail';
+import request from '~/utils/http';
+import { LoggedContext } from '~/components/Layout/LoggedLayout';
 const cx = classNames.bind(styles);
+
+export const ProfileContext = createContext();
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -52,6 +56,8 @@ function a11yProps(index) {
 
 export default function Profile() {
     const theme = useTheme();
+    const context = useContext(LoggedContext);
+    const [userData, setUserData] = useState();
     const [searchParams, setSearchParams] = useSearchParams();
     const [value, setValue] = useState(searchParams.get('tab') === 'payment' ? 1 : 0);
     const [paymentId, setPaymentId] = useState(
@@ -79,8 +85,53 @@ export default function Profile() {
         if (searchParams.get('tab') !== 'payment' && searchParams.get('tab') !== 'info') {
             setSearchParams('');
         }
+        // call api get data user
+        getDataProfile();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    const getDataProfile = async () => {
+        context.setShowBackDrop(true);
+        await request
+            .get('/profile/me')
+            .then((res) => {
+                let role = '';
+                switch (res.data.role) {
+                    case 'teacher':
+                        role = 'Giáo viên';
+                        break;
+                    case 'parent':
+                        role = 'Phụ huynh';
+                        break;
+                    case 'driver':
+                        role = 'Tài xế';
+                        break;
+                    default:
+                        break;
+                }
+                let date = new Date(res.data.createdAt);
+                let formattedDate = `Ngày ${date.getDate()} tháng ${date.getMonth() + 1} năm ${date.getFullYear()}`;
+                let firstName = res.data.fullName.split(' ')[0];
+                let lastName = res.data.fullName.split(firstName)[1];
+                let birthDate = new Date(res.data.birthDate);
+                let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                birthDate.toLocaleDateString('en-US', options);
+                setUserData({
+                    ...res.data,
+                    role: role,
+                    createdAt: formattedDate,
+                    firstName: firstName,
+                    lastName: lastName,
+                    birthDate: birthDate,
+                });
+            })
+            .catch((err) => {
+                context.setShowSnackbar('Có lỗi xảy ra ', 'error');
+            });
+        setTimeout(() => {
+            context.setShowBackDrop(false);
+        }, 500);
+    };
 
     return (
         <>
@@ -95,18 +146,14 @@ export default function Profile() {
                 <div className={cx('profile-content-wrapper')}>
                     <div className={cx('content-left')}>
                         <div className={cx('avatar-wrapper')}>
-                            <Avatar
-                                src="https://avatars3.githubusercontent.com/u/9384699?s=400&v=4"
-                                width={200}
-                                height={200}
-                            />
+                            <Avatar src={userData?.pictureURL} width={200} height={200} />
                             <div className={cx('icon-camera')}>
                                 <CameraAlt />
                             </div>
                         </div>
                         <div className={cx('fixed-infor')}>
                             <div className={cx('group-infor')}>
-                                <h3>John Doe</h3>
+                                <h3>{userData?.username}</h3>
                             </div>
                             <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
                                 <Divider />
@@ -116,7 +163,7 @@ export default function Profile() {
                                             <Work />
                                         </MuiAvatar>
                                     </ListItemAvatar>
-                                    <ListItemText primary="Chức vụ" secondary="Giáo viên" />
+                                    <ListItemText primary="Chức vụ" secondary={userData?.role} />
                                 </ListItem>
                                 <Divider />
                                 <ListItem>
@@ -134,7 +181,7 @@ export default function Profile() {
                                             <BeachAccessIcon />
                                         </MuiAvatar>
                                     </ListItemAvatar>
-                                    <ListItemText primary="Tham gia" secondary="Ngày 20 tháng 10 năm 2024" />
+                                    <ListItemText primary="Tham gia" secondary={userData?.createdAt} />
                                 </ListItem>
                                 <Divider />
                             </List>
@@ -155,7 +202,7 @@ export default function Profile() {
                                 </Tabs>
                             </AppBar>
                             <TabPanel value={value} index={0} dir={theme.direction}>
-                                <AccountSetting />
+                                {userData && <AccountSetting userData={userData} />}
                             </TabPanel>
                             <TabPanel value={value} index={1} dir={theme.direction}>
                                 {!paymentId && <PaymentHistory handleBtnDetail={handleBtnDetail} />}

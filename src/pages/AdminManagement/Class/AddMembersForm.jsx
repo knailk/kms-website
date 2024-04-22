@@ -24,16 +24,18 @@ import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import request from '~/utils/http';
 const cx = classNames.bind(styles);
 
-function AddMembersForm(curMembers) {
+const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
+const checkedIcon = <CheckBoxIcon fontSize="small" />;
+
+function AddMembersForm({ members, setOpenAddMembers, currentClass }) {
     const context = React.useContext(LoggedContext);
     const [membersSelected, setMembersSelected] = React.useState([]);
     const [search, setSearch] = React.useState('');
-    const [userListSearch, setUserListSearch] = React.useState([]);
+    const [usersOption, setUsersOption] = React.useState([]);
 
-    //search after 1s since user stop typing
     React.useEffect(() => {
         if (search === '') {
-            setUserListSearch([]);
+            setUsersOption([]);
             return;
         }
         const delayDebounceFn = setTimeout(() => {
@@ -41,32 +43,59 @@ function AddMembersForm(curMembers) {
                 .get(`/profile?keyword=${search}&roles=student`)
                 .then((response) => {
                     if (response.data.users && response.data.users.length > 0) {
-                        let data = [];
+                        let data = response.data.users;
                         if (membersSelected && membersSelected.length > 0) {
-                            data = response.data.users.filter(
+                            data = data.filter(
                                 (user) => membersSelected.findIndex((u) => u.username === user.username) === -1,
                             );
-                        } else {
-                            data = response.data.users;
                         }
-                        setUserListSearch(data);
+                        if (members && members.length > 0) {
+                            data = data.filter((user) => members.findIndex((u) => u.username === user.username) === -1);
+                        }
+                        setUsersOption(data);
                     }
                 })
                 .catch((error) => {
                     context.setShowSnackbar('Không tìm thấy học sinh', 'error');
                 });
-        }, 1000);
+        }, 500);
         return () => clearTimeout(delayDebounceFn);
     }, [search]);
 
+    const handleAddMembers = () => {
+        if (membersSelected.length <= 0) return;
+
+        const usernames = membersSelected.map((user) => user.username);
+
+        request
+            .post(`/admin/class/${currentClass.id}/members`, { usernames: usernames })
+            .then((res) => {
+                context.setShowSnackbar('Thêm thành viên thành công', 'success');
+
+                setUsersOption([]);
+                setMembersSelected([]);
+                setOpenAddMembers(false);
+            })
+            .catch((error) => {
+                context.setShowSnackbar('Thêm thành viên không thành công', 'error');
+            });
+    };
+
     return (
-        <>
+        <div className={cx('modal-add-member')}>
             <h1 style={{ textAlign: 'center', marginBottom: '30px' }}>Thêm thành viên</h1>
             <Autocomplete
                 multiple
                 id="checkboxes-tags-demo"
-                onInputChange={(e) => setSearch(e.target.value)}
-                options={userListSearch}
+                onInputChange={(e) => {
+                    if (e.type === 'change') {
+                        setSearch(e.target.value);
+                    }
+                }}
+                onChange={(e, value) => {
+                    e.type === 'click' && setMembersSelected(value);
+                }}
+                options={usersOption}
                 disableCloseOnSelect
                 getOptionLabel={(option) => option.fullName}
                 renderOption={(props, option, { selected }) => (
@@ -75,14 +104,18 @@ function AddMembersForm(curMembers) {
                         {option.fullName}
                     </li>
                 )}
-                style={{ width: 500 }}
                 renderInput={(params) => <TextField {...params} label="Tìm học sinh" placeholder="Nhập từ khóa" />}
             />
-        </>
+            <Button
+                variant="contained"
+                disabled={membersSelected.length <= 0}
+                onClick={handleAddMembers}
+                className={cx('btn-add-member')}
+            >
+                <span>Thêm</span>
+            </Button>
+        </div>
     );
 }
-
-const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
-const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
 export default AddMembersForm;

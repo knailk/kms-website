@@ -8,3 +8,14 @@
     align-items: center;
     justify-content: space-between;
 }
+.modal-add-member {
+    height: 100%;
+    width: 800px;
+    position: relative;
+
+    .btn-add-member {
+        width: 100px;
+        float: right;
+        margin-top: 10px;
+    }
+}

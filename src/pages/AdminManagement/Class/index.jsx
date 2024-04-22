@@ -10,11 +10,13 @@ import IconButton from '@mui/material/IconButton';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
+import Checkbox from '@mui/material/Checkbox';
 import Select from '@mui/material/Select';
 import Modal from '@mui/material/Modal';
 import Avatar from '@mui/material/Avatar';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
 import { Button } from '@mui/material';
 import { LoggedContext } from '~/components/Layout/LoggedLayout';
 import request from '~/utils/http';
@@ -24,7 +26,6 @@ const cx = classNames.bind(styles);
 
 const styleBox = {
     position: 'absolute',
-    width: '400px',
     bgcolor: 'white',
     zIndex: 1000,
     display: 'flex',
@@ -118,7 +119,7 @@ const columns = [
     {
         field: 'members',
         headerName: 'Học viên',
-        width: 50,
+        width: 100,
         align: 'center',
         editable: false,
         renderCell: (params) => {
@@ -134,11 +135,10 @@ const columns = [
 export default function Class() {
     const context = React.useContext(LoggedContext);
     const [classes, setClasses] = React.useState([]);
+    const [members, setMembers] = React.useState([]);
     const [classSelected, setClassSelected] = React.useState({});
     const [openAddMembers, setOpenAddMembers] = React.useState(false);
-    const handleChangeClass = (event) => {
-        setClassSelected(event.target.value);
-    };
+    const [membersCanRemoved, setMembersCanRemoved] = React.useState([]);
 
     React.useEffect(() => {
         request
@@ -162,9 +162,25 @@ export default function Class() {
             .catch((error) => {
                 context.setShowSnackbar('Tìm thông tin thành viên không thành công', 'error');
             });
-    }, [classSelected]);
+    }, [classSelected, openAddMembers]);
 
-    const [members, setMembers] = React.useState([]);
+    const handleRemoveMember = () => {
+        if (membersCanRemoved.length <= 0) return;
+        request
+            .delete(`/admin/class/${classSelected.id}/members`, { data: { usernames: membersCanRemoved } })
+            .then((res) => {
+                context.setShowSnackbar('Xoá thành viên thành công', 'success');
+                members.forEach((member) => {
+                    if (membersCanRemoved.includes(member.username)) {
+                        member.status = 'canceled';
+                    }
+                });
+                setMembersCanRemoved([]);
+            })
+            .catch((error) => {
+                context.setShowSnackbar('Xoá thành viên không thành công', 'error');
+            });
+    };
 
     return (
         <>
@@ -177,7 +193,9 @@ export default function Class() {
                         id="demo-simple-select"
                         value={classSelected}
                         label="Chọn lớp"
-                        onChange={handleChangeClass}
+                        onChange={(event) => {
+                            setClassSelected(event.target.value);
+                        }}
                     >
                         {classes.map((classMap) => (
                             <MenuItem key={classMap.id} value={classMap}>
@@ -186,10 +204,26 @@ export default function Class() {
                         ))}
                     </Select>
                 </FormControl>
+                <div>
+                    <Button
+                        variant="contained"
+                        startIcon={<PersonRemoveIcon />}
+                        color="error"
+                        style={{ marginRight: '5px' }}
+                        disabled={membersCanRemoved.length <= 0}
+                        onClick={() => handleRemoveMember()}
+                    >
+                        Xoá thành viên
+                    </Button>
 
-                <Button variant="contained" startIcon={<PersonAddAlt1Icon />} onClick={() => setOpenAddMembers(true)}>
-                    Thêm thành viên
-                </Button>
+                    <Button
+                        variant="contained"
+                        startIcon={<PersonAddAlt1Icon />}
+                        onClick={() => setOpenAddMembers(true)}
+                    >
+                        Thêm thành viên
+                    </Button>
+                </div>
             </div>
             <div style={{ height: 'calc(90vh - 196px)', width: '100%' }}>
                 <DataGrid
@@ -197,6 +231,10 @@ export default function Class() {
                     columns={columns}
                     getRowId={(row) => row.username}
                     checkboxSelection
+                    isRowSelectable={(params) => params.row.status !== 'canceled'}
+                    onRowSelectionModelChange={(ids) => {
+                        setMembersCanRemoved(ids);
+                    }}
                     initialState={{
                         pagination: {
                             paginationModel: {
@@ -214,7 +252,11 @@ export default function Class() {
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={styleBox}>
-                    <AddMembersForm members={members} />
+                    <AddMembersForm
+                        members={members}
+                        setOpenAddMembers={setOpenAddMembers}
+                        currentClass={classSelected}
+                    />
                 </Box>
             </Modal>
         </>

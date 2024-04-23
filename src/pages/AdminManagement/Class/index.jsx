@@ -10,7 +10,6 @@ import IconButton from '@mui/material/IconButton';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import Checkbox from '@mui/material/Checkbox';
 import Select from '@mui/material/Select';
 import Modal from '@mui/material/Modal';
 import Avatar from '@mui/material/Avatar';
@@ -22,6 +21,7 @@ import { LoggedContext } from '~/components/Layout/LoggedLayout';
 import request from '~/utils/http';
 import AddMembersForm from './AddMembersForm';
 import CreateClassForm from './CreateClassForm';
+import SchoolIcon from '@mui/icons-material/School';
 
 const cx = classNames.bind(styles);
 
@@ -152,7 +152,7 @@ export default function Class() {
             .catch((error) => {
                 context.setShowSnackbar('Không tìm thấy thông tin lớp học', 'error');
             });
-    }, []);
+    }, [openCreateClass]);
 
     React.useEffect(() => {
         if (Object.keys(classSelected).length === 0) return;
@@ -207,12 +207,8 @@ export default function Class() {
                             ))}
                         </Select>
                     </FormControl>
-                    <Button
-                        variant="contained"
-                        startIcon={<PersonAddAlt1Icon />}
-                        onClick={() => setOpenCreateClass(true)}
-                    >
-                        Thêm thành viên
+                    <Button variant="contained" startIcon={<SchoolIcon />} onClick={() => setOpenCreateClass(true)}>
+                        Tạo lớp mới
                     </Button>
                 </div>
                 <div>
@@ -277,7 +273,7 @@ export default function Class() {
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={styleBox}>
-                    <CreateClassForm />
+                    <CreateClassForm setOpenCreateClass={setOpenCreateClass} />
                 </Box>
             </Modal>
         </>

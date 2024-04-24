@@ -1,15 +1,12 @@
 import * as React from 'react';
-import BigCalendar from 'react-big-calendar';
+import { Calendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import Dialog from '@mui/material/Dialog';
 import Button from '@material-ui/core/Button';
 import TextField from '@mui/material/TextField';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
-require('react-big-calendar/lib/css/react-big-calendar.css');
 
-BigCalendar.momentLocalizer(moment);
-
-function Calendar() {
+function CalendarComponent() {
     const eventActions = [
         <Button label="Cancel" primary={false} keyboardFocused={true} onClick={this.handleClose} />,
         <Button
@@ -44,7 +41,7 @@ function Calendar() {
     return (
         <div id="Calendar">
             {/* react-big-calendar library utilized to render calendar*/}
-            <BigCalendar
+            <Calendar
                 events={this.state.events}
                 views={['month', 'week', 'day', 'agenda']}
                 timeslots={2}
@@ -135,4 +132,4 @@ function Calendar() {
     );
 }
 
-export default Calendar;
+export default CalendarComponent;

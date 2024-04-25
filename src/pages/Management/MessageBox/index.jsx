@@ -10,7 +10,7 @@ import { createContext, useEffect, useState, useContext } from 'react';
 import Backdrop from '@mui/material/Backdrop';
 import ModalCreateGroup from './ModalCreateGroup';
 import ConversationSkeleton from '~/components/Messenger/ConversationSkeleton';
-import { getDiffTime } from '~/utils/GetDiffTime';
+import { getDiffTime } from '~/utils/TimeUtils';
 import request from '~/utils/http';
 import { LoggedContext } from '~/components/Layout/LoggedLayout';
 const cx = classNames.bind(styles);

@@ -139,6 +139,10 @@ export default function Schedule() {
                 onView={(view) => {
                     console.log('2222222222222', view);
                 }}
+                eventPropGetter={(event) => {
+                    console.log("111111", event)
+                    return { style: { backgroundColor : '#ffffff' } };
+                }}
                 components={{
                     toolbar: (toolbar) => {
                         return <CustomToolbar toolbar={toolbar} viewMode={viewMode} setViewMode={setViewMode} />;

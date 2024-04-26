@@ -8,23 +8,42 @@ import 'rsuite/dist/rsuite.min.css';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
+import Box from '@mui/material/Box';
 import Select from '@mui/material/Select';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
 import { Button } from '@mui/material';
 import { LoggedContext } from '~/components/Layout/LoggedLayout';
+import Modal from '@mui/material/Modal';
 import request from '~/utils/http';
 import SchoolIcon from '@mui/icons-material/School';
 import styles from './Schedule.module.scss';
+import EventModal from './EventModal';
+import { Events } from '~/constants/event';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 
 const localizer = momentLocalizer(moment);
 const cx = classNames.bind(styles);
 
-const myEventsList = [{ fromTime: new Date(), toTime: new Date(), title: 'special event' }];
+const styleBox = {
+    position: 'absolute',
+    bgcolor: 'white',
+    zIndex: 1000,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    p: '45px',
+    borderRadius: 2,
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+};
 
 export default function Schedule() {
     const context = React.useContext(LoggedContext);
+    const [openModifyModal, setOpenModifyModal] = React.useState(false);
+    const [isUpdateEvent, setIsUpdateEvent] = React.useState(false);
+    const [eventSelected, setEventSelected] = React.useState({});
     const [classes, setClasses] = React.useState([]);
     const [classSelected, setClassSelected] = React.useState({});
     const [viewMode, setViewMode] = React.useState('week');
@@ -51,20 +70,13 @@ export default function Schedule() {
         request
             .get(`/class/me?id=${classSelected.id}&fromDate=${rangeSchedule.start}&toDate=${rangeSchedule.end}`)
             .then((response) => {
-                const newEvents = response.data.schedules.map((schedule) => {
-                    return {
-                        title: schedule.action,
-                        start: new Date(schedule.fromTime),
-                        end: new Date(schedule.toTime),
-                    };
-                });
-                console.log(newEvents);
-                setEvents(newEvents);
+                transformTitleEvent(response.data.schedules);
+                setIsUpdateEvent(false);
             })
             .catch((error) => {
                 context.setShowSnackbar('Không tìm thấy thông tin lịch học', 'error');
             });
-    }, [rangeSchedule, classSelected]);
+    }, [rangeSchedule, classSelected, isUpdateEvent]);
 
     const handleGetSchedule = (newDate, view) => {
         let start, end;
@@ -81,6 +93,59 @@ export default function Schedule() {
         }
 
         setRangeSchedule({ start, end });
+    };
+
+    const eventStyleGetter = (event, start, end) => {
+        var style = {
+            backgroundColor: event.backgroundColor,
+            borderRadius: '0px',
+            opacity: 0.8,
+            color: 'black',
+            border: '0px',
+            display: 'block',
+        };
+        return {
+            style: style,
+        };
+    };
+
+    const transformTitleEvent = (schedules) => {
+        const events = schedules.map((schedule) => {
+            const eventProps = Events.find((event) => event.action === schedule.action);
+
+            return {
+                id: schedule.id,
+                action: schedule.action,
+                title: eventProps.title,
+                start: new Date(schedule.fromTime),
+                end: new Date(schedule.toTime),
+                backgroundColor: eventProps.backgroundColor,
+            };
+        });
+        setEvents(events);
+    };
+
+    const handleUpdateEvent = (event, target) => {
+        console.log(event, target);
+        setEventSelected({
+            ...event,
+            eventAction: 'update',
+            classID: classSelected.id,
+        });
+        setOpenModifyModal(true);
+    };
+
+    const handleAddEvent = ({ start, end, slots, action }) => {
+        const newEvent = {
+            action: 'learning',
+            start: start,
+            end: end,
+            eventAction: 'create',
+            classID: classSelected.id,
+        };
+
+        setEventSelected(newEvent);
+        setOpenModifyModal(true);
     };
 
     return (
@@ -106,12 +171,12 @@ export default function Schedule() {
                             ))}
                         </Select>
                     </FormControl>
-                    <Button variant="contained" startIcon={<SchoolIcon />}>
+                    {/* <Button variant="contained" startIcon={<SchoolIcon />}>
                         Tạo lớp mới
-                    </Button>
+                    </Button> */}
                 </div>
                 <div>
-                    <Button
+                    {/* <Button
                         variant="contained"
                         startIcon={<PersonRemoveIcon />}
                         color="error"
@@ -122,33 +187,50 @@ export default function Schedule() {
 
                     <Button variant="contained" startIcon={<PersonAddAlt1Icon />}>
                         Thêm thành viên
-                    </Button>
+                    </Button> */}
                 </div>
             </div>
             <Calendar
-                selectable
+                selectable={viewMode !== 'month'}
                 localizer={localizer}
                 events={events}
                 timeslots={1}
-                step={15}
+                step={30}
                 defaultView="week"
                 startAccessor="start"
                 endAccessor="end"
-                style={{ height: 'calc(90vh - 196px)', width: '100%' }}
+                min={new Date(0, 0, 0, 6, 0, 0)}
+                max={new Date(0, 0, 0, 20, 0, 0)}
+                style={{ height: 'calc(95vh - 196px)', width: '100%' }}
                 onNavigate={handleGetSchedule}
                 onView={(view) => {
-                    console.log('2222222222222', view);
+                    handleGetSchedule(new Date(), view);
                 }}
-                eventPropGetter={(event) => {
-                    console.log("111111", event)
-                    return { style: { backgroundColor : '#ffffff' } };
-                }}
+                onSelectEvent={handleUpdateEvent}
+                onSelectSlot={handleAddEvent}
+                eventPropGetter={eventStyleGetter}
                 components={{
                     toolbar: (toolbar) => {
                         return <CustomToolbar toolbar={toolbar} viewMode={viewMode} setViewMode={setViewMode} />;
                     },
                 }}
             />
+
+            <Modal
+                open={openModifyModal}
+                onClose={() => setOpenModifyModal(false)}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box sx={styleBox}>
+                    <EventModal
+                        setOpenModifyModal={setOpenModifyModal}
+                        eventSelected={eventSelected}
+                        setEventSelected={setEventSelected}
+                        setIsUpdateEvent={setIsUpdateEvent}
+                    />
+                </Box>
+            </Modal>
         </>
     );
 }

@@ -187,7 +187,7 @@ export default function CreateClassForm({ setOpenCreateClass }) {
                                     <DatePicker
                                         label="Ngày bắt đầu"
                                         name="fromDate"
-                                        fullWidth
+                                        slotProps={{ textField: { fullWidth: true } }}
                                         value={formData.fromDate}
                                         onChange={(newValue) =>
                                             setFormData({
@@ -205,7 +205,7 @@ export default function CreateClassForm({ setOpenCreateClass }) {
                                     <DatePicker
                                         label="Ngày kết thúc"
                                         name="toDate"
-                                        fullWidth
+                                        slotProps={{ textField: { fullWidth: true } }}
                                         value={formData.toDate}
                                         onChange={(newValue) => {
                                             setFormData({

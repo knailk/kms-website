@@ -13,19 +13,19 @@ import * as React from 'react';
 const views = [
     {
         value: 'month',
-        label: 'Month',
+        label: 'Tháng',
     },
     {
         value: 'week',
-        label: 'Week',
+        label: 'Tuần',
     },
     {
         value: 'day',
-        label: 'Day',
+        label: 'Ngày',
     },
     {
         value: 'agenda',
-        label: 'Agenda',
+        label: 'Sự kiện',
     },
 ];
 

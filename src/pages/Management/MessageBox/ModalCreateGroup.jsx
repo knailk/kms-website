@@ -9,15 +9,20 @@ import { LoggedContext } from '~/components/Layout/LoggedLayout';
 import { MessageBoxContext } from '.';
 const cx = classNames.bind(styles);
 
-const BadgeUser = ({ username, fullName, handleRemoveUser }) => {
+const BadgeUser = ({ username, fullName, handleRemoveUser, type = '' }) => {
     return (
         <div className={cx('badge-wrapper')}>
             <span>
                 <div className={cx('content')}>
                     <div style={{ fontWeight: 700 }}>{fullName}</div>
-                    <div className={cx('delete')} onClick={() => handleRemoveUser(username)}>
-                        &#10006;
-                    </div>
+                    {type === 'delete' && (
+                        <div className={cx('delete')} onClick={() => handleRemoveUser(username)}>
+                            &#10006;
+                        </div>
+                    )}
+                    {type !== 'delete' && (
+                        <div className={cx('not-delete')} onClick={() => handleRemoveUser(username)}></div>
+                    )}
                 </div>
             </span>
         </div>
@@ -39,7 +44,7 @@ const UserCard = ({ username, fullName, avatar, handleSelectUser }) => {
     );
 };
 
-function ModalCreateGroup({ type, listMember }) {
+function ModalCreateGroup({ type, listMember, groupId }) {
     //state for ui
     const userSelectRef = useRef();
     const userCardRef = useRef();
@@ -56,6 +61,7 @@ function ModalCreateGroup({ type, listMember }) {
     const [searchText, setSearchText] = useState('');
     const [userListSearch, setUserListSearch] = useState([]);
     const [selectedUsers, setSelectedUsers] = useState([]);
+    const [removedUsers, setRemovedUsers] = useState([]);
 
     //button handle
     const handleChangeSearch = (text) => {
@@ -73,6 +79,7 @@ function ModalCreateGroup({ type, listMember }) {
 
     const handleRemoveUser = (username) => {
         setSelectedUsers(selectedUsers.filter((user) => user.username !== username));
+        setRemovedUsers([...removedUsers, username]);
     };
 
     const handleCreateGroup = async () => {
@@ -94,6 +101,12 @@ function ModalCreateGroup({ type, listMember }) {
 
     const handleEditGroup = () => {
         //call api to edit group
+        if (type === 'add') {
+            let arrUserSelected;
+            // request.post('/chat/member', { chat_id: groupId, username: });
+        } else if (type === 'delete') {
+            console.log(removedUsers);
+        }
     };
 
     //render
@@ -107,6 +120,7 @@ function ModalCreateGroup({ type, listMember }) {
 
     //search after 1s since user stop typing
     useEffect(() => {
+        setUserListSearch([]);
         if (searchText === '') {
             setUserListSearch([]);
             return;
@@ -121,7 +135,7 @@ function ModalCreateGroup({ type, listMember }) {
     }, [searchText]);
 
     useEffect(() => {
-        if (type === 'edit') {
+        if (type === 'delete') {
             // call api to get user list of group
             setSelectedUsers(() => {
                 return listMember.map((user) => {
@@ -161,7 +175,8 @@ function ModalCreateGroup({ type, listMember }) {
         <div className={cx('modal-create-group')}>
             <h2 style={{ padding: '8px 0px' }}>
                 {type === 'create' && 'Tạo nhóm chat'}
-                {type === 'edit' && 'Chỉnh sửa'}
+                {type === 'add' && 'Thêm thành viên'}
+                {type === 'delete' && 'Xóa thành viên'}
             </h2>
             <div className={cx('user-select-wrapper')}>
                 <Grid container rowSpacing={1}>
@@ -177,6 +192,7 @@ function ModalCreateGroup({ type, listMember }) {
                                         username={user.username}
                                         fullName={user.fullName}
                                         handleRemoveUser={handleRemoveUser}
+                                        type={type}
                                     />
                                 ))}
                         </span>
@@ -225,7 +241,7 @@ function ModalCreateGroup({ type, listMember }) {
                         Tạo nhóm
                     </Button>
                 )}
-                {type === 'edit' && (
+                {(type === 'add' || type === 'delete') && (
                     <Button variant="text" disabled={selectedUsers.length <= 0} onClick={handleEditGroup}>
                         Lưu thay đổi
                     </Button>

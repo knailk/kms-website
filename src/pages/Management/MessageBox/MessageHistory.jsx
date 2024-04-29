@@ -6,7 +6,12 @@ function MessageHistory({ chatHistory, showSeperator }) {
     const formatDate = (dateStr) => {
         let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
         let date = new Date(dateStr);
-        return date.toLocaleDateString('en-US', options);
+        let today = new Date();
+        if (date.toLocaleDateString() === today.toLocaleDateString()) {
+            return 'Hôm nay';
+        } else {
+            return date.toLocaleDateString('en-US', options);
+        }
     };
 
     return (

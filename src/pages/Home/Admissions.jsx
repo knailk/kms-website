@@ -1,15 +1,20 @@
 import classNames from 'classnames/bind';
 import styles from './Home.module.scss';
 import { Button, Grid, MenuItem, TextField } from '@mui/material';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { memo, useState } from 'react';
+import dayjs from 'dayjs';
 const cx = classNames.bind(styles);
 
 function Admissions() {
     const [dataForm, setDataForm] = useState({
         'parent-name': '',
-        'child-age': '',
+        birthdate: null,
         phone: '',
-        branch: 'cs1',
+        gender: 'male',
         captcha: '',
     });
     const [error, setError] = useState([]);
@@ -52,16 +57,18 @@ function Admissions() {
                         {...(error.includes('parent-name') && { error: true, helperText: 'Vui lòng nhập' })}
                     />
                 </Grid>
-                <Grid item xs={2} className={cx('')}>
-                    <TextField
-                        id="child-age"
-                        label="Độ tuổi trẻ"
-                        type="number"
-                        value={dataForm['child-age']}
-                        variant="filled"
-                        onChange={(e) => handleChange(e, 'child-age')}
-                        {...(error.includes('child-age') && { error: true, helperText: 'Vui lòng nhập' })}
-                    />
+                <Grid item xs={2.5} className={cx('datePicker')}>
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DemoContainer components={['DateField']}>
+                            <DatePicker
+                                label="Sinh nhật bé"
+                                name="birthdate"
+                                slotProps={{ textField: { fullWidth: true, variant: 'filled' } }}
+                                value={dataForm.birthdate}
+                                onChange={(e) => handleChange(e, 'birthdate')}
+                            />
+                        </DemoContainer>
+                    </LocalizationProvider>
                 </Grid>
                 <Grid item xs={2} className={cx('')}>
                     <TextField
@@ -76,28 +83,17 @@ function Admissions() {
                 </Grid>
                 <Grid item xs={2} className={cx('')}>
                     <TextField
-                        id="branch"
-                        label="Chọn cơ sở"
-                        type="number"
-                        value={dataForm.branch}
+                        id="gender"
+                        label="Giới tính trẻ"
+                        value={dataForm.gender}
+                        fullWidth
                         select
                         variant="filled"
-                        onChange={(e) => handleChange(e, 'branch')}
+                        onChange={(e) => handleChange(e, 'gender')}
                     >
-                        <MenuItem value="cs1">Cơ sở Tân Phú</MenuItem>
-                        <MenuItem value="cs2">Cơ sở Tân Bình</MenuItem>
+                        <MenuItem value="male">Bé trai</MenuItem>
+                        <MenuItem value="female">Bé gái</MenuItem>
                     </TextField>
-                </Grid>
-                <Grid item xs={2} className={cx('')}>
-                    <TextField
-                        id="captcha"
-                        label="12 + 5 = ?"
-                        type="number"
-                        value={dataForm.captcha}
-                        variant="filled"
-                        onChange={(e) => handleChange(e, 'captcha')}
-                        {...(error.includes('captcha') && { error: true, helperText: 'Vui lòng nhập' })}
-                    />
                 </Grid>
                 <Grid item xs={2} className={cx('')}>
                     <Button variant="contained" className={cx('button')} onClick={handleSubmitAdmissions}>

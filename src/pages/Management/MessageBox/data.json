@@ -202,5 +202,37 @@
                 }
             }
         ]
+    },
+    {
+        "date": "2024-04-02",
+        "messages": [
+            {
+                "id": "msg_",
+                "content": "How are you!",
+                "sender": {
+                    "uid": "11",
+                    "name": "Trần Thị Thu Hà",
+                    "avatar": "https://mui.com/static/images/avatar/2.jpg"
+                }
+            },
+            {
+                "id": "msg_",
+                "content": "How are you!",
+                "sender": {
+                    "uid": "11",
+                    "name": "Trần Thị Thu Hà",
+                    "avatar": "https://mui.com/static/images/avatar/2.jpg"
+                }
+            },
+            {
+                "id": "msg_",
+                "content": "I am fine!",
+                "sender": {
+                    "uid": "1",
+                    "name": "Trần Minh Toàn",
+                    "avatar": "https://mui.com/static/images/avatar/2.jpg"
+                }
+            }
+        ]
     }
 ]

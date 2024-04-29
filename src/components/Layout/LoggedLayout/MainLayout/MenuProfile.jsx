@@ -64,7 +64,7 @@ export default function MenuProfile({ anchorEl, handleMenuClose }) {
                     </ListItemIcon>
                     Cài đặt
                 </MenuItem>
-                <MenuItem onClick={handleMenuClose}>
+                <MenuItem onClick={()=>handleMenuClose("logout")}>
                     <ListItemIcon>
                         <Logout fontSize="small" />
                     </ListItemIcon>

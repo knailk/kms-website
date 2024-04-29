@@ -1,0 +1,30 @@
+.road-map-container {
+    display: flex;
+    justify-content: space-between;
+    height: calc(100vh - 90px);
+    .content-left {
+        border: 1px solid;
+    }
+    .content-right {
+        height: calc(100vh - 90px);
+        overflow: scroll;
+        background-color: white;
+        position: relative;
+        .action-wrapper {
+            position: sticky;
+            top: 0px;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background-color: white;
+            .btn-optimize {
+                height: 40px;
+                padding: 0px;
+            }
+        }
+        .list-student-wrapper {
+        }
+    }
+}

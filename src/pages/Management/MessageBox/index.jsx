@@ -1,123 +1,135 @@
 import classNames from 'classnames/bind';
 import styles from './MessageBox.module.scss';
 import '@chatscope/chat-ui-kit-styles/dist/default/styles.min.css';
-import { Divider, Grid } from '@mui/material';
+import { Box, Grid, Modal } from '@mui/material';
 import Conversation from '~/components/Messenger/Conversation';
 import SearchBox from '~/components/SearchBox/SearchBox';
 import ChatContainer from './ChatContainer';
-import chatHistory from './data.json';
-import convertDataMessageList from '~/utils/ConverDataMessage';
-import { useEffect } from 'react';
-
+import { GroupAdd } from '@mui/icons-material';
+import { createContext, useEffect, useState, useContext } from 'react';
+import Backdrop from '@mui/material/Backdrop';
+import ModalCreateGroup from './ModalCreateGroup';
+import ConversationSkeleton from '~/components/Messenger/ConversationSkeleton';
+import { getDiffTime } from '~/utils/TimeUtils';
+import request from '~/utils/http';
+import { LoggedContext } from '~/components/Layout/LoggedLayout';
 const cx = classNames.bind(styles);
+export const MessageBoxContext = createContext();
 
-const messageHistoryToday = [
-    {
-        date: '',
-        messages: [
-            {
-                id: 'msg_',
-                content: 'How are you!',
-                sender: {
-                    uid: '11',
-                    name: 'Trần Thị Thu Hà',
-                    avatar: 'https://mui.com/static/images/avatar/2.jpg',
-                },
-            },
-            {
-                id: 'msg_',
-                content: 'How are you!',
-                sender: {
-                    uid: '11',
-                    name: 'Trần Thị Thu Hà',
-                    avatar: 'https://mui.com/static/images/avatar/2.jpg',
-                },
-            },
-            {
-                id: 'msg_',
-                content: 'I am fine!',
-                sender: {
-                    uid: '1',
-                    name: 'Trần Minh Toàn',
-                    avatar: 'https://mui.com/static/images/avatar/2.jpg',
-                },
-            },
-        ],
+const style = {
+    position: 'absolute',
+    width: '350px',
+    height: '465px',
+    bgcolor: 'white',
+    zIndex: 1000,
+    p: '10px',
+    borderRadius: 1,
+    top: '25%',
+    left: '50%',
+    transform: 'translateX(-50%)',
+    '&:focus': {
+        outline: 'none',
     },
-];
-function MessageBox() {
-    const userLoginId = '1';
-    const messageHistory = convertDataMessageList(chatHistory, userLoginId);
-    const messageHistoryTodayShow = convertDataMessageList(messageHistoryToday, userLoginId);
+};
 
-    const dataMessage = [
-        {
-            name: 'Trần Thị Thu Hà',
-            time: '10 giờ',
-            text: 'Tin nhắn và cuộc gọi được bảo mật ',
-            avatar: 'https://mui.com/static/images/avatar/1.jpg',
-        },
-        {
-            name: 'Nguyễn Thị Thanh Hà',
-            time: '10 giờ',
-            text: 'Xin chào toàn thể cán bộ giáo viên và học sinh',
-            avatar: 'https://mui.com/static/images/avatar/2.jpg',
-        },
-        {
-            name: 'Lê Thị Thanh Hà',
-            time: '10 giờ',
-            text: 'Chào cô',
-            avatar: 'https://mui.com/static/images/avatar/3.jpg',
-        },
-        {
-            name: 'Lê Thị Thanh Hà',
-            time: '10 giờ',
-            text: 'Chào cô',
-            avatar: 'https://mui.com/static/images/avatar/4.jpg',
-        },
-        {
-            name: 'Lê Thị Thanh Hà',
-            time: '10 giờ',
-            text: 'Chào cô',
-            avatar: 'https://mui.com/static/images/avatar/5.jpg',
-        },
-        {
-            name: 'Lê Thị Thanh Hà',
-            time: '10 giờ',
-            text: 'Chào cô',
-            avatar: 'https://mui.com/static/images/avatar/6.jpg',
-        },
-        {
-            name: 'Lê Thị Thanh Hà',
-            time: '10 giờ',
-            text: 'Chào cô',
-            avatar: 'https://mui.com/static/images/avatar/7.jpg',
-        },
-    ];
+function MessageBox() {
+    const [open, setOpen] = useState(false);
+    const [listMessage, setListMessage] = useState(null);
+    const [selectedGroup, setSelectedGroup] = useState('');
+    const [reloadData, setReloadData] = useState(false);
+    const context = useContext(LoggedContext);
+
+    useEffect(() => {
+        getListGroup();
+    }, [reloadData]);
+    const getListGroup = async () => {
+        //call api to get list group
+        try {
+            await request.get('/chat').then((response) => {
+                let chatSessions = response.data.chatSessions;
+                if (chatSessions.length > 0) {
+                    let messages = [];
+                    chatSessions.forEach((element) => {
+                        messages.push({
+                            id: element.id,
+                            name: element.name,
+                            time: element.latestMessage ? getDiffTime(new Date(element.latestMessage.createdAt)) : '',
+                            text: element.latestMessage ? element.latestMessage.content : '',
+                            avatar: element.chatPicture,
+                        });
+                    });
+                    setListMessage(messages);
+                    setSelectedGroup(messages[0].id);
+                } else {
+                    setListMessage([]);
+                }
+            });
+        } catch (error) {
+            console.log(error);
+            context.setShowSnackbar('Có lỗi xảy ra, vui lòng thử lại sai', 'error');
+        }
+    };
     return (
-        <Grid container className={cx('message-box-wrapper')}>
-            <Grid item className={cx('content-left')}>
-                <div style={{ padding: '0px 20px' }}>
-                    <div className={cx('search-box-wrapper')}>
-                        <SearchBox placeholder={'Tìm kiếm trên hộp thoại'} />
+        <MessageBoxContext.Provider value={{ setOpen: setOpen, setReloadData: setReloadData }}>
+            <Grid container className={cx('message-box-wrapper')}>
+                <Grid item className={cx('content-left')}>
+                    <div style={{ padding: '0px 20px' }}>
+                        <div className={cx('left-sticky')}>
+                            <div className={cx('content-header-left')}>
+                                <h2>Đoạn chat</h2>
+                                <span onClick={() => setOpen(true)}>
+                                    <GroupAdd />
+                                </span>
+                            </div>
+                            <div className={cx('search-box-wrapper')}>
+                                <SearchBox placeholder={'Tìm kiếm trên hộp thoại'} />
+                            </div>
+                        </div>
+                        <div>
+                            {listMessage !== null &&
+                                listMessage.map((value, index) => (
+                                    <Conversation
+                                        key={'conversation' + index}
+                                        data={value}
+                                        handleSelected={() => setSelectedGroup(value.id)}
+                                        active={selectedGroup === value.id}
+                                    />
+                                ))}
+                            {listMessage === null && (
+                                <>
+                                    <ConversationSkeleton />
+                                    <ConversationSkeleton />
+                                    <ConversationSkeleton />
+                                    <ConversationSkeleton />
+                                </>
+                            )}
+                        </div>
                     </div>
-                    <div style={{ paddingTop: 60 }}>
-                        {dataMessage.map((value, index) => (
-                            <Conversation key={'conversation' + index} data={value} />
-                        ))}
-                    </div>
-                </div>
+                </Grid>
+                <Grid item className={cx('content-right')} id="message-content">
+                    {selectedGroup && <ChatContainer groupId={selectedGroup} />}
+                </Grid>
             </Grid>
-            <Grid item className={cx('content-right')} id="message-content">
-                <div className={cx('chat-container')} style={{ padding: '0px 20px', height: '100%' }}>
-                    <ChatContainer
-                        chatHistory={messageHistory}
-                        messageHistoryToday={messageHistoryToday}
-                        messageHistoryTodayShow={messageHistoryTodayShow}
-                    />
-                </div>
-            </Grid>
-        </Grid>
+            <div>
+                <Modal
+                    aria-labelledby="transition-modal-title"
+                    aria-describedby="transition-modal-description"
+                    open={open}
+                    onClose={() => setOpen(false)}
+                    closeAfterTransition
+                    slots={{ backdrop: Backdrop }}
+                    slotProps={{
+                        backdrop: {
+                            timeout: 500,
+                        },
+                    }}
+                >
+                    <Box sx={style}>
+                        <ModalCreateGroup type="create" />
+                    </Box>
+                </Modal>
+            </div>
+        </MessageBoxContext.Provider>
     );
 }
 

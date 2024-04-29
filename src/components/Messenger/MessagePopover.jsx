@@ -1,4 +1,4 @@
-import { Avatar, Badge, Card, CardContent, Grid, IconButton, Popover, Typography } from '@mui/material';
+import { Badge, IconButton, Popover } from '@mui/material';
 import Conversation from '~/components/Messenger/Conversation';
 import SearchBox from '../SearchBox/SearchBox';
 import MailIcon from '@mui/icons-material/Mail';

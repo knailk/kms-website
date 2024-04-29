@@ -1,13 +1,16 @@
 import InputBase from '@mui/material/InputBase';
-import { MessageSeparator } from '@chatscope/chat-ui-kit-react';
 import ChatContainerHeader from './ChatContainerHeader';
 import MessageHistory from './MessageHistory';
 import classNames from 'classnames/bind';
 import styles from './MessageBox.module.scss';
 import { AddCircle, Mood, ThumbUp, Send } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
-import { useEffect, useRef, useState } from 'react';
+import { memo, useContext, useEffect, useRef, useState } from 'react';
 import convertDataMessageList from '~/utils/ConverDataMessage';
+// import EmojiPicker from 'emoji-picker-react';
+import request from '~/utils/http';
+import { Box, CircularProgress } from '@mui/material';
+import { LoggedContext } from '~/components/Layout/LoggedLayout';
 const cx = classNames.bind(styles);
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
@@ -23,87 +26,154 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     fontSize: 15,
 }));
 
-function ChatContainer({ chatHistory, messageHistoryToday, messageHistoryTodayShow }) {
-    const data = {
-        uid: '1',
-        name: 'Trần Thị Thu Hà',
-        avatar: 'https://mui.com/static/images/avatar/1.jpg',
+function ChatContainer({ groupId }) {
+    const context = useContext(LoggedContext);
+    const messageContentRef = useRef();
+    const chatContainerRef = useRef(null);
+    const isNoMoredata = useRef(false);
+    const chatHistory = useRef([]);
+    const currentUser = context.userInfo.username;
+    const textMessage = useRef();
+    const doScroll = useRef(true);
+    const currentLimit = useRef(20);
+    const [groupInfor, setGroupInfor] = useState({});
+    const [listMember, setListMember] = useState([]);
+    const [chatHistoryShow, setChatHistoryShow] = useState();
+    const [showLoading, setShowLoading] = useState(false);
+    const doScrollBottom = () => {
+        chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight + 200;
     };
-    const curentUser = '1';
 
-    const myRef = useRef(null);
-    const [textMessage, setTextMessage] = useState('');
-    const [messageList, setMessageList] = useState(messageHistoryToday);
-    const [messageListShow, setMessageListShow] = useState(messageHistoryTodayShow);
+    const handleScrollTop = () => {
+        if (chatContainerRef.current.scrollTop <= 10 && !isNoMoredata.current) {
+            setShowLoading(true);
+            setTimeout(() => {
+                currentLimit.current += 20;
+                doScroll.current = false;
+                getChatHistory('scroll');
+                setShowLoading(false);
+            }, 1000);
+        }
+    };
 
     useEffect(() => {
-        myRef.current.scrollIntoView();
-    }, [messageList]);
+        doScroll.current && doScrollBottom();
+    }, [chatHistoryShow]);
 
-    const handleSendMessage = (e, type = '') => {
-        if (textMessage.trim() !== '' && (e.keyCode === 13 || type === 'click')) {
-            console.log(messageList);
-            let newMessage = [
-                {
-                    date: '',
-                    messages: [
-                        ...messageList[0].messages,
-                        {
-                            id: 'msg_',
-                            content: textMessage,
-                            sender: {
-                                uid: '1',
-                                name: 'Trần Minh Toàn',
-                                avatar: 'https://mui.com/static/images/avatar/2.jpg',
-                            },
-                            direction: 'outgoing',
-                            position: 'single',
-                            showAvatar: false,
-                        },
-                    ],
-                },
-            ];
-            setMessageList(newMessage);
-            setMessageListShow(convertDataMessageList(newMessage, curentUser));
-            setTextMessage('');
+    //convert data json to orther format json for show data
+    useEffect(() => {
+        currentLimit.current = 20;
+        //get chat history
+        request.get(`/chat/${groupId}`).then((response) => {
+            setMessageList(response.data.chatMessages);
+            setGroupInfor({
+                id: response.data.id,
+                name: response.data.name,
+                avatar: response.data.chatPicture,
+            });
+            setListMember(response.data.members);
+        });
+        const intervalId = setInterval(() => {
+            getChatHistory();
+        }, 1000);
+
+        // Return a cleanup function to clear the interval when the component unmounts or groupId changes
+        return () => clearInterval(intervalId);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [groupId]);
+
+    const getChatHistory = async (type) => {
+        //call api to get chat history
+        try {
+            await request.get(`/chat/${groupId}?limit=${currentLimit.current}`).then((response) => {
+                let data = response.data.chatMessages;
+                if (JSON.stringify(data) !== JSON.stringify(chatHistory.current)) {
+                    setMessageList(data);
+                } else {
+                    if (type === 'scroll') {
+                        isNoMoredata.current = true;
+                    }
+                }
+            });
+        } catch (error) {
+            console.log(error);
+            context.setShowSnackbar('Có lỗi xảy ra, vui lòng thử lại sau', 'error');
         }
+    };
+
+    const handleSendMessage = async (e, type = '') => {
+        let text = textMessage.current.value;
+        if (text.trim() !== '' && (e.keyCode === 13 || type === 'click')) {
+            await request
+                .post(`/chat/${groupId}/message`, { message: text, type: 'text' })
+                .then(() => {
+                    getChatHistory();
+                    textMessage.current.value = '';
+                })
+                .catch((error) => {
+                    context.setShowSnackbar('Gửi tin nhắn thất bại', 'error');
+                });
+        }
+    };
+
+    const setMessageList = (data) => {
+        chatHistory.current = data;
+        setChatHistoryShow(convertDataMessageList(data, currentUser));
     };
 
     return (
         <>
-            <ChatContainerHeader data={data} />
-            <div>
-                <MessageHistory chatHistory={chatHistory} showSeperator="show" />
-                <MessageSeparator content={'Hôm nay'} />
-                <MessageHistory chatHistory={messageListShow} />
-                <div ref={myRef}></div>
-            </div>
-            <div className={cx('chat-container-footer')}>
-                <div className={cx('icon')}>
-                    <AddCircle />
+            <div
+                className={cx('chat-container')}
+                style={{ padding: '0px 20px', height: '100%' }}
+                ref={chatContainerRef}
+                onScroll={() => handleScrollTop()}
+            >
+                <ChatContainerHeader data={groupInfor} listMember={listMember} />
+                <div style={{ minHeight: 'calc(100vh - 215px)' }}>
+                    {showLoading && (
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                alignContent: 'center',
+                                justifyContent: 'center',
+                                margin: '10px 0px',
+                            }}
+                        >
+                            <CircularProgress />
+                        </Box>
+                    )}
+                    <div ref={messageContentRef}>
+                        {chatHistoryShow && <MessageHistory chatHistory={chatHistoryShow} showSeperator="show" />}
+                    </div>
                 </div>
-                <div className={cx('input-text-wrapper')}>
-                    <Mood className={cx('icon-mood')} />
-                    <StyledInputBase
-                        placeholder={'Nhập tin nhắn...'}
-                        inputProps={{ 'aria-label': 'text' }}
-                        value={textMessage}
-                        onChange={(e) => {
-                            setTextMessage(e.target.value);
-                        }}
-                        onKeyDown={(e) => handleSendMessage(e)}
-                    />
-                    <Send
-                        className={cx('icon-send', { 'icon-disabled': textMessage.trim() === '' })}
-                        onClick={(e) => handleSendMessage(e, 'click')}
-                    />
-                </div>
-                <div className={cx('icon')}>
-                    <ThumbUp />
+                <div className={cx('chat-container-footer')}>
+                    <div className={cx('icon')}>
+                        <AddCircle />
+                    </div>
+                    <div className={cx('input-text-wrapper')}>
+                        <div>
+                            {/* <EmojiPicker /> */}
+                            <Mood className={cx('icon-mood')} />
+                        </div>
+                        <StyledInputBase
+                            placeholder={'Nhập tin nhắn...'}
+                            inputProps={{ 'aria-label': 'text' }}
+                            inputRef={textMessage}
+                            onKeyDown={(e) => handleSendMessage(e)}
+                        />
+                        <Send
+                            className={cx('icon-send', { 'icon-disabled': textMessage.current?.value.trim() === '' })}
+                            onClick={(e) => handleSendMessage(e, 'click')}
+                        />
+                    </div>
+                    <div className={cx('icon')}>
+                        <ThumbUp />
+                    </div>
                 </div>
             </div>
         </>
     );
 }
 
-export default ChatContainer;
+export default memo(ChatContainer);

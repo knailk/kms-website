@@ -7,10 +7,10 @@ const Search = styled('div')(({ theme }) => ({
     borderRadius: '50px',
     backgroundColor: alpha(theme.palette.common.black, 0.1),
     '&:hover': {
-        backgroundColor: alpha(theme.palette.common.black, 0.2),
+        backgroundColor: alpha(theme.palette.common.black, 0.08),
     },
     '&:focus': {
-        backgroundColor: alpha(theme.palette.common.black, 0.2),
+        backgroundColor: alpha(theme.palette.common.black, 0.1),
     },
     width: '100%',
     [theme.breakpoints.up('sm')]: {
@@ -31,26 +31,30 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
 }));
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
     color: 'inherit',
+    width: '100%',
     '& .MuiInputBase-input': {
         padding: theme.spacing(1, 1, 1, 0),
         // vertical padding + font size from searchIcon
         paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+        paddingRight: `calc(1em + ${theme.spacing(1)})`,
         transition: theme.transitions.create('width'),
-        width: '100%',
-        [theme.breakpoints.up('md')]: {
-            width: '20ch',
-        },
     },
     fontSize: 15,
 }));
 
-function SearchBox({ placeholder, style }) {
+function SearchBox({ placeholder, style, inputRef, value, onChange }) {
     return (
         <Search style={style}>
             <SearchIconWrapper>
                 <SearchIcon style={{ color: '#0000005e' }} />
             </SearchIconWrapper>
-            <StyledInputBase placeholder={placeholder} inputProps={{ 'aria-label': 'search' }} />
+            <StyledInputBase
+                placeholder={placeholder}
+                inputProps={{ 'aria-label': 'search' }}
+                inputRef={inputRef}
+                value={value}
+                onChange={onChange}
+            />
         </Search>
     );
 }

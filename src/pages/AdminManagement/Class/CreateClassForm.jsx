@@ -180,7 +180,6 @@ export default function CreateClassForm({ setOpenCreateClass }) {
                                 ))}
                             </TextField>
                         </Grid>
-
                         <Grid item xs={12} sm={6}>
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
                                 <DemoContainer components={['DateField']}>

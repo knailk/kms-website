@@ -64,11 +64,11 @@ const RoadMap = () => {
     //on reisze
     return (
         <div className={cx('road-map-container')}>
-            <div className={cx('content-left')} style={{ width: lg ? '70%' : md ? '60%' : '100%' }}>
+            <div className={cx('content-left')} style={{ width: lg ? '70%' : md ? '65%' : '100%' }}>
                 <GoogleMap type="road-map" position={position} defaultPosition={currentPosition} />
             </div>
             {md && (
-                <div className={cx('content-right')} style={{ width: lg ? '27%' : '37%' }}>
+                <div className={cx('content-right')} style={{ width: lg ? '27%' : '32%' }}>
                     <div className={cx('action-wrapper')}>
                         <SearchBox style={{ width: '65%' }} />
                         <Button

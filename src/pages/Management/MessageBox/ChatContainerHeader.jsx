@@ -1,5 +1,5 @@
 import { Box, Card, CardActions, CardContent, Grid, IconButton, Modal, Tooltip } from '@mui/material';
-import { GroupAdd, RateReview } from '@mui/icons-material';
+import { GroupAdd, GroupRemove, RateReview } from '@mui/icons-material';
 import Avatar from '~/components/Avatar/Avatar';
 import classNames from 'classnames/bind';
 import styles from './MessageBox.module.scss';
@@ -25,8 +25,10 @@ const style = {
 };
 function ChatContainerHeader({ data, listMember }) {
     const [openModal, setOpenModal] = useState(false);
-    const handleOpenModal = () => {
+    const [type, setType] = useState('');
+    const handleOpenModal = (type) => {
         setOpenModal(true);
+        setType(type);
     };
     return (
         <>
@@ -67,9 +69,16 @@ function ChatContainerHeader({ data, listMember }) {
                         </Tooltip>
                     </span>
                     <span>
-                        <Tooltip title="Chỉnh sửa thành viên">
-                            <IconButton onClick={() => handleOpenModal()}>
+                        <Tooltip title="Thêm thành viên">
+                            <IconButton onClick={() => handleOpenModal('add')}>
                                 <GroupAdd />
+                            </IconButton>
+                        </Tooltip>
+                    </span>
+                    <span>
+                        <Tooltip title="Xóa thành viên">
+                            <IconButton onClick={() => handleOpenModal('delete')}>
+                                <GroupRemove sx={{ color: '#d32f2f' }} />
                             </IconButton>
                         </Tooltip>
                     </span>
@@ -91,7 +100,7 @@ function ChatContainerHeader({ data, listMember }) {
                         }}
                     >
                         <Box sx={style}>
-                            <ModalCreateGroup type="edit" groupId={data.id} listMember={listMember} />
+                            <ModalCreateGroup type={type} groupId={data.id} listMember={listMember} />
                         </Box>
                     </Modal>
                 </div>

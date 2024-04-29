@@ -57,7 +57,7 @@ function TeacherTeam() {
     ];
 
     return (
-        <div className={cx('teacher-team')} style={{ backgroundImage: 'url(images/backgroundhome2.webp)' }}>
+        <div className={cx('teacher-team')} style={{ backgroundImage: 'url(images/backgroundhome2.webp)', backgroundSize:'100% 100%' }}>
             <div className={cx('container')}>
                 <div className={cx('title')}>
                     <div>Đội ngũ</div>

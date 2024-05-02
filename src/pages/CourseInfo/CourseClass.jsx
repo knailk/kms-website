@@ -28,37 +28,37 @@ function CourseClass() {
     const images = [
         {
             imgPath: 'images/canlearn.webp',
-            class: 'Lớp 13 tới 18 tháng',
+            class: 'Lớp trẻ 1 tuổi',
             fromDate: '13/4/2023',
             toDate: '30/10/2023',
         },
         {
             imgPath: 'images/canlearn.webp',
-            class: 'Lớp 13 tới 18 tháng',
+            class: 'Lớp trẻ 1 tuổi',
             fromDate: '13/4/2023',
             toDate: '30/10/2023',
         },
         {
             imgPath: 'images/canlearn.webp',
-            class: 'Lớp 13 tới 18 tháng',
+            class: 'Lớp trẻ 1 tuổi',
             fromDate: '13/4/2023',
             toDate: '30/10/2023',
         },
         {
             imgPath: 'images/canlearn.webp',
-            class: 'Lớp 13 tới 18 tháng',
+            class: 'Lớp trẻ 1 tuổi',
             fromDate: '13/4/2023',
             toDate: '30/10/2023',
         },
         {
             imgPath: 'images/canlearn.webp',
-            class: 'Lớp 13 tới 18 tháng',
+            class: 'Lớp trẻ 1 tuổi',
             fromDate: '13/4/2023',
             toDate: '30/10/2023',
         },
         {
             imgPath: 'images/canlearn.webp',
-            class: 'Lớp 13 tới 18 tháng',
+            class: 'Lớp trẻ 1 tuổi',
             fromDate: '13/4/2023',
             toDate: '30/10/2023',
         },
@@ -69,7 +69,7 @@ function CourseClass() {
             <div className={cx('container')}>
                 <Grid container sx={{mb:"40px", mt: "20px" , borderBottom:'1px solid rgb(93 93 93 / 50%)'}}>
                     <Grid item xs={2} sx={{pl:"10px"}}>
-                        <Typography>KMS</Typography>
+                        <Typography>Smart KinderGarten</Typography>
                         <Typography
                             style={{
                                 fontSize: '26px',
@@ -84,9 +84,9 @@ function CourseClass() {
                     </Grid>
                     <Grid item xs={10} sx={{pl:'25px', borderLeft:'1px solid rgb(93 93 93 / 50%)', pr:'20px'}}>
                         <Typography sx={{ mr: "20px", fontSize: '15px', fontWeight: '400' }}>
-                            Các lớp học tại StarKids được phân bổ theo từng độ tuổi, từ 12 tháng tuổi đến 6 tuổi. Phòng
+                            Các lớp học tại Smart KinderGarten được phân bổ theo từng độ tuổi, từ 1 tuổi đến 6 tuổi. Phòng
                             học được trang bị cơ sở vật chất, thiết bị đầy đủ, đa dạng phù hợp với độ tuổi của từng lớp,
-                            nhằm đáp ứng nhu cầu trải nghiệm của trẻ cũng như mục tiêu giáo dục mà Starkids đưa ra.
+                            nhằm đáp ứng nhu cầu trải nghiệm của trẻ cũng như mục tiêu giáo dục mà Smart KinderGarten đưa ra.
                         </Typography>
                     </Grid>
                 </Grid>

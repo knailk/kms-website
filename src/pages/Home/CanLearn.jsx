@@ -27,37 +27,37 @@ function CanLearn() {
     const images = [
         {
             imgPath: 'images/canlearn.webp',
-            class: 'Lớp 13 tới 18 tháng',
+            class: 'Lớp bé 1 tuổi',
             fromDate: '13/4/2023',
             toDate: '30/10/2023',
         },
         {
             imgPath: 'images/canlearn.webp',
-            class: 'Lớp 13 tới 18 tháng',
+            class: 'Lớp bé 1 tuổi',
             fromDate: '13/4/2023',
             toDate: '30/10/2023',
         },
         {
             imgPath: 'images/canlearn.webp',
-            class: 'Lớp 13 tới 18 tháng',
+            class: 'Lớp bé 1 tuổi',
             fromDate: '13/4/2023',
             toDate: '30/10/2023',
         },
         {
             imgPath: 'images/canlearn.webp',
-            class: 'Lớp 13 tới 18 tháng',
+            class: 'Lớp bé 1 tuổi',
             fromDate: '13/4/2023',
             toDate: '30/10/2023',
         },
         {
             imgPath: 'images/canlearn.webp',
-            class: 'Lớp 13 tới 18 tháng',
+            class: 'Lớp bé 1 tuổi',
             fromDate: '13/4/2023',
             toDate: '30/10/2023',
         },
         {
             imgPath: 'images/canlearn.webp',
-            class: 'Lớp 13 tới 18 tháng',
+            class: 'Lớp bé 1 tuổi',
             fromDate: '13/4/2023',
             toDate: '30/10/2023',
         },

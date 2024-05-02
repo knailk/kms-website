@@ -14,7 +14,7 @@ export default function NewsWelcom() {
     return (
         <Stack style={styleBg} alignItems={'center'}>
             <Typography sx={{ fontFamily: '"Dancing Script", Sans-serif', fontSize: '45px', fontWeight: 700 }}>
-                Chào mừng đến với KMS
+                Chào mừng đến với Smart KinderGarten
             </Typography>
             <Typography sx={{ fontSize: '18px', fontWeight: 400 }}>
                 85% con người của mỗi chúng ta – trí thông minh, tính cách, kỹ năng xã hội – được hình thành và phát

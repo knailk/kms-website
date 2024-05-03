@@ -11,16 +11,15 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import MenuItem from '@mui/material/MenuItem';
 import IconButton from '@mui/material/IconButton';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
 import InputAdornment from '@mui/material/InputAdornment';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { Currencies } from '~/constants/currency';
 import request from '~/utils/http';
 import classNames from 'classnames/bind';
 import styles from './Course.module.scss';
@@ -29,18 +28,37 @@ const cx = classNames.bind(styles);
 export default function RegisterClass() {
     const context = React.useContext(LoggedContext);
     const [isShowPassword, setIsShowPassword] = React.useState(false);
+    const [matchPassword, setMatchPassword] = React.useState(true);
     const [isShowConfirmPassword, setIsShowConfirmPassword] = React.useState(false);
+    const [classes, setClasses] = React.useState([]);
     const [formData, setFormData] = React.useState({
         username: '',
         fullName: '',
+        parentName: '',
         password: '',
         confirmPassword: '',
         email: '',
-        phone: '',
+        phoneNumber: '',
         birthDate: null,
         gender: '',
         classID: '',
+        accepted: false,
     });
+
+    React.useEffect(() => {
+        request
+            .get('/classes?limit=100&page=1')
+            .then((response) => {
+                setClasses(response.data.classes);
+            })
+            .catch((error) => {
+                <Stack sx={{ width: '100%' }} spacing={2}>
+                    <Alert variant="outlined" severity="success">
+                        Không tìm thấy thông tin lớp học
+                    </Alert>
+                </Stack>;
+            });
+    }, []);
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -51,6 +69,25 @@ export default function RegisterClass() {
     };
     const handleSubmit = (event) => {
         event.preventDefault();
+        if (formData.password !== formData.confirmPassword) {
+            setMatchPassword(false);
+            return;
+        } else {
+            setMatchPassword(true);
+        }
+
+        request
+            .post('/auth/register', formData)
+            .then((response) => {
+                setClasses(response.data.classes);
+            })
+            .catch((error) => {
+                <Stack sx={{ width: '100%' }} spacing={2}>
+                    <Alert variant="outlined" severity="success">
+                        Không tìm thấy thông tin lớp học
+                    </Alert>
+                </Stack>;
+            });
     };
 
     const handleMouseDownPassword = (event) => {
@@ -84,6 +121,28 @@ export default function RegisterClass() {
                             <TextField
                                 required
                                 fullWidth
+                                id="fullName"
+                                label="Họ và tên bé"
+                                name="fullName"
+                                value={formData.fullName}
+                                onChange={handleChange}
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                required
+                                fullWidth
+                                id="parentName"
+                                label="Họ và tên phụ huynh"
+                                name="parentName"
+                                value={formData.parentName}
+                                onChange={handleChange}
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                required
+                                fullWidth
                                 id="username"
                                 label="Tên đăng nhập"
                                 name="username"
@@ -95,10 +154,11 @@ export default function RegisterClass() {
                             <TextField
                                 required
                                 fullWidth
-                                id="fullName"
-                                label="Họ và tên"
-                                name="fullName"
-                                value={formData.fullName}
+                                id="phoneNumber"
+                                label="Số điện thoại"
+                                name="phoneNumber"
+                                type="number"
+                                value={formData.phoneNumber}
                                 onChange={handleChange}
                             />
                         </Grid>
@@ -109,6 +169,8 @@ export default function RegisterClass() {
                                 id="password"
                                 label="Password"
                                 name="password"
+                                error={matchPassword ? false : true}
+                                helperText={matchPassword ? null : 'Mật khẩu không chính xác'}
                                 type={isShowPassword ? 'text' : 'password'}
                                 value={formData.password}
                                 onChange={handleChange}
@@ -135,6 +197,8 @@ export default function RegisterClass() {
                                 id="confirmPassword"
                                 label="Confirm Password"
                                 name="confirmPassword"
+                                error={matchPassword ? false : true}
+                                helperText={matchPassword ? null : 'Mật khẩu không chính xác'}
                                 type={isShowConfirmPassword ? 'text' : 'password'}
                                 value={formData.confirmPassword}
                                 onChange={handleChange}
@@ -166,45 +230,68 @@ export default function RegisterClass() {
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <TextField
-                                required
-                                fullWidth
-                                id="phoneNumber"
-                                label="Số điện thoại"
-                                name="phoneNumber"
-                                type='number'
-                                value={formData.phoneNumber}
-                                onChange={handleChange}
-                            />
+                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                <DemoContainer components={['DateField']}>
+                                    <DatePicker
+                                        label="Ngày sinh"
+                                        name="birthDate"
+                                        slotProps={{ textField: { fullWidth: true, required: true } }}
+                                        value={formData.birthDate}
+                                        onChange={(newValue) =>
+                                            setFormData({
+                                                ...formData,
+                                                birthDate: newValue,
+                                            })
+                                        }
+                                    />
+                                </DemoContainer>
+                            </LocalizationProvider>
                         </Grid>
-
-                        <Grid item xs={12}>
+                        <Grid item xs={12} sm={6}>
                             <TextField
-                                required
+                                name="gender"
+                                select
                                 fullWidth
-                                id="className"
-                                label="Tên lớp"
-                                name="className"
-                                value={formData.className}
+                                required
+                                label="Giới tính bé"
+                                value={formData.gender}
                                 onChange={handleChange}
-                            />
+                            >
+                                <MenuItem key="male" value="male">
+                                    Bé trai
+                                </MenuItem>
+                                <MenuItem key="female" value="female">
+                                    Bé gái
+                                </MenuItem>
+                            </TextField>
                         </Grid>
-                        <Grid item xs={12}>
+                        <Grid item xs={12} sm={6}>
                             <TextField
-                                required
+                                name="classID"
+                                select
                                 fullWidth
-                                name="ageGroup"
-                                label="Nhóm tuổi"
-                                type="number"
-                                id="ageGroup"
-                                value={formData.ageGroup}
+                                required
+                                label="Lớp học"
+                                value={formData.classID}
                                 onChange={handleChange}
-                            />
+                            >
+                                {classes.map((option) => (
+                                    <MenuItem key={option.id} value={option.id}>
+                                        {option.className}
+                                    </MenuItem>
+                                ))}
+                            </TextField>
                         </Grid>
                         <Grid item xs={12}>
                             <FormControlLabel
-                                control={<Checkbox disabled checked color="primary" />}
-                                label="Đặt lịch mặc định"
+                                required
+                                control={
+                                    <Checkbox
+                                        color="default"
+                                        onClick={(e) => setFormData({ ...formData, accepted: e.target.checked })}
+                                    />
+                                }
+                                label="Tôi đồng ý với các chính sách và bảo mật của nền tảng"
                             />
                         </Grid>
                     </Grid>

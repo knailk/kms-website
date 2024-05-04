@@ -46,7 +46,7 @@ function WhyChoose() {
                         Xem Thêm
                     </Button>
                 </Grid>
-                <Grid item xs={6} style={{ background: 'url(images/bgwhychoose.webp)' }}></Grid>
+                <Grid item xs={6} style={{ background: 'url(images/bgwhychoose.webp)', backgroundSize:'100% 100%' }}></Grid>
             </Grid>
         </div>
     );

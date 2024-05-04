@@ -21,9 +21,10 @@
         padding: 0px 100px;
         height: 80px;
         top: 46px;
-        // background-color: white;
+         //background-color: white;
         .header-container {
             height: 100%;
+
             .item {
                 &:hover {
                     opacity: 0.7;
@@ -38,9 +39,11 @@
                 font-weight: bold;
             }
             .logo {
+                min-height: 60px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                //border: 1px solid black;
             }
         }
     }

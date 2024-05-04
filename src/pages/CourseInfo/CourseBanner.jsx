@@ -1,5 +1,8 @@
 import { Button, Grid, Stack } from '@mui/material';
 import Typography from '@mui/material/Typography';
+import classNames from 'classnames/bind';
+import styles from './Course.module.scss';
+const cx = classNames.bind(styles);
 
 export default function CourseBanner() {
     const styleBg = {
@@ -9,37 +12,36 @@ export default function CourseBanner() {
         backgroundPosition: 'center',
     };
     return (
-        <Grid container sx={{ backgroundImage: 'url(images/backgroundhome.svg)', px: '300px', minHeight: '300px', backgroundSize:'100% 100%' }}>
-            <Grid item xs={7} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                <Typography>Trang chủ >> Lớp học</Typography>
-                <Typography
-                    style={{
-                        fontSize: '26px',
-                        fontWeight: '700',
-                        fontFamily: '"Nunito", sans-serif',
-                        maxWidth: '600px',
-                        color: '#545454',
-                    }}
-                >
-                    “Cô không chỉ dạy con những kiến thức, những bài học bổ ích trên lớp mà còn dạy con tình yêu thiên
-                    nhiên, tình bạn, biết quan tâm và chia sẻ"
-                </Typography>
-                <Button
-                    sx={{
-                        mt:'20px',
-                        px: '25px',
-                        py: '10px',
-                        width: 'fit-content',
-                        borderRadius: '50px',
-                        fontWeight: '700',
-                        textTransform: 'none',
-                    }}
-                    variant={'contained'}
-                >
-                    Xem thêm
-                </Button>
+        <div
+            className={cx('banner-wrapper')}
+            style={{
+                backgroundImage: "url('images/backgroundhome.svg')",
+                backgroundRepeat: 'no-repeat',
+                backgroundSize: 'cover',
+            }}
+        >
+            <Grid
+                container
+                spacing={2}
+                columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+                rowSpacing={2}
+                className={cx('banner-content')}
+            >
+                <Grid item xs={5} className={cx('bread-crums')}>
+                    Trang chủ {'>>'} Lớp học
+                </Grid>
+                <Grid item xs={7}></Grid>
+                <Grid item xs={5} className={cx('banner')}>
+                    <Typography style={{ fontSize: '26px', fontWeight: 700, lineHeight: '1.2em' }}>
+                        "Cô không chỉ dạy con những kiến thức, những bài học bổ ích trên lớp mà còn dạy con tình yêu
+                        thiên nhiên, tình bạn, biết quan tâm và chia sẻ"
+                    </Typography>
+                    <Button variant="contained" className={cx('button')}>
+                        Xem Thêm
+                    </Button>
+                </Grid>
+                <Grid item xs={7} style={styleBg}></Grid>
             </Grid>
-            <Grid item xs={5} sx={styleBg}></Grid>
-        </Grid>
+        </div>
     );
 }

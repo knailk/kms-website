@@ -1,5 +1,8 @@
 {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
-    "emmet.preferences": { "javascript": "javascriptreact" }
+    "emmet.preferences": {
+        "javascript": "javascriptreact"
+    },
+    "cSpell.words": ["formik"]
 }

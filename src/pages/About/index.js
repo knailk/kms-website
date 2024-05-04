@@ -68,7 +68,7 @@ function About() {
                     className={cx('banner-content')}
                 >
                     <Grid item xs={5} className={cx('bread-crums')}>
-                        TRANG CHỦ {'>>'} VỀ Smart Kindergarten
+                        Trang chủ {'>>'} Về Smart Kindergarten
                     </Grid>
                     <Grid item xs={7}></Grid>
                     <Grid item xs={5} className={cx('banner')}>

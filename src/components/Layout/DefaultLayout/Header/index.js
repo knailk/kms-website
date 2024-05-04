@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
 import HeaderItems from './HeaderItems';
 import { Grid } from '@mui/material';
+import Logo from '~/components/Logo/Logo';
 
 const cx = classNames.bind(styles);
 function Header() {
@@ -12,10 +13,10 @@ function Header() {
     React.useEffect(() => {
         const onScroll = () => {
             if (window.scrollY > 46) {
-                setSticky(true)
+                setSticky(true);
             }
             if (window.scrollY < 10) {
-                setSticky(false)
+                setSticky(false);
             }
         };
         // clean up code
@@ -31,23 +32,22 @@ function Header() {
             </div>
             <div className={cx('header-bottom', { 'header-sticky': sticky })}>
                 <div className={cx('header-container')}>
-                    <Grid container>
+                    <Grid container style={{ height: '100%' }}>
+                        <Grid item xs={2} className={cx('logo')}>
+                            <a style={{ width: '100%', height: '100%' }} href="/">
+                                <Logo />
+                            </a>
+                        </Grid>
                         <Grid item xs={2}>
                             <div></div>
                         </Grid>
-                        <Grid item xs={1} className={cx('logo')}>
-                            Logo
-                        </Grid>
-                        <Grid item xs={7}>
+                        <Grid item xs={8} style={{ margin: 'auto 0' }}>
                             <HeaderItems />
-                        </Grid>
-                        <Grid item xs={2}>
-                            <div></div>
                         </Grid>
                     </Grid>
                 </div>
             </div>
-        </div >
+        </div>
     );
 }
 

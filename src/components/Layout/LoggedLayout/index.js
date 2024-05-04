@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useState } from 'react';
 import MainLayout from './MainLayout';
 import { Backdrop, CircularProgress, Snackbar, Alert } from '@mui/material';
 import { useCookies } from 'react-cookie';

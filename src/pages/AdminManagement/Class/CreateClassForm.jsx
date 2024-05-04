@@ -34,6 +34,7 @@ export default function CreateClassForm({ setOpenCreateClass }) {
         toDate: null,
         className: '',
         ageGroup: 0,
+        description: '',
     });
 
     const handleChange = (event) => {
@@ -237,6 +238,20 @@ export default function CreateClassForm({ setOpenCreateClass }) {
                                 type="number"
                                 id="ageGroup"
                                 value={formData.ageGroup}
+                                onChange={handleChange}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                required
+                                fullWidth
+                                multiline
+                                rows={2}
+                                maxRows={6}
+                                name="description"
+                                label="Chi tiết lớp học"
+                                id="description"
+                                value={formData.description}
                                 onChange={handleChange}
                             />
                         </Grid>

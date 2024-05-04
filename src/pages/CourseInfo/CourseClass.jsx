@@ -5,7 +5,7 @@ import { Card, CardContent, CardMedia, Grid, Rating } from '@mui/material';
 import Typography from '@mui/material/Typography';
 const cx = classNames.bind(styles);
 
-function CourseClass() {
+function CourseClass({classes}) {
     const CardNews = ({ image }) => (
         <Card sx={{ maxWidth: 350 }} className={cx('card')}>
             <CardMedia sx={{}} image={image.imgPath} className={cx('image')} title="" />
@@ -16,7 +16,7 @@ function CourseClass() {
                         <Rating name="read-only" value={5} readOnly size="small" />
                     </div>
                     <h3 style={{ maxWidth: '55%' }}>
-                        <span>{image.class}</span>
+                        <span>{image.className}</span>
                     </h3>
                 </div>
                 <div className={cx('content-time')}>
@@ -25,44 +25,6 @@ function CourseClass() {
             </CardContent>
         </Card>
     );
-    const images = [
-        {
-            imgPath: 'images/canlearn.webp',
-            class: 'Lớp trẻ 1 tuổi',
-            fromDate: '13/4/2023',
-            toDate: '30/10/2023',
-        },
-        {
-            imgPath: 'images/canlearn.webp',
-            class: 'Lớp trẻ 1 tuổi',
-            fromDate: '13/4/2023',
-            toDate: '30/10/2023',
-        },
-        {
-            imgPath: 'images/canlearn.webp',
-            class: 'Lớp trẻ 1 tuổi',
-            fromDate: '13/4/2023',
-            toDate: '30/10/2023',
-        },
-        {
-            imgPath: 'images/canlearn.webp',
-            class: 'Lớp trẻ 1 tuổi',
-            fromDate: '13/4/2023',
-            toDate: '30/10/2023',
-        },
-        {
-            imgPath: 'images/canlearn.webp',
-            class: 'Lớp trẻ 1 tuổi',
-            fromDate: '13/4/2023',
-            toDate: '30/10/2023',
-        },
-        {
-            imgPath: 'images/canlearn.webp',
-            class: 'Lớp trẻ 1 tuổi',
-            fromDate: '13/4/2023',
-            toDate: '30/10/2023',
-        },
-    ];
 
     return (
         <div className={cx('can-learn')}>
@@ -98,7 +60,7 @@ function CourseClass() {
                     rowSpacing={2}
                     justifyContent="center"
                 >
-                    {images.map((image, index) => (
+                    {classes.map((image, index) => (
                         <Grid key={index} item xs={4}>
                             <CardNews image={image} />
                         </Grid>

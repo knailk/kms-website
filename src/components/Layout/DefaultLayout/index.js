@@ -1,17 +1,17 @@
 import Header from './Header';
 import Footer from './Footer';
-import AlertUnLogged from './AlertUnLogged';
+import {AlertProvider} from './AlertProvider';
 import { Divider } from '@mui/material';
 
 function DefaultLayout({ children }) {
     return (
         <>
-            <AlertUnLogged>
+            <AlertProvider>
                 <Header />
                 {children}
                 <Divider />
                 <Footer />
-            </AlertUnLogged>
+            </AlertProvider>
         </>
     );
 }

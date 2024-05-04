@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from 'react';
-import Snackbar from '@mui/material/Snackbar';
+import { Snackbar, Alert } from '@mui/material';
 
 const AlertContext = createContext();
 
@@ -11,7 +11,7 @@ export const useAlert = () => {
     return context;
 };
 
-export const AlertUnLogged = ({ children }) => {
+export const AlertProvider = ({ children }) => {
     const [open, setOpen] = useState(false);
     const [message, setMessage] = useState('');
     const [severity, setSeverity] = useState('info');
@@ -31,12 +31,14 @@ export const AlertUnLogged = ({ children }) => {
             {children}
             <Snackbar
                 open={open}
-                autoHideDuration={6000}
+                autoHideDuration={2000}
                 onClose={hideAlert}
-                message={message}
-                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-                severity={severity}
-            />
+                anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+            >
+                <Alert severity={severity} sx={{ width: '100%' }}>
+                    {message}
+                </Alert>
+            </Snackbar>
         </AlertContext.Provider>
     );
 };

@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { LoggedContext } from '~/components/Layout/LoggedLayout';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -18,7 +17,8 @@ import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import Alert from '@mui/material/Alert';
-import Stack from '@mui/material/Stack';
+import 
+
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import request from '~/utils/http';
 import classNames from 'classnames/bind';
@@ -26,7 +26,6 @@ import styles from './Course.module.scss';
 const cx = classNames.bind(styles);
 
 export default function RegisterClass() {
-    const context = React.useContext(LoggedContext);
     const [isShowPassword, setIsShowPassword] = React.useState(false);
     const [matchPassword, setMatchPassword] = React.useState(true);
     const [isShowConfirmPassword, setIsShowConfirmPassword] = React.useState(false);
@@ -52,11 +51,8 @@ export default function RegisterClass() {
                 setClasses(response.data.classes);
             })
             .catch((error) => {
-                <Stack sx={{ width: '100%' }} spacing={2}>
-                    <Alert variant="outlined" severity="success">
-                        Không tìm thấy thông tin lớp học
-                    </Alert>
-                </Stack>;
+                // context.setShowSnackbar('Không tìm thấy thông tin lớp học', 'error');
+                <Alert severity="error">Không tìm thấy thông tin lớp học</Alert>;
             });
     }, []);
 
@@ -79,14 +75,14 @@ export default function RegisterClass() {
         request
             .post('/auth/register', formData)
             .then((response) => {
-                setClasses(response.data.classes);
+                <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+                    <Alert onClose={handleClose} severity="success" variant="filled" sx={{ width: '100%' }}>
+                        Đăng ký lớp học
+                    </Alert>
+                </Snackbar>;
             })
             .catch((error) => {
-                <Stack sx={{ width: '100%' }} spacing={2}>
-                    <Alert variant="outlined" severity="success">
-                        Không tìm thấy thông tin lớp học
-                    </Alert>
-                </Stack>;
+                <Alert severity="error">Đăng ký không thành công</Alert>;
             });
     };
 

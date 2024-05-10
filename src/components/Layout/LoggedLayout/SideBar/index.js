@@ -97,7 +97,7 @@ export default function SideBar({ open, children }) {
             { name: 'Đăng xuất', icon: <Logout />, path: '/logout' },
         ],
     ];
-    const sideBarParent = [
+    const sideBarStudent = [
         [
             { name: 'Lịch trình', icon: <CalendarMonth />, path: '/schedule' },
             { name: 'Tin nhắn', icon: <Message />, path: '/message' },
@@ -152,8 +152,8 @@ export default function SideBar({ open, children }) {
             case 'teacher':
                 setSideBar(sideBarTeacher);
                 break;
-            case 'parent':
-                setSideBar(sideBarParent);
+            case 'student':
+                setSideBar(sideBarStudent);
                 break;
             case 'driver':
                 setSideBar(sideBarDriver);

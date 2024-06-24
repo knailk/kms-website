@@ -28,7 +28,7 @@ function Header() {
         <div className={cx('header-wrapper')}>
             <div className={cx('header-top')}>
                 <FontAwesomeIcon icon={faEnvelope} />
-                <span className={cx('mail')}>admin@gmail.com</span>
+                <span className={cx('mail')}>admin@kms.com</span>
             </div>
             <div className={cx('header-bottom', { 'header-sticky': sticky })}>
                 <div className={cx('header-container')}>

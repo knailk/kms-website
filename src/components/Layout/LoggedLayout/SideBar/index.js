@@ -10,6 +10,7 @@ import {
     AccountBox,
     Logout,
 } from '@mui/icons-material';
+import RequestPageIcon from '@mui/icons-material/RequestPage';
 import Logo from '~/components/Logo/Logo';
 import { styled } from '@mui/material/styles';
 import { Fragment, useContext, useEffect, useState } from 'react';
@@ -135,7 +136,7 @@ export default function SideBar({ open, children }) {
             { name: 'Lớp học', icon: <Message />, path: '/admin/class' },
             { name: 'Lịch biểu', icon: <ListAlt />, path: '/admin/schedule' },
             { name: 'Tin nhắn', icon: <Filter9Plus />, path: '/admin/message' },
-            { name: 'Đoạn chat', icon: <Filter9Plus />, path: '/admin/chat-session' },
+            { name: 'Đơn xin vào lớp', icon: <RequestPageIcon />, path: '/admin/request' },
         ],
         [
             { name: 'Hồ sơ cá nhân', icon: <AccountBox />, path: '/profile' },

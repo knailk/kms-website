@@ -2,7 +2,6 @@ import * as React from 'react';
 
 import classNames from 'classnames/bind';
 import styles from './Class.module.scss';
-import 'rsuite/dist/rsuite.min.css';
 import { DataGrid } from '@mui/x-data-grid';
 import Chip from '@mui/material/Chip';
 import Box from '@mui/material/Box';
@@ -22,6 +21,7 @@ import request from '~/utils/http';
 import AddMembersForm from './AddMembersForm';
 import CreateClassForm from './CreateClassForm';
 import SchoolIcon from '@mui/icons-material/School';
+import dayjs from 'dayjs';
 
 const cx = classNames.bind(styles);
 
@@ -115,7 +115,7 @@ const columns = [
         width: 200,
         align: 'center',
         editable: true,
-        valueGetter: (value, row) => row.joinedAt,
+        valueGetter: (value, row) => dayjs(row.joinedAt).format('YYYY/MM/DD HH:mm:ss A'),
     },
     {
         field: 'members',

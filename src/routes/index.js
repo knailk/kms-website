@@ -12,7 +12,7 @@ import RoadMap from '~/pages/Management/RoadMap';
 import AdminClass from '~/pages/AdminManagement/Class';
 import General from '~/pages/AdminManagement/General';
 import AdminSchedule from '~/pages/AdminManagement/Schedule';
-import AdminChatSession from '~/pages/AdminManagement/ChatSession';
+import AdminChatSession from '~/pages/AdminManagement/Request';
 
 export const publicRoutes = [
     { path: '/', component: Home, requireAuth: false },
@@ -34,6 +34,6 @@ export const publicRoutes = [
     { path: '/admin/class', component: AdminClass, layout: LoggedLayout, requireAuth: true },
     { path: '/admin/schedule', component: AdminSchedule, layout: LoggedLayout, requireAuth: true },
     { path: '/admin/message', component: MessageBox, layout: LoggedLayout, requireAuth: true },
-    { path: '/admin/chat-session', component: AdminChatSession, layout: LoggedLayout, requireAuth: true },
+    { path: '/admin/request', component: AdminChatSession, layout: LoggedLayout, requireAuth: true },
 ];
 export const privateRoutes = [];

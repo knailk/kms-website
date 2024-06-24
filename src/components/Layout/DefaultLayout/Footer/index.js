@@ -28,8 +28,7 @@ function Footer() {
                                 <li>
                                     <PlaceOutlined />
                                     <span>
-                                        CS1: Tầng trệt Cc Lotus Garden 36 Trịnh Đình Thảo, Phường Hòa Thạnh, Quận Tân
-                                        Phú
+                                        Địa chỉ: Lotus Garden 36 Trịnh Đình Thảo, Phường Hòa Thạnh, Quận Tân Phú
                                     </span>
                                 </li>
                                 <li>

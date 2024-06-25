@@ -26,7 +26,10 @@ const cx = classNames.bind(styles);
 
 export default function Request() {
     const context = React.useContext(LoggedContext);
-    const [classSelected, setClassSelected] = React.useState({});
+    const [filters, setFilters] = React.useState({
+        class: {},
+        status: '',
+    });
     const [classes, setClasses] = React.useState([]);
     const [registerForm, setRegisterForm] = React.useState([]);
 
@@ -34,21 +37,28 @@ export default function Request() {
         {
             field: 'fullName',
             headerName: 'Họ và tên',
-            width: 200,
+            width: 150,
             editable: false,
-            valueGetter: (value, row) => row.fullName,
+            valueGetter: (value, row) => value,
         },
         {
             field: 'parentName',
             headerName: 'Phụ huynh',
-            width: 200,
+            width: 150,
             editable: false,
             valueGetter: (value, row) => row.parentName,
         },
         {
+            field: 'username',
+            headerName: 'Username',
+            width: 150,
+            editable: true,
+            valueGetter: (value, row) => value,
+        },
+        {
             field: 'email',
             headerName: 'Email',
-            width: 200,
+            width: 150,
             editable: true,
             valueGetter: (value, row) => row.email,
         },
@@ -69,7 +79,7 @@ export default function Request() {
         {
             field: 'className',
             headerName: 'Lớp học',
-            width: 200,
+            width: 175,
             editable: false,
             valueGetter: (value, row) => row.class.className,
         },
@@ -80,7 +90,7 @@ export default function Request() {
             editable: false,
             renderCell: (params) => {
                 const status = params.value;
-                var color = 'success';
+                var color = 'warning';
                 switch (status) {
                     case 'approved':
                         color = 'success';
@@ -118,7 +128,7 @@ export default function Request() {
                         <IconButton
                             aria-label="delete"
                             color="error"
-                            onClick={() => rejectForm(params.row.id, 'rejected')}
+                            onClick={() => actionForm(params.row.id, 'rejected')}
                             disabled={params.row.status !== 'pending'}
                         >
                             <DeleteForeverIcon />
@@ -126,7 +136,7 @@ export default function Request() {
                         <IconButton
                             aria-label="approve"
                             color="success"
-                            onClick={() => rejectForm(params.row.id, 'approve')}
+                            onClick={() => actionForm(params.row.id, 'approved')}
                             disabled={params.row.status !== 'pending'}
                         >
                             <CheckBoxIcon />
@@ -137,7 +147,7 @@ export default function Request() {
         },
     ];
 
-    const rejectForm = (id, action) => {
+    const actionForm = (id, action) => {
         request
             .post(`admin/auth/register-confirm`, {
                 id: id,
@@ -153,10 +163,9 @@ export default function Request() {
 
     React.useEffect(() => {
         request
-            .get(`admin/class?page=1&limit=10`)
+            .get(`admin/class?page=1&limit=100`)
             .then((response) => {
                 setClasses(response.data.classes);
-                setClassSelected(response.data.classes[0]);
             })
             .catch((error) => {
                 context.setShowSnackbar('Không tìm thấy thông tin lớp học', 'error');
@@ -165,14 +174,19 @@ export default function Request() {
 
     React.useEffect(() => {
         request
-            .get(`admin/auth/register-request-list`)
+            .get(`admin/auth/register-request-list`, {
+                params: {
+                    ...(filters.status && { status: filters.status }),
+                    ...(filters.class.id && { classID: filters.class.id }),
+                },
+            })
             .then((res) => {
                 setRegisterForm(res.data.registerList);
             })
             .catch((error) => {
                 context.setShowSnackbar('Tìm thông tin đơn đăng ký không thành công', 'error');
             });
-    }, []);
+    }, [filters]);
 
     return (
         <>
@@ -181,16 +195,19 @@ export default function Request() {
                 <div style={{ alignItems: 'center', display: 'flex' }}>
                     <div style={{ alignItems: 'center', display: 'flex' }}>
                         <FormControl sx={{ m: 1, minWidth: 240 }} size="small">
-                            <InputLabel id="demo-simple-select-label">Chọn lớp</InputLabel>
+                            <InputLabel id="class-filter-label">Chọn lớp</InputLabel>
                             <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
-                                value={classSelected}
+                                labelId="class-filter-label"
+                                id="class-filter"
+                                value={filters.class}
                                 label="Chọn lớp"
                                 onChange={(event) => {
-                                    setClassSelected(event.target.value);
+                                    setFilters({ ...filters, class: event.target.value });
                                 }}
                             >
+                                <MenuItem value="">
+                                    <em>None</em>
+                                </MenuItem>
                                 {classes.map((classMap) => (
                                     <MenuItem key={classMap.id} value={classMap}>
                                         {classMap.className}
@@ -198,11 +215,30 @@ export default function Request() {
                                 ))}
                             </Select>
                         </FormControl>
-                        <Button variant="contained" startIcon={<SchoolIcon />} onClick={() => {}}>
+                        <FormControl sx={{ m: 1, minWidth: 240 }} size="small">
+                            <InputLabel id="status-filter-label">Chọn trạng thái</InputLabel>
+                            <Select
+                                labelId="status-filter-label"
+                                id="status-filter"
+                                value={filters.status}
+                                label="Trạng thái"
+                                onChange={(event) => {
+                                    setFilters({ ...filters, status: event.target.value });
+                                }}
+                            >
+                                <MenuItem value="">
+                                    <em>None</em>
+                                </MenuItem>
+                                <MenuItem value="pending">Pending</MenuItem>
+                                <MenuItem value="approved">Approved</MenuItem>
+                                <MenuItem value="rejected">Rejected</MenuItem>
+                            </Select>
+                        </FormControl>
+                        {/* <Button variant="contained" startIcon={<SchoolIcon />} onClick={() => {}}>
                             Tạo lớp mới
-                        </Button>
+                        </Button> */}
                     </div>
-                    <div>
+                    {/* <div>
                         <Button
                             variant="contained"
                             startIcon={<PersonRemoveIcon />}
@@ -216,7 +252,7 @@ export default function Request() {
                         <Button variant="contained" startIcon={<PersonAddAlt1Icon />} onClick={() => {}}>
                             Thêm thành viên
                         </Button>
-                    </div>
+                    </div> */}
                 </div>
             </div>
             <div style={{ height: 'calc(90vh - 196px)', width: '100%' }}>

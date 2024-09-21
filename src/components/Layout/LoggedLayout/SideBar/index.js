@@ -102,7 +102,7 @@ export default function SideBar({ open, children }) {
         [
             { name: 'Lịch trình', icon: <CalendarMonth />, path: '/schedule' },
             { name: 'Tin nhắn', icon: <Message />, path: '/message' },
-            { name: 'Thông tin trẻ', icon: <Message />, path: '/child-info' },
+            // { name: 'Thông tin trẻ', icon: <Message />, path: '/child-info' },
             { name: 'Bảng điểm', icon: <Filter9Plus />, path: '/score-table' },
         ],
         [

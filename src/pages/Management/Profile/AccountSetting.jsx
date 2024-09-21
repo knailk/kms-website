@@ -20,8 +20,8 @@ const cx = classNames.bind(styles);
 function AccountSetting({ userData }) {
     const context = useContext(LoggedContext);
     const [open, setOpen] = useState(false);
-    const firstNameRef = useRef();
-    const lastNameRef = useRef();
+    const fullNameRef = useRef();
+    const parentNameRef = useRef();
     const phoneNumberRef = useRef();
     const emailRef = useRef();
     const [birthDate, setBirthDate] = useState(dayjs(userData.birthDate));
@@ -42,12 +42,14 @@ function AccountSetting({ userData }) {
         request
             .put('/profile/me', {
                 email: emailRef.current.value,
-                fullName: `${firstNameRef.current.value} ${lastNameRef.current.value}`,
+                fullName: fullNameRef.current.value,
+                parentName: parentNameRef.current.value,
                 gender: gender,
                 phoneNumber: phoneNumberRef.current.value,
                 address: address.address,
                 latitude: address.lat,
                 longitude: address.lng,
+                pictureURL: userData.pictureURL,
                 birthDate: dayjs(birthDate, 'YYYY-MM-DD').toISOString(),
             })
             .then((res) => {
@@ -68,8 +70,8 @@ function AccountSetting({ userData }) {
     };
 
     useEffect(() => {
-        firstNameRef.current.value = userData.firstName;
-        lastNameRef.current.value = userData.lastName;
+        fullNameRef.current.value = userData.fullName;
+        parentNameRef.current.value = userData.parentName;
         phoneNumberRef.current.value = userData.phoneNumber;
         emailRef.current.value = userData.email;
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -82,18 +84,18 @@ function AccountSetting({ userData }) {
                         <TextField
                             sx={{ width: '47%' }}
                             id="standard-basic"
-                            label="Họ"
+                            label="Tên học sinh"
                             variant="outlined"
                             autoComplete="off"
-                            inputRef={firstNameRef}
+                            inputRef={fullNameRef}
                         />
                         <TextField
                             sx={{ width: '47%' }}
                             id="standard-basic"
-                            label="Tên"
+                            label="Tên phụ huynh"
                             variant="outlined"
                             autoComplete="off"
-                            inputRef={lastNameRef}
+                            inputRef={parentNameRef}
                         />
                     </div>
                     <div className={cx('text-field-group')}>

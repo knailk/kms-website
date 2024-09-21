@@ -10,6 +10,7 @@ import AppBar from '@mui/material/AppBar';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Divider from '@mui/material/Divider';
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid } from '@mui/material';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
@@ -53,6 +54,26 @@ function a11yProps(index) {
         'aria-controls': `full-width-tabpanel-${index}`,
     };
 }
+const RoboHashPicker = ({ onSelect, setNumber }) => {
+    const generateRandomString = () => Math.random().toString(36).substring(7);
+
+    const robohashUrls = Array.from(
+        { length: 12 },
+        () => `https://robohash.org/${generateRandomString()}?set=set${setNumber}`,
+    );
+
+    return (
+        <Grid container spacing={2}>
+            {robohashUrls.map((url, index) => (
+                <Grid item key={index} xs={3}>
+                    <Button onClick={() => onSelect(url)}>
+                        <Avatar src={url} sx={{ width: 100, height: 100}} />
+                    </Button>
+                </Grid>
+            ))}
+        </Grid>
+    );
+};
 
 export default function Profile() {
     const theme = useTheme();
@@ -63,6 +84,20 @@ export default function Profile() {
     const [paymentId, setPaymentId] = useState(
         searchParams.get('payment-number') !== undefined ? searchParams.get('payment-number') : '',
     );
+    const [open, setOpen] = useState(false);
+    const [selectedTab, setSelectedTab] = useState(0);
+
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+    const handleSelect = (url) => {
+        setUserData({
+            ...userData,
+            pictureURL: url,
+        });
+        console.log("1111", userData)
+        handleClose();
+    };
+    const handleTabChange = (event, newValue) => setSelectedTab(newValue);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -97,6 +132,9 @@ export default function Profile() {
             .then((res) => {
                 let role = '';
                 switch (res.data.role) {
+                    case 'student':
+                        role = 'Học sinh';
+                        break;
                     case 'teacher':
                         role = 'Giáo viên';
                         break;
@@ -111,8 +149,8 @@ export default function Profile() {
                 }
                 let date = new Date(res.data.createdAt);
                 let formattedDate = `Ngày ${date.getDate()} tháng ${date.getMonth() + 1} năm ${date.getFullYear()}`;
-                let firstName = res.data.fullName.split(' ')[0];
-                let lastName = res.data.fullName.split(firstName)[1];
+                let fullName = res.data.fullName;
+                let parentName = res.data.parentName;
                 let birthDate = new Date(res.data.birthDate);
                 let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
                 birthDate.toLocaleDateString('en-US', options);
@@ -120,8 +158,8 @@ export default function Profile() {
                     ...res.data,
                     role: role,
                     createdAt: formattedDate,
-                    firstName: firstName,
-                    lastName: lastName,
+                    fullName: fullName,
+                    parentName: parentName,
                     birthDate: birthDate,
                 });
             })
@@ -148,7 +186,7 @@ export default function Profile() {
                         <div className={cx('avatar-wrapper')}>
                             <Avatar src={userData?.pictureURL} width={200} height={200} />
                             <div className={cx('icon-camera')}>
-                                <CameraAlt />
+                                <CameraAlt onClick={handleOpen} />
                             </div>
                         </div>
                         <div className={cx('fixed-infor')}>
@@ -214,6 +252,30 @@ export default function Profile() {
                     </div>
                 </div>
             </div>
+            <Dialog open={open} onClose={handleClose} fullWidth maxWidth="md">
+                <DialogTitle>Select an Avatar</DialogTitle>
+                <DialogContent>
+                    <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                        <Tabs value={selectedTab} onChange={handleTabChange}>
+                            <Tab label="Set 1" />
+                            <Tab label="Set 2" />
+                            <Tab label="Set 3" />
+                            <Tab label="Set 4" />
+                            <Tab label="Set 5" />
+                        </Tabs>
+                    </Box>
+
+                    {/* Render avatars based on the selected tab */}
+                    {selectedTab === 0 && <RoboHashPicker onSelect={handleSelect} setNumber={1} />}
+                    {selectedTab === 1 && <RoboHashPicker onSelect={handleSelect} setNumber={2} />}
+                    {selectedTab === 2 && <RoboHashPicker onSelect={handleSelect} setNumber={3} />}
+                    {selectedTab === 3 && <RoboHashPicker onSelect={handleSelect} setNumber={4} />}
+                    {selectedTab === 4 && <RoboHashPicker onSelect={handleSelect} setNumber={5} />}
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose}>Cancel</Button>
+                </DialogActions>
+            </Dialog>
         </>
     );
 }

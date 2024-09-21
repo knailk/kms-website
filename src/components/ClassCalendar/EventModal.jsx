@@ -1,6 +1,4 @@
 import * as React from 'react';
-import classNames from 'classnames/bind';
-import styles from './Schedule.module.scss';
 import moment from 'moment';
 import 'rsuite/dist/rsuite.min.css';
 import { Button } from '@mui/material';
@@ -16,7 +14,6 @@ import Container from '@mui/material/Container';
 import SchoolIcon from '@mui/icons-material/School';
 import MenuItem from '@mui/material/MenuItem';
 import { Events } from '~/constants/event';
-const cx = classNames.bind(styles);
 
 export default function EventModal({ eventSelected, setEventSelected, setOpenModifyModal, setIsUpdateEvent }) {
     const context = React.useContext(LoggedContext);

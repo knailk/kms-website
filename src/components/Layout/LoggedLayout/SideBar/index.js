@@ -87,9 +87,10 @@ export default function SideBar({ open, children }) {
     const context = useContext(LoggedContext);
     const sideBarTeacher = [
         [
-            { name: 'Lịch trình', icon: <CalendarMonth />, path: '/schedule' },
+            { name: 'Lịch học', icon: <CalendarMonth />, path: '/schedule' },
             { name: 'Tin nhắn', icon: <Message />, path: '/message' },
             { name: 'Danh sách học sinh', icon: <ListAlt />, path: '/list-student' },
+            { name: 'Điểm danh', icon: <Filter9Plus />, path: '/check-in' },
             { name: 'Bảng điểm', icon: <Filter9Plus />, path: '/score-table' },
         ],
         [
@@ -100,7 +101,7 @@ export default function SideBar({ open, children }) {
     ];
     const sideBarStudent = [
         [
-            { name: 'Lịch trình', icon: <CalendarMonth />, path: '/schedule' },
+            { name: 'Lịch học', icon: <CalendarMonth />, path: '/schedule' },
             { name: 'Tin nhắn', icon: <Message />, path: '/message' },
             // { name: 'Thông tin trẻ', icon: <Message />, path: '/child-info' },
             { name: 'Bảng điểm', icon: <Filter9Plus />, path: '/score-table' },
@@ -113,7 +114,7 @@ export default function SideBar({ open, children }) {
     ];
     const sideBarDriver = [
         [
-            { name: 'Lịch trình', icon: <CalendarMonth />, path: '/schedule' },
+            { name: 'Lịch học', icon: <CalendarMonth />, path: '/schedule' },
             { name: 'Bản đồ đưa đón', icon: <ListAlt />, path: '/road-map' },
             { name: 'Tin nhắn', icon: <Message />, path: '/message' },
             { name: 'Danh sách học sinh', icon: <ListAlt />, path: '/list-student' },

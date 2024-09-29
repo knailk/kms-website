@@ -13,6 +13,7 @@ import AdminClass from '~/pages/AdminManagement/Class';
 import General from '~/pages/AdminManagement/General';
 import AdminSchedule from '~/pages/AdminManagement/Schedule';
 import AdminChatSession from '~/pages/AdminManagement/Request';
+import CheckInDashboard from '~/pages/Management/CheckIn';
 
 export const publicRoutes = [
     { path: '/', component: Home, requireAuth: false },
@@ -24,6 +25,7 @@ export const publicRoutes = [
     { path: '/road-map', component: RoadMap, layout: LoggedLayout, requireAuth: true },
     { path: '/message', component: MessageBox, layout: LoggedLayout, requireAuth: true },
     { path: '/list-student', component: ListStudent, layout: LoggedLayout, requireAuth: true },
+    { path: '/check-in', component: CheckInDashboard, layout: LoggedLayout, requireAuth: true },
     { path: '/score-table', component: Schedule, layout: LoggedLayout, requireAuth: true },
     { path: '/profile', component: Profile, layout: LoggedLayout, requireAuth: true },
     { path: '/payment', component: Schedule, layout: LoggedLayout, requireAuth: true },

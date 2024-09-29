@@ -5,178 +5,89 @@ import { DatePicker } from 'rsuite';
 import 'rsuite/dist/rsuite.min.css';
 import { DataGrid } from '@mui/x-data-grid';
 import Avatar from '~/components/Avatar/Avatar';
-import { Backdrop, CircularProgress, Snackbar } from '@mui/material';
+import { Backdrop, CircularProgress, Snackbar, Chip } from '@mui/material';
 import { Cancel, CheckCircle } from '@mui/icons-material';
 import SearchBox from '~/components/SearchBox/SearchBox';
 import { LoggedContext } from '~/components/Layout/LoggedLayout';
+import dayjs from 'dayjs';
+import request from '~/utils/http';
 const cx = classNames.bind(styles);
 
 const columns = [
     {
-        field: 'id',
+        field: 'email',
         headerName: 'Email',
         width: 200,
-        editable: true,
         valueGetter: (value, row) => row.email,
     },
     {
         field: 'avatar',
-        headerName: 'Họ và tên',
-        width: 300,
-        editable: true,
-        valueGetter: (value, row) => ({ src: value, name: row.fullName }),
+        headerName: 'Photo',
+        width: 50,
         renderCell: (params) => {
             return (
                 <div style={{ display: 'flex', alignItems: 'center', height: '100%' }}>
-                    <Avatar src={params.value.src} width={40} height={40} />
-                    <span style={{ marginLeft: 20 }}>{params.value.name}</span>
+                    <Avatar src={params.value} width={40} height={40} />
                 </div>
             );
         },
     },
-
     {
-        field: 'phone',
+        field: 'fullName',
+        headerName: 'Họ và tên',
+        width: 200,
+        valueGetter: (value, row) => row.fullName,
+    },
+    {
+        field: 'phoneNumber',
         headerName: 'Số điện thoại',
         width: 150,
-        editable: true,
+        valueGetter: (value, row) => row.phoneNumber,
     },
     {
-        field: 'attendence_check',
-        headerName: 'Attendence Check',
+        field: 'address',
+        headerName: 'Địa chỉ',
         width: 200,
-        editable: true,
+        valueGetter: (value, row) => row.address,
     },
-];
+    {
+        field: 'status',
+        headerName: 'Trạng thái',
+        width: 200,
+        renderCell: (params) => {
+            const status = params.value;
+            var color = 'success';
+            switch (status) {
+                case 'studying':
+                    color = 'success';
+                    break;
+                case 'joined':
+                    color = 'primary';
+                    break;
+                case 'completed':
+                    color = 'warning';
+                    break;
+                case 'canceled':
+                    color = 'error';
+                    break;
+                default:
+                    break;
+            }
 
-const rows = [
-    {
-        id: 1,
-        fullName: 'Jon Snow',
-        avatar: 'https://mui.com/static/images/avatar/1.jpg',
-        email: 'sample1@gmail.com',
-        phone: '0987654321',
-        attendence_check: false,
+            return <Chip label={status} color={color} variant="outlined" />;
+        },
     },
     {
-        id: 2,
-        fullName: 'Cersei Lannister',
-        avatar: 'https://mui.com/static/images/avatar/2.jpg',
-        email: 'sample2@gmail.com',
-        phone: '0987654321',
-        attendence_check: true,
+        field: 'joinedAt',
+        headerName: 'Tham gia vào',
+        width: 200,
+        align: 'center',
+        valueGetter: (value, row) => dayjs(row.joinedAt).format('YYYY/MM/DD HH:mm:ss A'),
     },
     {
-        id: 3,
-        fullName: 'Jaime Lannister',
-        avatar: 'https://mui.com/static/images/avatar/3.jpg',
-        email: 'sample3@gmail.com',
-        phone: '0987654321',
-        attendence_check: false,
-    },
-    {
-        id: 4,
-        fullName: 'Jaime Lannister',
-        avatar: 'https://mui.com/static/images/avatar/3.jpg',
-        email: 'sample4@gmail.com',
-        phone: '0987654321',
-        attendence_check: false,
-    },
-    {
-        id: 5,
-        fullName: 'Jaime Lannister',
-        avatar: 'https://mui.com/static/images/avatar/3.jpg',
-        email: 'sample5.@gmail.com',
-        phone: '0987654321',
-        attendence_check: false,
-    },
-    {
-        id: 6,
-        fullName: 'Jaime Lannister',
-        avatar: 'https://mui.com/static/images/avatar/3.jpg',
-        email: 'sample@gmail.com',
-        phone: '0987654321',
-        attendence_check: false,
-    },
-    {
-        id: 7,
-        fullName: 'Jaime Lannister',
-        avatar: 'https://mui.com/static/images/avatar/3.jpg',
-        email: 'sample@gmail.com',
-        phone: '0987654321',
-        attendence_check: false,
-    },
-    {
-        id: 8,
-        fullName: 'Jaime Lannister',
-        avatar: 'https://mui.com/static/images/avatar/3.jpg',
-        email: 'sample@gmail.com',
-        phone: '0987654321',
-        attendence_check: false,
-    },
-    {
-        id: 9,
-        fullName: 'Jaime Lannister',
-        avatar: 'https://mui.com/static/images/avatar/3.jpg',
-        email: 'sample@gmail.com',
-        phone: '0987654321',
-        attendence_check: false,
-    },
-    {
-        id: 10,
-        fullName: 'Jaime Lannister',
-        avatar: 'https://mui.com/static/images/avatar/3.jpg',
-        email: 'sample@gmail.com',
-        phone: '0987654321',
-        attendence_check: false,
-    },
-    {
-        id: 11,
-        fullName: 'Jaime Lannister',
-        avatar: 'https://mui.com/static/images/avatar/3.jpg',
-        email: 'sample@gmail.com',
-        phone: '0987654321',
-        attendence_check: false,
-    },
-    {
-        id: 12,
-        fullName: 'Jaime Lannister',
-        avatar: 'https://mui.com/static/images/avatar/3.jpg',
-        email: 'sample@gmail.com',
-        phone: '0987654321',
-        attendence_check: false,
-    },
-    {
-        id: 13,
-        fullName: 'Jaime Lannister',
-        avatar: 'https://mui.com/static/images/avatar/3.jpg',
-        email: 'sample@gmail.com',
-        phone: '0987654321',
-        attendence_check: false,
-    },
-    {
-        id: 14,
-        fullName: 'Jaime Lannister',
-        avatar: 'https://mui.com/static/images/avatar/3.jpg',
-        email: 'sample@gmail.com',
-        phone: '0987654321',
-        attendence_check: false,
-    },
-    {
-        id: 15,
-        fullName: 'Jaime Lannister',
-        avatar: 'https://mui.com/static/images/avatar/3.jpg',
-        email: 'sample@gmail.com',
-        phone: '0987654321',
-        attendence_check: false,
-    },
-    {
-        id: 16,
-        fullName: 'Jaime Lannister',
-        avatar: 'https://mui.com/static/images/avatar/3.jpg',
-        email: 'sample@gmail.com',
-        phone: '0987654321',
-        attendence_check: false,
+        field: 'check_in',
+        headerName: 'Điểm danh',
+        width: 200,
     },
 ];
 
@@ -184,13 +95,32 @@ export default function ListStudents() {
     //state
     const snackBarRef = React.useRef(false);
     const [rowSelectionModel, setRowSelectionModel] = React.useState([]);
+    const [members, setMembers] = React.useState([]);
 
     const context = React.useContext(LoggedContext);
+
+    React.useEffect(() => {
+        request
+            .get(`/class/me`)
+            .then((response) => {
+                request
+                    .get(`/class/${response.data.id}/members`)
+                    .then((res) => {
+                        setMembers(res.data.users);
+                    })
+                    .catch((error) => {
+                        context.setShowSnackbar('Tìm thông tin thành viên không thành công', 'error');
+                    });
+            })
+            .catch((error) => {
+                context.setShowSnackbar('Tìm thông tin lớp học không thành công', 'error');
+            });
+    }, []);
 
     //button handler
 
     //api call
-    const handleAttendenceCheck = (type) => {
+    const handleCheckIn = (action) => {
         snackBarRef.current = false;
         context.setShowBackDrop(true);
         setTimeout(() => {
@@ -203,11 +133,11 @@ export default function ListStudents() {
     const Snack = () => {
         return (
             <div className={cx('snack-wrapper')}>
-                <div onClick={() => handleAttendenceCheck('check')}>
+                <div onClick={() => handleCheckIn('check')}>
                     <CheckCircle className={cx('icon-check')} />
                     <span className={cx('text')}>Có mặt</span>
                 </div>
-                <div onClick={() => handleAttendenceCheck('uncheck')}>
+                <div onClick={() => handleCheckIn('uncheck')}>
                     <Cancel className={cx('icon-cancel')} />
                     <span className={cx('text')}>Vắng mặt</span>
                 </div>
@@ -224,7 +154,8 @@ export default function ListStudents() {
             </div>
             <div style={{ height: 'calc(100vh - 220px)', width: '100%' }}>
                 <DataGrid
-                    rows={rows}
+                    rows={members}
+                    getRowId={(row) => row.username}
                     columns={columns}
                     initialState={{
                         pagination: {
@@ -233,6 +164,7 @@ export default function ListStudents() {
                             },
                         },
                     }}
+                    isRowSelectable={(params) => params.row.status !== 'canceled' && params.row.check_in}
                     pageSizeOptions={[20]}
                     checkboxSelection
                     disableRowSelectionOnClick

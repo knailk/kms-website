@@ -5,7 +5,7 @@ const cx = classNames.bind(styles);
 
 function Facility() {
     return (
-        <div classNames={cx('content-wrapper')}>
+        <div className={cx('content-wrapper')}>
             <Grid
                 container
                 spacing={2}

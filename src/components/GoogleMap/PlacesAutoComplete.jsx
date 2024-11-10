@@ -1,9 +1,7 @@
 import usePlacesAutocomplete, { getGeocode, getLatLng } from 'use-places-autocomplete';
 import SearchBox from '../SearchBox/SearchBox';
 import PlaceIcon from '@mui/icons-material/Place';
-import { useEffect, useRef } from 'react';
-import { Divider } from '@mui/material';
-
+import { useEffect } from 'react';
 import classNames from 'classnames/bind';
 import styles from './GoogleMap.module.scss';
 const cx = classNames.bind(styles);

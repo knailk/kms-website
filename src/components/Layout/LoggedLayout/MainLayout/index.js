@@ -39,7 +39,6 @@ const AppBar = styled(MuiAppBar, {
     }),
 }));
 
-
 export default function MainLayout({ children }) {
     const theme = useTheme();
     const sm = useMediaQuery(theme.breakpoints.up('sm'));
@@ -47,7 +46,7 @@ export default function MainLayout({ children }) {
     const [messages, setMessages] = useState([{}]);
     const [cookies, setCookie, removeCookie] = useCookies(['user-infor']);
     const context = useContext(LoggedContext);
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const [open, setOpen] = useState(sm);
     //on resize
     window.onresize = () => {
@@ -62,17 +61,19 @@ export default function MainLayout({ children }) {
         setAnchorEl(event.currentTarget);
     };
 
-    const handleMenuClose = (type = "") => {
+    const handleMenuClose = (type = '') => {
         setAnchorEl(null);
         if (type === 'logout') {
             //call api logout
-            request.post('/auth/logout').then(() => {
-                navigate('/')
-                removeCookie('user-infor');
-            }).catch((err) => {
-                context.setShowSnackbar("Có lỗi xảy ra", "error")
-            });
-
+            request
+                .post('/auth/logout')
+                .then(() => {
+                    navigate('/');
+                    removeCookie('user-infor');
+                })
+                .catch((err) => {
+                    context.setShowSnackbar('Có lỗi xảy ra', 'error');
+                });
         }
     };
 

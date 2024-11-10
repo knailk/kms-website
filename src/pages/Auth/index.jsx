@@ -3,7 +3,6 @@ import styles from './LoginForm.module.scss';
 import 'react-multi-carousel/lib/styles.css';
 import { Button, Checkbox, FormControlLabel, TextField } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
-import SchoolIcon from '@mui/icons-material/School';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
@@ -16,7 +15,7 @@ import { useRef, useState } from 'react';
 const cx = classNames.bind(styles);
 
 function LoginForm() {
-    const nagivate = useNavigate();
+    const navigate = useNavigate();
     const [cookies, setCookie] = useCookies(['user-infor']);
     const [dataForm, setDataForm] = useState({ username: '', password: '' });
     const usernameRef = useRef();
@@ -34,9 +33,11 @@ function LoginForm() {
                     date.setHours(date.getHours() + 4);
                     setCookie('user-infor', res.data, { expires: date });
                     if (res.data.role === 'admin') {
-                        nagivate('/admin');
+                        navigate('/admin/class');
+                    } else if (res.data.role === 'chef') {
+                        navigate('/dish');
                     } else {
-                        nagivate('/schedule');
+                        navigate('/schedule');
                     }
                 })
                 .catch((err) => {
@@ -68,7 +69,7 @@ function LoginForm() {
                     variant="outlined"
                     className={cx('input-field')}
                     inputRef={usernameRef}
-                    defaultValue="admin"
+                    // defaultValue="admin"
                 />
                 <TextField
                     id="password"
@@ -77,9 +78,9 @@ function LoginForm() {
                     variant="outlined"
                     className={cx('input-field')}
                     inputRef={passwordRef}
-                    defaultValue="ndtd1234"
+                    // defaultValue="ndtd1234"
                 />
-                <div>
+                {/* <div>
                     <FormControlLabel
                         control={
                             <Checkbox
@@ -93,13 +94,13 @@ function LoginForm() {
                             </span>
                         }
                     />
-                </div>
+                </div> */}
                 <Button className={cx('btn-login')} variant="contained" onClick={() => handleLoginBtn()}>
                     Đăng nhập
                 </Button>
-                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                {/* <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <a href="/">Quên mật khẩu</a>
-                </div>
+                </div> */}
             </Box>
         </Container>
     );

@@ -4,6 +4,7 @@ import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import { Card, CardContent, CardMedia, Typography } from '@mui/material';
 import { AccessTime } from '@mui/icons-material';
+import { NEWS } from '~/constants/news';
 const cx = classNames.bind(styles);
 
 function News() {
@@ -28,37 +29,7 @@ function News() {
             </CardContent>
         </Card>
     );
-    const images = [
-        {
-            label: 'Thông Báo. Thu Học Phí Tháng 01 Và Tháng 02 Năm 2024',
-            date: '28 Tháng Mười Hai, 2023',
-            imgPath:
-                'https://images.unsplash.com/photo-1537944434965-cf4679d1a598?auto=format&fit=crop&w=400&h=250&q=60',
-        },
-        {
-            label: 'Chuyến Đi Vui Nhộn đến Đầm Sen Của Các Bạn Nhỏ Trường Mầm Non Smart Kindergarten',
-            date: '28 Tháng Mười Hai, 2023',
-            imgPath:
-                'https://images.unsplash.com/photo-1538032746644-0212e812a9e7?auto=format&fit=crop&w=400&h=250&q=60',
-        },
-        {
-            label: 'Lớp học ngoại khóa WOW ART',
-            date: '28 Tháng Mười Hai, 2023',
-            imgPath: 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250',
-        },
-        {
-            label: 'Goč, Serbia',
-            date: '28 Tháng Mười Hai, 2023',
-            imgPath:
-                'https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60',
-        },
-        {
-            label: 'Goč, Serbia',
-            date: '28 Tháng Mười Hai, 2023',
-            imgPath:
-                'https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60',
-        },
-    ];
+
     const responsive = {
         desktop: {
             breakpoint: { max: 3000, min: 1024 },
@@ -92,7 +63,7 @@ function News() {
                         itemClass={cx('carousel-item')}
                         containerClass={cx('carousel-container')}
                     >
-                        {images.map((image, idx) => (
+                        {NEWS.map((image, idx) => (
                             <CardNews key={idx} image={image} />
                         ))}
                     </Carousel>

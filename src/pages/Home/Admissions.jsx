@@ -1,21 +1,20 @@
 import classNames from 'classnames/bind';
 import styles from './Home.module.scss';
 import { Button, Grid, MenuItem, TextField } from '@mui/material';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { memo, useState } from 'react';
-import dayjs from 'dayjs';
+import { useNavigate } from 'react-router-dom';
+import qs from 'query-string';
+
 const cx = classNames.bind(styles);
 
 function Admissions() {
+    const navigate = useNavigate();
+
     const [dataForm, setDataForm] = useState({
-        'parent-name': '',
-        birthdate: null,
+        parent_name: '',
+        children_name: '',
         phone: '',
         gender: 'male',
-        captcha: '',
     });
     const [error, setError] = useState([]);
 
@@ -35,7 +34,14 @@ function Admissions() {
                 }
             }
         }
-        setError(arrError);
+
+        if (arrError.length > 0) {
+            setError(arrError);
+        } else {
+            const query = qs.stringify(dataForm);
+            console.log('11111', query);
+            navigate(`/course?${query}#register-form`);
+        }
     };
     return (
         <div className={cx('admissions')}>
@@ -51,24 +57,22 @@ function Admissions() {
                         inputProps={{ className: cx('text-field') }}
                         id="parent-name"
                         label="Tên phụ huynh"
-                        value={dataForm['parent-name']}
+                        value={dataForm['parent_name']}
                         variant="filled"
-                        onChange={(e) => handleChange(e, 'parent-name')}
-                        {...(error.includes('parent-name') && { error: true, helperText: 'Vui lòng nhập' })}
+                        onChange={(e) => handleChange(e, 'parent_name')}
+                        {...(error.includes('parent_name') && { error: true, helperText: 'Vui lòng nhập' })}
                     />
                 </Grid>
-                <Grid item xs={2.5} className={cx('datePicker')}>
-                    <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DemoContainer components={['DateField']}>
-                            <DatePicker
-                                label="Sinh nhật bé"
-                                name="birthdate"
-                                slotProps={{ textField: { fullWidth: true, variant: 'filled' } }}
-                                value={dataForm.birthdate}
-                                onChange={(e) => handleChange(e, 'birthdate')}
-                            />
-                        </DemoContainer>
-                    </LocalizationProvider>
+                <Grid item xs={2} className={cx('')}>
+                    <TextField
+                        inputProps={{ className: cx('text-field') }}
+                        id="children-name"
+                        label="Tên bé"
+                        value={dataForm['children_name']}
+                        variant="filled"
+                        onChange={(e) => handleChange(e, 'children_name')}
+                        {...(error.includes('children_name') && { error: true, helperText: 'Vui lòng nhập' })}
+                    />
                 </Grid>
                 <Grid item xs={2} className={cx('')}>
                     <TextField

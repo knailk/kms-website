@@ -10,6 +10,7 @@ import { LoggedContext } from '~/components/Layout/LoggedLayout';
 import styles from './Profile.module.scss';
 import { useContext, useEffect, useRef, useState } from 'react';
 import GoogleMapDialog from './GoogleMapDialog';
+import ChangePasswordDialog from './ChangePasswordDialog';
 import request from '~/utils/http';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -20,6 +21,7 @@ const cx = classNames.bind(styles);
 function AccountSetting({ userData }) {
     const context = useContext(LoggedContext);
     const [open, setOpen] = useState(false);
+    const [openChangePassword, setOpenChangePassword] = useState(false);
     const fullNameRef = useRef();
     const parentNameRef = useRef();
     const phoneNumberRef = useRef();
@@ -152,11 +154,15 @@ function AccountSetting({ userData }) {
                         />
                     </div>
                     <div className={cx('button-wrapper')}>
-                        <Button variant="contained" onClick={() => handleSaveBtn()}>
+                        <Button onClick={() => setOpenChangePassword(true)} color="primary" variant="contained">
+                            Đổi mật khẩu
+                        </Button>
+                        <Button onClick={() => handleSaveBtn()} color="primary" variant="contained">
                             Lưu thông tin
                         </Button>
                     </div>
                     <GoogleMapDialog address={address} setAddress={setAddress} open={open} handleClose={handleClose} />
+                    <ChangePasswordDialog open={openChangePassword} onClose={() => setOpenChangePassword(false)} />
                 </div>
             )}
         </>

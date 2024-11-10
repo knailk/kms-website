@@ -125,7 +125,7 @@ export default function SideBar({ open, children }) {
         ],
     ];
     const sideBarChef = [
-        [{ name: 'Danh sách món ăn', icon: <RestaurantMenu />, path: '/food-menu' }],
+        [{ name: 'Danh sách món ăn', icon: <RestaurantMenu />, path: '/dish' }],
         [
             { name: 'Hồ sơ cá nhân', icon: <AccountBox />, path: '/profile' },
             { name: 'Đăng xuất', icon: <Logout />, path: '/logout' },
@@ -133,11 +133,12 @@ export default function SideBar({ open, children }) {
     ];
     const sideBarAdmin = [
         [
-            { name: 'Thông tin chung', icon: <CalendarMonth />, path: '/admin' },
+            // { name: 'Thông tin chung', icon: <CalendarMonth />, path: '/admin' },
             { name: 'Lớp học', icon: <Message />, path: '/admin/class' },
             { name: 'Lịch biểu', icon: <ListAlt />, path: '/admin/schedule' },
             { name: 'Tin nhắn', icon: <Filter9Plus />, path: '/admin/message' },
             { name: 'Đơn xin vào lớp', icon: <RequestPageIcon />, path: '/admin/request' },
+            { name: 'Danh sách món ăn', icon: <RestaurantMenu />, path: '/admin/dish' },
         ],
         [
             { name: 'Hồ sơ cá nhân', icon: <AccountBox />, path: '/profile' },

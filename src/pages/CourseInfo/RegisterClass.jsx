@@ -24,6 +24,7 @@ import { useAlert } from '~/components/Layout/DefaultLayout/AlertProvider';
 import request from '~/utils/http';
 import classNames from 'classnames/bind';
 import styles from './Course.module.scss';
+import { useSearchParams } from "react-router-dom";
 const cx = classNames.bind(styles);
 
 const phoneRegExp =
@@ -52,6 +53,9 @@ const userSchema = yup.object({
 });
 
 export default function RegisterClass({ classes }) {
+    const [searchParams] = useSearchParams();
+    searchParams.get('__firebase_request_key');
+
     const showAlert = useAlert();
     const [isShowPassword, setIsShowPassword] = React.useState(false);
     const [isShowConfirmPassword, setIsShowConfirmPassword] = React.useState(false);
@@ -60,14 +64,14 @@ export default function RegisterClass({ classes }) {
     const formik = useFormik({
         initialValues: {
             username: '',
-            fullName: '',
-            parentName: '',
+            fullName: searchParams.get("children_name"),
+            parentName: searchParams.get("parent_name"),
             password: '',
             confirmPassword: '',
             email: '',
-            phoneNumber: '',
+            phoneNumber: searchParams.get("phone"),
             birthDate: null,
-            gender: '',
+            gender: searchParams.get("gender"),
             classID: '',
             accepted: false,
         },
@@ -92,7 +96,7 @@ export default function RegisterClass({ classes }) {
     };
 
     return (
-        <Container component="main" maxWidth="lg">
+        <Container component="main" maxWidth="lg" id="register-form">
             <CssBaseline />
             <Box
                 sx={{

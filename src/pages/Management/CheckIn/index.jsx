@@ -116,6 +116,50 @@ const CheckInDashboard = () => {
         [getCheckedInKey],
     );
 
+    const handleSelectCheckInAll = React.useCallback(
+        (date, checked) => {
+            setState((prevState) => {
+                const newCheckIn = checked
+                    ? prevState.students
+                          .filter((i) => !prevState.checkedInSet.has(getCheckedInKey(i.userClassID, date)))
+                          .map((i) => ({ userClassID: i.userClassID, date }))
+                    : [];
+
+                const removeCheckIn = checked
+                    ? []
+                    : prevState.students
+                          .filter((i) => !prevState.checkedInSet.has(getCheckedInKey(i.userClassID, date)))
+                          .map((i) => ({ userClassID: i.userClassID, date }));
+
+                const updatedStudents = _.unionBy(
+                    prevState.checkInStudents,
+                    newCheckIn,
+                    (item) => `${item.userClassID}_${item.date}`,
+                );
+
+                const resultStudent = _.differenceWith(
+                    updatedStudents,
+                    removeCheckIn,
+                    (aItem, bItem) => aItem.userClassID === bItem.userClassID && aItem.date === bItem.date,
+                );
+
+                snackBarRef.current = resultStudent.length > 0;
+
+                const newSet = new Set(prevState.checkInSet);
+
+                newCheckIn.forEach((i) => newSet.add(getCheckedInKey(i.userClassID, i.date)));
+                removeCheckIn.forEach((i) => newSet.delete(getCheckedInKey(i.userClassID, i.date)));
+
+                return {
+                    ...prevState,
+                    checkInStudents: resultStudent,
+                    checkInSet: newSet,
+                };
+            });
+        },
+        [getCheckedInKey],
+    );
+
     const handleCheckIn = React.useCallback(
         (check) => {
             if (check) {
@@ -159,10 +203,19 @@ const CheckInDashboard = () => {
         },
         ...['Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6', 'Thứ 7', 'Chủ nhật'].map((day, index) => ({
             field: `day${index + 1}`,
-            headerName: day,
+            // headerName: day,
             width: 150,
+            renderHeader: (params) => {
+                const date = +weekStartDate.add(index, 'day').format('YYYYMMDD');
+
+                return (
+                    <>
+                        {day}
+                        <Checkbox onChange={(e) => handleSelectCheckInAll(date, e.target.checked)} />
+                    </>
+                );
+            },
             renderCell: (params) => {
-                console.log('render');
                 const date = +weekStartDate.add(index, 'day').format('YYYYMMDD');
                 const checked = state.checkedInSet.has(getCheckedInKey(params.row.userClassID, date));
                 const check = state.checkInSet.has(getCheckedInKey(params.row.userClassID, date));

@@ -55,9 +55,13 @@ function News() {
                     <h1>Tin tức</h1>
                     <Carousel
                         responsive={responsive}
-                        autoPlay={false}
+                        autoPlay={true}
+                        autoPlaySpeed={1000}
                         swipeable={true}
                         draggable={true}
+                        infinite={true}
+                        transitionDuration={1000}
+                        pauseOnHover={true}
                         partialVisible={false}
                         dotListClass="custom-dot-list-style"
                         itemClass={cx('carousel-item')}

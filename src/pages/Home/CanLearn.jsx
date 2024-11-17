@@ -1,13 +1,21 @@
 import classNames from 'classnames/bind';
 import styles from './Home.module.scss';
 import 'react-multi-carousel/lib/styles.css';
-import { Card, CardContent, CardMedia, Grid, Rating } from '@mui/material';
+import { Button, Card, CardContent, CardMedia, Grid, Rating } from '@mui/material';
+import { HOME_CLASSES } from '~/constants/home_classes';
+import { createTheme } from '@mui/material/styles';
+import { useNavigate } from 'react-router-dom';
+
 const cx = classNames.bind(styles);
 
 function CanLearn() {
+    const navigate = useNavigate();
+
     const CardNews = ({ image }) => (
         <Card sx={{ maxWidth: 350 }} className={cx('card')}>
-            <CardMedia sx={{}} image={image.imgPath} className={cx('image')} title="" />
+            <div className={cx('image-container')}>
+                <CardMedia component="img" image={image.imgPath} className={cx('image')} title="" />
+            </div>
             <CardContent className={cx('card-content')}>
                 <div className={cx('content-info')}>
                     <span className={cx('tag-class')}>Lớp học</span>
@@ -24,47 +32,20 @@ function CanLearn() {
             </CardContent>
         </Card>
     );
-    const images = [
-        {
-            imgPath: 'images/canlearn.webp',
-            class: 'Lớp bé 1 tuổi',
-            fromDate: '13/4/2023',
-            toDate: '30/10/2023',
+
+    const theme = createTheme({
+        palette: {
+            ochre: {
+                main: '#E3D026',
+                light: '#E9DB5D',
+                dark: '#A29415',
+                contrastText: '#242105',
+            },
         },
-        {
-            imgPath: 'images/canlearn.webp',
-            class: 'Lớp bé 1 tuổi',
-            fromDate: '13/4/2023',
-            toDate: '30/10/2023',
-        },
-        {
-            imgPath: 'images/canlearn.webp',
-            class: 'Lớp bé 1 tuổi',
-            fromDate: '13/4/2023',
-            toDate: '30/10/2023',
-        },
-        {
-            imgPath: 'images/canlearn.webp',
-            class: 'Lớp bé 1 tuổi',
-            fromDate: '13/4/2023',
-            toDate: '30/10/2023',
-        },
-        {
-            imgPath: 'images/canlearn.webp',
-            class: 'Lớp bé 1 tuổi',
-            fromDate: '13/4/2023',
-            toDate: '30/10/2023',
-        },
-        {
-            imgPath: 'images/canlearn.webp',
-            class: 'Lớp bé 1 tuổi',
-            fromDate: '13/4/2023',
-            toDate: '30/10/2023',
-        },
-    ];
+    });
 
     return (
-        <div className={cx('can-learn')}>
+        <div className={cx('home_classes')}>
             <div className={cx('container')}>
                 <div className={cx('title')}>
                     <div>LỚP HỌC</div>
@@ -79,12 +60,17 @@ function CanLearn() {
                     rowSpacing={2}
                     justifyContent="center"
                 >
-                    {images.map((image, index) => (
+                    {HOME_CLASSES.map((image, index) => (
                         <Grid key={index} item xs={4}>
                             <CardNews image={image} />
                         </Grid>
                     ))}
                 </Grid>
+                <div className={cx('button-info')}>
+                    <Button variant="contained" onClick={() => navigate('/course')}>
+                        Thông tin về lớp học
+                    </Button>
+                </div>
             </div>
         </div>
     );

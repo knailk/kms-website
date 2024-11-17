@@ -7,7 +7,6 @@ import { LoggedContext } from '../Layout/LoggedLayout';
 const RoadMapDriver = ({ position, defaultPosition }) => {
     const context = useContext(LoggedContext);
     const [marker, setMarker] = React.useState();
-    const [map, setMap] = React.useState();
     const [direction, setDirection] = React.useState([]);
     const [center, setCenter] = React.useState({ lat: 10.848683982455805, lng: 106.63729829934456 });
     useEffect(() => {

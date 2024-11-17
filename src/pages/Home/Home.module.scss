@@ -50,7 +50,7 @@
                 border: red;
             }
         }
-        .datePicker{
+        .datePicker {
             margin-bottom: 10px;
         }
         .button {
@@ -110,7 +110,7 @@
     }
 }
 .why-choose {
-    background-color: #F2EEE9;
+    background-color: #f2eee9;
     height: 34rem;
     .container {
         display: flex;
@@ -162,7 +162,7 @@
     }
 }
 .teacher-team {
-    // background-color: #00b2f1;
+    // background-color: #114689;
     .container {
         width: 1200px;
         padding: 25px 0px;
@@ -229,7 +229,8 @@
     }
 }
 
-.can-learn {
+.home_classes {
+    background-color: #144c94;
     .container {
         width: 1200px;
         margin-top: 100px;
@@ -237,6 +238,11 @@
         margin: 0px auto;
         .card {
             position: relative;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .card:hover .image-container .image {
+            transform: scale(1.1);
         }
         .title {
             div {
@@ -254,24 +260,26 @@
                 text-transform: capitalize;
                 width: 100%;
                 text-align: center;
+                color: #f2eee9;
             }
             margin-bottom: 30px;
         }
-        .image {
+        .image-container {
+            position: relative;
+            overflow: hidden;
             height: 245px;
             width: 350px;
             margin: auto;
-            position: relative;
-            &::after {
-                content: '';
-                display: block;
-                height: 245px;
-                width: 350px;
-                top: 0;
-                left: 0;
-                background-color: #00000054;
-            }
         }
+
+        .image {
+            transition: transform 0.3s ease-in-out;
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
         .card-content {
             color: white;
             position: absolute;
@@ -301,6 +309,16 @@
             .content-time {
                 padding: 10px 30px;
                 border-top: 1px solid #ffffff33;
+            }
+        }
+
+        .button-info {
+            margin: 30px 0px 0px 0px;
+            text-align: center;
+            button {
+                border-radius: 35px;
+                background-color: #fccb0a;
+                padding: 9px 18;
             }
         }
     }

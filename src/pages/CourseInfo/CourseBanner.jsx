@@ -1,4 +1,4 @@
-import { Button, Grid, Stack } from '@mui/material';
+import { Button, Grid } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import classNames from 'classnames/bind';
 import styles from './Course.module.scss';

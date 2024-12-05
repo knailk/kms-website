@@ -29,7 +29,7 @@ export const publicRoutes = [
     { path: '/message', component: MessageBox, layout: LoggedLayout, requireAuth: true },
     { path: '/list-student', component: ListStudent, layout: LoggedLayout, requireAuth: true },
     { path: '/check-in', component: CheckInDashboard, layout: LoggedLayout, requireAuth: true },
-    { path: '/score-table', component: Schedule, layout: LoggedLayout, requireAuth: true },
+    // { path: '/score-table', component: Schedule, layout: LoggedLayout, requireAuth: true },
     { path: '/profile', component: Profile, layout: LoggedLayout, requireAuth: true },
     { path: '/payment', component: Schedule, layout: LoggedLayout, requireAuth: true },
     { path: '/dish', component: DishManagement, layout: LoggedLayout, requireAuth: true },

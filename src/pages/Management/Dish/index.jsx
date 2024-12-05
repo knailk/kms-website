@@ -65,7 +65,7 @@ export default function DishManagement() {
     const fetchDishes = () => {
         request
             .get('dishes/week', { params: filters })
-            .then((res) => setDishes(res?.data?.dishes))
+            .then((res) => setDishes(res?.data?.dishes || []))
             .catch(() => context.setShowSnackbar('Tìm thông tin thực dơn không thành công', 'error'));
     };
 

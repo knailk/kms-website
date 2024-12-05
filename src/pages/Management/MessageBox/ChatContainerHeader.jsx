@@ -100,7 +100,12 @@ function ChatContainerHeader({ data, listMember }) {
                         }}
                     >
                         <Box sx={style}>
-                            <ModalCreateGroup type={type} groupId={data.id} listMember={listMember} />
+                            <ModalCreateGroup
+                                type={type}
+                                groupId={data.id}
+                                listMember={listMember}
+                                setOpenModal={setOpenModal}
+                            />
                         </Box>
                     </Modal>
                 </div>

@@ -91,7 +91,7 @@ export default function SideBar({ open, children }) {
             { name: 'Tin nhắn', icon: <Message />, path: '/message' },
             { name: 'Danh sách học sinh', icon: <ListAlt />, path: '/list-student' },
             { name: 'Điểm danh', icon: <Filter9Plus />, path: '/check-in' },
-            { name: 'Bảng điểm', icon: <Filter9Plus />, path: '/score-table' },
+            // { name: 'Bảng điểm', icon: <Filter9Plus />, path: '/score-table' },
         ],
         [
             { name: 'Hồ sơ cá nhân', icon: <AccountBox />, path: '/profile' },
@@ -104,7 +104,7 @@ export default function SideBar({ open, children }) {
             { name: 'Lịch học', icon: <CalendarMonth />, path: '/schedule' },
             { name: 'Tin nhắn', icon: <Message />, path: '/message' },
             // { name: 'Thông tin trẻ', icon: <Message />, path: '/child-info' },
-            { name: 'Bảng điểm', icon: <Filter9Plus />, path: '/score-table' },
+            // { name: 'Bảng điểm', icon: <Filter9Plus />, path: '/score-table' },
         ],
         [
             { name: 'Hồ sơ cá nhân', icon: <AccountBox />, path: '/profile' },

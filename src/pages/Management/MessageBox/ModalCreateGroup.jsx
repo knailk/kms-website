@@ -44,7 +44,7 @@ const UserCard = ({ username, fullName, avatar, handleSelectUser }) => {
     );
 };
 
-function ModalCreateGroup({ type, listMember, groupId }) {
+function ModalCreateGroup({ type, listMember, groupId, setOpenModal }) {
     //state for ui
     const userSelectRef = useRef();
     const userCardRef = useRef();
@@ -102,8 +102,9 @@ function ModalCreateGroup({ type, listMember, groupId }) {
     const handleEditGroup = () => {
         //call api to edit group
         if (type === 'add') {
-            let arrUserSelected;
-            // request.post('/chat/member', { chat_id: groupId, username: });
+            selectedUsers.map((user) => request.put('/chat/member', { chat_id: groupId, username: user.username }));
+
+            setOpenModal(false);
         } else if (type === 'delete') {
             console.log(removedUsers);
         }
